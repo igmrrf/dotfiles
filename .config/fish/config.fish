@@ -1,5 +1,6 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
+    echo "Welcome back, time to build some boring stuff"
 end
 set -U fish_greeting
 
@@ -121,6 +122,9 @@ fzf --fish | source
 
 # Starfish
 starship init fish | source
+
+# Added by Antigravity
+fish_add_path /Users/igmrrf/.antigravity/antigravity/bin
 
 # Added by Antigravity
 fish_add_path /Users/igmrrf/.antigravity/antigravity/bin

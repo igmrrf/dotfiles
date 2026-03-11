@@ -5,6 +5,7 @@ abbr --add ls "lsd -l1"
 abbr --add l "lsd -l"
 
 abbr --add v nvim
+abbr --add lv "NVIM_APPNAME=lazynvim nvim"
 
 ## Config
 abbr --add bri "brew info"
@@ -27,6 +28,17 @@ abbr --add src "source ~/dotfiles/.config/fish/config.fish"
 abbr --add rmvimbuf "rm -f ~/.local/state/nvim/swap/*"
 abbr --add lsvimbuf "ls ~/.local/state/nvim/swap"
 abbr --add clvim "rm -rf ~/.local/state/nvim && rm -rf ~/.local/share/nvim && rm -rf ~/.cache/nvim"
+
+# -----------------------------------------------------------------------------
+# NVIM
+# -----------------------------------------------------------------------------
+# Alias for default config
+# abbr v="nvim"
+
+## Hammerspoon
+abbr --add eh "cd ~/dotfiles/.hammerspoon && ffpn"
+
+# Alias for LazyVim config
 
 # NPM
 alias npi="npm install"
@@ -55,7 +67,6 @@ alias pad="pnpm add --save-dev"
 alias prd="pnpm run dev"
 alias prb="pnpm run build"
 alias prt="pnpm run test"
-alias prb="pnpm run build"
 alias prsd="pnpm run start:dev"
 alias px="pnpx"
 alias pi="pnpm install"
@@ -72,6 +83,7 @@ alias dcol='docker container ls'
 alias dcola='docker container ls -a'
 alias coldock='colima start --cpu 2 --memory 4 --disk 30'
 alias colstop='colima stop'
+alias dcro="docker container rm ollama & docker container run -d -v ollama_data:/root/.ollama -p 11434:11434 --name ollama ollama/ollama"
 
 # Git
 alias gpom="git pull origin main"
