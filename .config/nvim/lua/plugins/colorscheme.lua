@@ -1,29 +1,15 @@
--- for _, group in ipairs(vim.g.ui_groups) do
--- 	-- Get current highlight properties
--- 	local hl = vim.api.nvim_get_hl(0, { name = group })
---
--- 	local tabline = vim.api.nvim_get_hl(0, { name = "TabLine" })
--- 	-- Update the group to have no background
--- 	-- (we keep the foreground and other attributes)
--- 	vim.api.nvim_set_hl(0, group, {
--- 		bg = "NONE",
--- 		ctermbg = "NONE",
--- 		fg = hl.fg,
--- 		bold = hl.bold,
--- 		italic = hl.italic,
--- 	})
---
--- 	vim.api.nvim_set_hl(0, "TabLine", { bg = "NONE", fg = "#6c7086" }) -- Inactive tabs (dimmed)
--- 	vim.api.nvim_set_hl(0, "TabLineFill", { bg = "NONE" }) -- Empty space
--- 	vim.api.nvim_set_hl(0, "TabLineSel", {
--- 		bg = "NONE",
--- 		fg = "#ffffff", -- Bright white text
--- 		bold = true, -- Make it bold
--- 		underline = true, -- Add an underline
--- 	})
--- end
-
 return {
+
+	{
+		dir = "~/Desktop/Basket/tranparent.nvim",
+		name = "transparent",
+		opts = {
+			enabled = true,
+			listen = true,
+			groups = {},
+			extra_groups = {},
+		},
+	},
 	-- 1. Catppuccin (most popular)
 	{
 		"catppuccin/nvim",
@@ -32,7 +18,7 @@ return {
 		priority = 1000,
 		opts = {
 			flavour = "mocha",
-			transparent_background = true,
+			-- transparent_background = true,
 			integrations = {
 				mini = {
 					enabled = true,

@@ -22,6 +22,7 @@ return {
 		explorer = { enabled = false },
 		indent = { enabled = true },
 		input = { enabled = true },
+		image = { enabled = true },
 		notifier = {
 			enabled = true,
 			timeout = 3000,
@@ -77,7 +78,7 @@ return {
     { "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
     { "<leader>sB", function() Snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
     { "<leader>sg", function() Snacks.picker.grep() end, desc = "Grep" },
-    { "<leader>sG", function() Snacks.picker.grep({hidden=true}) end, desc = "Grep" },
+    { "<leader>sG", function() Snacks.picker.grep({ hidden=true, ignored = true, exclude = vim.g.exclude_finds  }) end, desc = "Grep" },
     { "<leader>sw", function() Snacks.picker.grep_word() end, desc = "Visual selection or word", mode = { "n", "x" } },
     -- search
     { '<leader>s"', function() Snacks.picker.registers() end, desc = "Registers" },

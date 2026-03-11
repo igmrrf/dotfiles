@@ -72,8 +72,10 @@ return {
 				"ruff",
 				"debugpy",
 
+				"codelldb",
 				"clang-format",
 				"clangd",
+				"bacon",
 
 				"delve",
 
