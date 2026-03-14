@@ -1,13 +1,11 @@
 return {
 
 	{
-		dir = "~/Desktop/Basket/tranparent.nvim",
+		"igmrrf/transparent.nvim",
 		name = "transparent",
 		opts = {
 			enabled = true,
 			listen = true,
-			groups = {},
-			extra_groups = {},
 		},
 	},
 	-- 1. Catppuccin (most popular)
