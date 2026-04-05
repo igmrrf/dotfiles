@@ -86,6 +86,7 @@ return {
 				numhl = sign[3],
 			})
 		end
+		local jspath = vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js"
 		if not dap.adapters["pwa-node"] then
 			require("dap").adapters["pwa-node"] = {
 				type = "server",
@@ -94,7 +95,7 @@ return {
 				executable = {
 					command = "node",
 					args = {
-						vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
+						jspath,
 						"${port}",
 					},
 				},
@@ -108,7 +109,7 @@ return {
 			executable = {
 				command = "node",
 				args = {
-					vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
+					jspath,
 					"${port}",
 				},
 			},
@@ -138,6 +139,7 @@ return {
 		for _, language in ipairs(js_filetypes) do
 			if not dap.configurations[language] then
 				dap.configurations[language] = {
+					-- 1. Standard Chrome Debugging
 					{
 						type = "pwa-chrome",
 						request = "launch",
@@ -145,62 +147,56 @@ return {
 						url = "http://localhost:3000",
 						webRoot = "${workspaceFolder}",
 						userDataDir = "${workspaceFolder}/.vscode/chrome",
+						sourceMaps = true,
 					},
+
+					-- 2. Run a single Node/TS file
 					{
 						type = "pwa-node",
 						request = "launch",
 						name = "Launch file",
 						program = "${file}",
 						cwd = "${workspaceFolder}",
+						sourceMaps = true,
 					},
+
+					-- 3. Attach to a running Node process
 					{
 						type = "pwa-node",
 						request = "attach",
 						name = "Attach",
 						processId = require("dap.utils").pick_process,
 						cwd = "${workspaceFolder}",
+						sourceMaps = true,
 					},
 
+					-- 4. Next.js: Server-side (Fixed from node-terminal)
 					{
-						name = "Next.js: server-side",
-						type = "node-terminal",
+						type = "pwa-node",
 						request = "launch",
-						command = "npm run dev",
+						name = "Next.js: server-side",
+						cwd = "${workspaceFolder}",
+						runtimeExecutable = "npm",
+						runtimeArgs = { "run", "dev" },
+						sourceMaps = true,
+						resolveSourceMapLocations = {
+							"${workspaceFolder}/**",
+							"!**/node_modules/**",
+						},
+						skipFiles = {
+							"<node_internals>/**",
+							"**/node_modules/**",
+						},
 					},
 
+					-- 5: Next.js: Client-side
 					{
-						name = "Next.js: client-side",
+						name = "Next.js: Client-side",
 						type = "pwa-chrome",
 						request = "launch",
 						url = "http://localhost:3000",
-					},
-					{
-						name = "Next.js: client-side (firefox)",
-						type = "firefox",
-						request = "launch",
-						url = "http://localhost:3000",
-						reAttach = true,
-						pathMappings = {
-							{
-								url = "webpack://_N_E",
-								path = "${workspaceFolder}",
-							},
-						},
-					},
-					{
-						name = "Next.js: debug full stack",
-						type = "node",
-						request = "launch",
-						program = "${workspaceFolder}/node_modules/next/dist/bin/next",
-						runtimeArgs = { "--inspect" },
-						skipFiles = { "<node_internals>/**" },
-						serverReadyAction = {
-							action = "debugWithEdge",
-							killOnServerStop = true,
-							pattern = "- Local:.+(https?://.+)",
-							uriFormat = "%s",
-							webRoot = "${workspaceFolder}",
-						},
+						webRoot = "${workspaceFolder}",
+						sourceMaps = true,
 					},
 				}
 			end

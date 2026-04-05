@@ -18,6 +18,7 @@ return {
 			},
 		})
 		require("mini.hipatterns").setup()
+		require("mini.animate").setup()
 		require("mini.statusline").setup()
 		require("mini.align").setup()
 		require("mini.surround").setup({

@@ -43,6 +43,7 @@ return {
   keys = {
     { "<leader>st",      function() Snacks.picker.todo_comments() end,                           desc = "Todo comments",            mode = { "n", "x" } },
     { "<leader>tg",      function() Snacks.terminal("gemini", { win = { position = "float" } }) end,           mode = "n",                        desc = "Gemini Cli" },
+    { "<leader>tG",      function() Snacks.terminal("gemini --resume", { win = { position = "float" } }) end,           mode = "n",                        desc = "Gemini Cli Resume" },
     { "<leader>ts",      function() Snacks.terminal("spotify_player", { win = { position = "float" } }) end,           mode = "n",                        desc = "Gemini Cli" },
     { "<leader>tt",      function() Snacks.terminal("taskui", { win = { position = "float" } }) end,           mode = "n",                        desc = "Task Warrior UI" },
     { "<leader>ty",      function() Snacks.terminal("y", { win = { position = "float" } }) end,           mode = "n",                        desc = "Yazi File Explorer" },
