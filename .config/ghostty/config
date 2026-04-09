@@ -28,13 +28,13 @@ quick-terminal-autohide = true
 quick-terminal-space-behavior = move
 window-save-state = always
 
-keybind = ctrl+g>r=reload_config
+keybind = ctrl+w>r=reload_config
 ### KEYS
-keybind = ctrl+g>j=goto_split:down
-keybind = ctrl+g>h=goto_split:left
-keybind = ctrl+g>k=goto_split:up
-keybind = ctrl+g>l=goto_split:right
-keybind = ctrl+g>m=toggle_split_zoom
+keybind = ctrl+w>j=goto_split:down
+keybind = ctrl+w>h=goto_split:left
+keybind = ctrl+w>k=goto_split:up
+keybind = ctrl+w>l=goto_split:right
+keybind = ctrl+w>m=toggle_split_zoom
 
 # keybind = performable:ctrl+j=goto_split:down
 # keybind = performable:ctrl+h=goto_split:left
@@ -42,21 +42,21 @@ keybind = ctrl+g>m=toggle_split_zoom
 # keybind = performable:ctrl+l=goto_split:right
 # keybind = performable:ctrl+w>m=toggle_split_zoom
 
-keybind = ctrl+g>F=toggle_maximize
-keybind = ctrl+g>f=toggle_fullscreen
+keybind = ctrl+w>F=toggle_maximize
+keybind = ctrl+w>f=toggle_fullscreen
 
-keybind = ctrl+g>\=new_split:right
-keybind = ctrl+g>-=new_split:down
+keybind = ctrl+w>\=new_split:right
+keybind = ctrl+w>-=new_split:down
 
-keybind = ctrl+g>m=toggle_split_zoom
-keybind = ctrl+g>p=goto_split:previous
-keybind = ctrl+g>n=goto_split:next
-keybind = ctrl+g>equal=equalize_splits
+keybind = ctrl+w>m=toggle_split_zoom
+keybind = ctrl+w>p=goto_split:previous
+keybind = ctrl+w>n=goto_split:next
+keybind = ctrl+w>equal=equalize_splits
 
 keybind = global:cmd+/=toggle_quick_terminal
 
-keybind = ctrl+g>shift+=jump_to_prompt:1
-keybind = ctrl+g>shift+k=jump_to_prompt:-1
+keybind = ctrl+w>shift+=jump_to_prompt:1
+keybind = ctrl+w>shift+k=jump_to_prompt:-1
 
 window-padding-x = 10
 window-show-tab-bar = never

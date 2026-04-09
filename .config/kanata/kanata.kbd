@@ -1,7 +1,6 @@
 (defcfg
   macos-dev-names-include (
     "Apple Internal Keyboard / Trackpad"
-    "Karabiner DriverKit VirtualHIDKeyboard 1.8.0"
     "EPOMAKER Split65"
   )
   ;; process-unmapped-keys allows keys not in defsrc to pass through
@@ -10,9 +9,10 @@
   delegate-to-first-layer yes
 )
 
-
 (defvar
   tap-hold 200
+  spc-timeout 200
+  quick-hold 150
 )
 
 (defsrc
@@ -20,7 +20,8 @@
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   caps a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft up
-  fn   lctl lalt lmet         spc              rmet ralt left down rght
+  ;; Added 'f20' to represent your left split spacebar
+  fn   lctl lalt lmet      f20  spc             rmet ralt left down rght
 )
 
 (defalias
@@ -34,19 +35,28 @@
   dnd  f19  ;; Maps your Moon icon to F19
 
   ;; Tap for ESC, Hold for the Ctrl
-  esc_ctl (tap-hold 200 200 esc lctl)  ;; MT(MOD_LCTL,KC_ESC)
-  spc_hyper (tap-hold 200 200 spc (multi lctl lmet lalt))  ;; MT(MOD_LCTL,KC_ESC)
+  esc_ctl (tap-hold $quick-hold $quick-hold esc lctl)
+  
+  ;; --- NEW SPLIT SPACEBAR ALIASES ---
+  ;; Left Space: Tap for Return | Hold for Layer 1
+  ret_l1 (tap-hold $spc-timeout $spc-timeout ret (layer-toggle layer1))
+
+  ;; Right Space: Tap for Space | Hold for Hyper (Cmd+Alt+Ctrl)
+  spc_hyper (tap-hold $spc-timeout $spc-timeout spc (multi lctl lmet lalt))
+
+  ;; Left Shift Tap for ctrl+w | Hold for Shift
+  l_sft (tap-hold $quick-hold $quick-hold (multi lctl w) lsft)
 
   ;; ==========================================
   ;; LAYER TOGGLES (from TG, TO, and MO)
   ;; ==========================================
-  ;; VIA's TG(1) acts as an on/off switch. 
-  tog_l1  (layer-switch layer1)   ;; Hold for Layer 1
+  tog_l1  (layer-switch layer1)   ;; Permanent switch to Layer 1
   tog_b   (layer-switch base)     ;; Switch back to Base
-  to0     (layer-switch base)     ;; Explicit TO(0) for your 'A' key
+  to0     (layer-switch base)
   
-  mo2     (layer-toggle layer2)   ;; VIA MO(2) - hold for Layer 2
+  mo2     (layer-toggle layer2)   ;; Hold for Layer 2
   tab_swc (tap-hold 200 200 tab @tog_l1)
+  
   ;; ==========================================
   ;; LAYER 1: MOUSE MOVEMENT & CLICKS
   ;; ==========================================
@@ -71,10 +81,10 @@
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   @tab_swc q    w    e    r    t    y    u    i    o    p    [    ]    \
   @esc_ctl a    s    d    f    g    h    j    k    l    ;    '    ret
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft up
-  @fn_emj caps lalt lmet      @spc_hyper              rmet ralt left down rght
-  )
-
+  @l_sft z    x    c    v    b    n    m    ,    .    /    rsft up
+  ;; Mapped @ret_l1 and @spc_hyper to the two space positions
+  @fn_emj caps lalt lmet   @ret_l1 @spc_hyper   rmet ralt left down rght
+)
 
 ;; You MUST define the layer that @fn_emj toggles
 (deflayer fn_layer
@@ -82,7 +92,8 @@
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    pgup
-  _    _    _    _            _                _    _    home pgdn end
+  ;; Added an extra underscore to match the new 11-key bottom row
+  _    _    _    _         _       _            _    _    home pgdn end
 )
 
 ;; -----------------------------------------------------------------------------
@@ -93,9 +104,9 @@
   @tog_b _    _    @m_u _    @mrgt _   _    _    _    _    _    _    _
   _    _    @m_l @m_d @m_r @mlft _   _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _              @mo2           _    _    _    _    _
+  ;; Kept @mo2 on the right space position
+  _    _    _    _         _       @mo2         _    _    _    _    _
 )
-
 
 ;; -----------------------------------------------------------------------------
 ;; LAYER 2 (Scroll Wheel & Return to Base)
@@ -105,6 +116,6 @@
   _    _    _    @mw_u _    _    _    _    _    _    _    _    _    _
   _    @to0 @mw_l @mw_d @mw_r _  _   _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _              _              _    _    _    _    _
+  ;; Added an extra underscore to match the new 11-key bottom row
+  _    _    _    _         _       _            _    _    _    _    _
 )
-
