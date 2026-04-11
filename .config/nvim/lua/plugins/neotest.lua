@@ -6,7 +6,7 @@ vim.pack.add({
 	"https://github.com/lawrence-laz/neotest-zig",
 	"https://github.com/fredrikaverpil/neotest-golang",
 
-	{ src = "https://github.com/mrcjkb/rustaceanvim", version = "^9" },
+	{ src = "https://github.com/mrcjkb/rustaceanvim" },
 	{ src = "https://github.com/nvim-neotest/neotest" },
 })
 

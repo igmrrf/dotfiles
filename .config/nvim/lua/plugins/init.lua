@@ -1,5 +1,4 @@
 require("plugins.notify")
-require("plugins.noice")
 require("plugins.lspconfig")
 require("plugins.which_key")
 require("plugins.transparent")
@@ -33,12 +32,9 @@ require("plugins.codecompanion")
 require("plugins.vi-mongo")
 
 -- Style/Utility
-require("plugins.coderunner")
 require("plugins.comment")
 require("plugins.grug-gar")
-require("plugins.harpoon")
 require("plugins.pomodoro")
-require("plugins.projects")
 require("plugins.rename")
 require("plugins.subsitute")
 require("plugins.ts-tags")

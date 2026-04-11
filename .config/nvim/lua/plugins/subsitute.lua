@@ -1,5 +1,5 @@
 vim.pack.add({
-	{ src = "gbprod/substitute.nvim" },
+	{ src = "https://github.com/gbprod/substitute.nvim" },
 })
 
 local substitute = require("substitute")

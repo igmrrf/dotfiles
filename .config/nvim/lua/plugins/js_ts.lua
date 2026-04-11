@@ -1,6 +1,6 @@
 vim.pack.add({
-	"MunifTanjim/nui.nvim",
-	"vuki656/package-info.nvim",
+	"https://github.com/MunifTanjim/nui.nvim",
+	"https://github.com/vuki656/package-info.nvim",
 })
 local utils = require("utils")
 utils.lazy_load_ft("package-info", "package.json", function()

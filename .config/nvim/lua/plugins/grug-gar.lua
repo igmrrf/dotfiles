@@ -1,5 +1,5 @@
 vim.pack.add({
-	{ src = "MagicDuck/grug-far.nvim" },
+	{ src = "https://github.com/MagicDuck/grug-far.nvim" },
 })
 -- cmd = "GrugFar",
 require("grug-far").setup({

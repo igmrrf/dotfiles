@@ -1,7 +1,8 @@
 local opt = vim.opt
 
 -- stylua: ignore
-opt.winborder      = "rounded" -- set popup windows border
+vim.opt.shortmess:append("I")
+opt.winborder = "rounded" -- set popup windows border
 opt.laststatus = 3
 opt.showmode = false
 opt.termguicolors = true
@@ -9,6 +10,7 @@ opt.signcolumn = "yes"
 opt.updatetime = 200
 opt.timeoutlen = 300
 opt.shiftround = true
+opt.wrap = false
 opt.spell = false
 opt.cmdheight = 0
 opt.virtualedit = "block"
@@ -19,7 +21,7 @@ opt.autocomplete = true -- enable autocomplete suggestions
 opt.pumborder = "rounded" -- set suggestion window
 opt.pummaxwidth = 40 -- set max widown width
 opt.pumheight = 7 -- set height
-opt.completeopt = "fuzzy,menu,menuone,noinsert,popup" -- set complete options
+opt.completeopt = "fuzzy,menu,menuone,noinsert,noselect,popup" -- set complete options
 opt.complete = ".,o" -- use buffer and omnifunc
 --
 -- Number settings

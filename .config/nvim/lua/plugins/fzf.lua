@@ -1,9 +1,10 @@
 vim.pack.add({
-	{ src = "https://github.com/ibhagwan/fzf-lua", name = "fzf-lua" }
+	{ src = "https://github.com/ibhagwan/fzf-lua", name = "fzf-lua" },
 })
 
 local utils = require("utils")
 
+-- stylua: ignore
 -- Define keymaps that will trigger loading of fzf-lua
 local fzf_keys = {
 	-- Core & Quick Access
@@ -76,7 +77,9 @@ local fzf_keys = {
 
 utils.map_plugin_keys(fzf_keys)
 
--- Lazy load setup
-utils.lazy_load_event("fzf-lua", { "CmdlineEnter" }, function()
-	require("fzf-lua").setup({ "default" })
-end)
+-- Initialize fzf-lua directly to ensure it works from start
+require("fzf-lua").setup({
+	files = {
+		cwd_prompt = false,
+	},
+})

@@ -10,6 +10,9 @@ local keys = {
 
 utils.map_plugin_keys(keys)
 
-utils.lazy_load_event("oil.nvim", { "CmdlineEnter" }, function()
-	require("oil").setup()
-end)
+require("oil").setup({
+	keymaps = {
+		["z"] = { "actions.parent", mode = "n" },
+		["<leader>e"] = { "actions.close", mode = "n" },
+	},
+})

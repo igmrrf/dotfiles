@@ -26,10 +26,13 @@ map("n", "<leader>qq", ":qa<CR>", { desc = "Quit all" })
 map("n", "<leader>wq", ":wqa<CR>", { desc = "Save & quit all" })
 map("n", "<leader>W", ":wall ++p<CR>", { desc = "Save & create missing parent directories " })
 
-
 -- clear search, diff update and redraw
-map("n", "<leader>ur", ":nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-	{ desc = "Redraw / Clear hlsearch / Diff Update" })
+map(
+	"n",
+	"<leader>ur",
+	":nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+	{ desc = "Redraw / Clear hlsearch / Diff Update" }
+)
 -- Editing
 map("i", "<C-l>", "<Esc>la", { desc = "Move to the right one char", noremap = true, silent = true })
 
@@ -38,8 +41,18 @@ map("v", "<", "<gv")
 map("v", ">", ">gv")
 
 -- commenting
-map("n", "gco", "o<ESC>Vcx<ESC><CMD>normal gcc<CR>fxa<BS>", { desc = "Add comment below", noremap = true, silent = true })
-map("n", "gcO", "O<ESC>Vcx<ESC><CMD>normal gcc<CR>fxa<BS>", { desc = "Add comment above", noremap = true, silent = true })
+map(
+	"n",
+	"gco",
+	"o<ESC>Vcx<ESC><CMD>normal gcc<CR>fxa<BS>",
+	{ desc = "Add comment below", noremap = true, silent = true }
+)
+map(
+	"n",
+	"gcO",
+	"O<ESC>Vcx<ESC><CMD>normal gcc<CR>fxa<BS>",
+	{ desc = "Add comment above", noremap = true, silent = true }
+)
 
 -- Window
 map("n", "<leader>-", "<C-w>s", { desc = "Split window below", remap = true })
@@ -86,7 +99,7 @@ map("n", "<leader>bo", function()
 			local bo = vim.bo[buf]
 
 			if bo.buftype == "" and bo.buflisted and not bo.modified then
-					pcall(vim.api.nvim_buf_delete, buf, { force = false })
+				pcall(vim.api.nvim_buf_delete, buf, { force = false })
 			end
 		end
 	end
@@ -115,6 +128,8 @@ map("n", "<leader><tab>>", ":tabmove +1<CR>", { desc = "Move tab right" })
 map("n", "<leader><tab><", ":tabmove -1<CR>", { desc = "Move tab left" })
 
 -- Manage Packs
-map("n", "<leader>pU", function() vim.pack.update() end)
+map("n", "<leader>pU", function()
+	vim.pack.update()
+end)
 -- Terminal
-map("n", "<C-/>", ":term")
+map("t", "<C-/>", "<cmd>close<cr>")

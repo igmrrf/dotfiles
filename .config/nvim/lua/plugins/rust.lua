@@ -1,4 +1,3 @@
-vim.pack.add({
-
-	{ src = "https://github.com/mrcjkb/rustaceanvim", version = "^9" },
-})
+-- vim.pack.add({
+-- 	{ src = "https://github.com/mrcjkb/rustaceanvim", version = "^9" },
+-- })

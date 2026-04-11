@@ -13,6 +13,5 @@ local keys = {
 
 utils.map_plugin_keys(keys)
 
-utils.lazy_load_event("persistence", { "BufReadPre" }, function()
-    require("persistence").setup({})
-end)
+-- Initialize persistence immediately to ensure sessions can be restored from start
+require("persistence").setup({})

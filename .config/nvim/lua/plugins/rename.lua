@@ -1,5 +1,5 @@
 vim.pack.add({
-	{ src = "smjonas/inc-rename.nvim" },
+	{ src = "https://github.com/smjonas/inc-rename.nvim" },
 })
 
 vim.keymap.set({ "n", "v" }, "<leader>rn", function()
@@ -8,6 +8,4 @@ end, {
 	desc = "Inc Rename",
 })
 
-require("inc_rename").setup({
-	presets = { inc_rename = true },
-})
+require("inc_rename").setup()

@@ -81,14 +81,15 @@ end
 -- =====================================================================
 -- Build Hook Helper for vim.pack
 -- =====================================================================
-M.plugin_build = function(name, build_cmd, vim_cmd, msg)
+M.run_plugin_cmd = function(name, build_cmd, vim_cmd, msg)
 	vim.api.nvim_create_autocmd("PackChanged", {
 		callback = function(ev)
-			if ev.data.spec.name == name then
+            local ev_name, kind = ev.data.spec.name, ev.data.kind
+			if ev_name == name then
 				if msg then
 					vim.notify(msg, vim.log.levels.INFO)
 				end
-
+                if not ev.data.active then vim.cmd.packadd(name) end
 				if build_cmd then
 					vim.system(build_cmd, { cwd = ev.data.path }, function(out)
 						if out.code ~= 0 then

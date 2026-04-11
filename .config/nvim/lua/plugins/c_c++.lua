@@ -1,5 +1,5 @@
 vim.pack.add({
-	{ src = "p00f/clangd_extensions.nvim" },
+	{ src = "https://github.com/p00f/clangd_extensions.nvim" },
 })
 
 require("clangd_extensions").setup({

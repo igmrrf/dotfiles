@@ -3,15 +3,6 @@ vim.pack.add({
 	{ src = "https://github.com/oysandvik94/curl.nvim", name = "curl.nvim" },
 })
 
-vim.api.nvim_create_user_command("CurlOpen", function(opts)
-	vim.cmd("packadd curl.nvim")
-	if not package.loaded["curl.nvim"] then
-		require("curl.nvim").setup({}) -- This emulates `config = true`
-	end
-	vim.api.nvim_del_user_command("CurlOpen")
-	vim.cmd("CurlOpen " .. opts.args)
-end, { nargs = "*", bang = true })
-
 -- stylua: ignore
 local keys = {
     { "<leader>Rc",  function() require("curl").open_curl_tab() end,            mode = { "n" }, desc = "Open a curl tab scoped to the current working directory", },
@@ -22,5 +13,6 @@ local keys = {
     { "<leader>RpC", function() require("curl").pick_global_collection() end,   mode = { "n" }, desc = "Choose a global collection and open it", },
 }
 
--- require("curl.nvim").setup({})
+-- Initialize curl immediately so its API is available for keymap usage
+require("curl").setup({})
 require("utils").map_plugin_keys(keys)

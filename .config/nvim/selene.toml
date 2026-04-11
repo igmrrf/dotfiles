@@ -1,0 +1,6 @@
+# selene.toml
+std = "lua51+neovim"
+
+[lints]
+# You can also specifically allow the global if you don't want the full std
+# undefined_variable = { allow = ["vim"] }

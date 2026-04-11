@@ -11,6 +11,5 @@ local keys = {
 
 utils.map_plugin_keys(keys)
 
-utils.lazy_load_event("cloak.nvim", { "BufReadPre", "BufNewFile" }, function()
-    require("cloak").setup({})
-end)
+-- Initialize cloak immediately
+require("cloak").setup({})

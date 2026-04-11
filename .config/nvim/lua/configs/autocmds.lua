@@ -130,18 +130,60 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
 	end,
 })
 -- for notifier
+-- vim.api.nvim_create_autocmd("LspProgress", {
+-- 	---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
+-- 	callback = function(ev)
+-- 		local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+-- 		vim.notify(vim.lsp.status(), "info", {
+-- 			id = ev.data.client_id,
+-- 			title = "LSP Progress",
+-- 			opts = function(notif)
+-- 				notif.icon = ev.data.params.value.kind == "end" and " "
+-- 					or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+-- 			end,
+-- 		})
+-- 	end,
+-- })
+local progress_notif -- Variable to store the notification object/ID
+
 vim.api.nvim_create_autocmd("LspProgress", {
-	---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
+	group = augroup("lsp_progress"),
 	callback = function(ev)
+		local client = vim.lsp.get_client_by_id(ev.data.client_id)
+		if not client then
+			return
+		end
+
+		local value = ev.data.params.value
+		local msg = value.message or ""
+		local title = value.title or ""
+		local kind = value.kind -- "begin", "report", or "end"
+
+		-- Construct the display string
+		local content = string.format("%s %s", title, msg)
 		local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
-		vim.notify(vim.lsp.status(), "info", {
-			id = "lsp_progress",
-			title = "LSP Progress",
-			opts = function(notif)
-				notif.icon = ev.data.params.value.kind == "end" and " "
-					or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
-			end,
-		})
+		local icon = spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+
+		if kind == "end" then
+			icon = " "
+			-- Optional: Clear the notification after a delay when finished
+			vim.defer_fn(function()
+				progress_notif = vim.notify(content, "info", {
+					id = "lsp_progress",
+					icon = icon,
+					replace = progress_notif,
+					timeout = 2000, -- Auto-hide after 2 seconds
+				})
+			end, 500)
+		else
+			progress_notif = vim.notify(content, "info", {
+				id = "lsp_progress", -- Explicit ID is key for nvim-notify
+				title = "LSP Progress: " .. client.name,
+				icon = icon,
+				replace = progress_notif, -- Keeps it in the same window
+				timeout = false, -- Don't close while progress is active
+			})
+		end
 	end,
 })
 

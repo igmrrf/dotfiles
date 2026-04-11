@@ -2,9 +2,9 @@ vim.g.mapleader = " "
 vim.g.mapgloballeader = " "
 
 vim.filetype.add({
-    extension = {
-        kbd = "lisp",
-    },
+	extension = {
+		kbd = "lisp",
+	},
 })
--- require('vim._core.ui2').enable()
-
+vim.cmd("colorscheme catppuccin")
+-- require("vim._core.ui2").enable()
