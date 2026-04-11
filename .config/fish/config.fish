@@ -25,8 +25,8 @@ end
 set -gx DOTNET_CLI_TELEMETRY_OPTOUT 1
 
 # NVM
-set --universal nvm_default_version v24.13.1
-set -gx NVM_DEFAULT_VERSION v24.13.1
+set --universal nvm_default_version v24.14.1
+set -gx NVM_DEFAULT_VERSION v24.14.1
 # For yarn
 set -gx FNM_COREPACK_ENABLED true
 
