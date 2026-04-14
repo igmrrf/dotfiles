@@ -27,7 +27,7 @@ require("mason-tool-installer").setup({
 				return vim.fn.executable("go") == 1
 			end,
 		},
-		"basedpyright", "ruff", "debugpy", "codelldb", "clang-format", "clangd","bacon",
+		"basedpyright", "ruff", "debugpy", "codelldb", "clang-format", "clangd","bacon", "marksman",
 		"delve", "docker-compose-language-service", "dockerfile-language-server", "fish-lsp",
 		"gofumpt", "goimports", "golines", "gomodifytags", "gopls", "gotests", "hadolint", "impl", "biome",
 		"js-debug-adapter", "json-to-struct", "lua-language-server", "misspell", "revive", "ruby-lsp",
