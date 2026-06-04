@@ -9,7 +9,7 @@ end
 
 config.unix_domains = { { name = "unix" } } -- Enables the multiplexer
 config.default_gui_startup_args = { "connect", "unix" } -- Auto-connect on launch
-config.leader = { key = "w", mods = "CTRL", timeout_milliseconds = 1000 }
+config.leader = { key = "g", mods = "CTRL", timeout_milliseconds = 1000 }
 config.hyperlink_rules = {
 	-- Matches: a URL in parens: (URL)
 	{

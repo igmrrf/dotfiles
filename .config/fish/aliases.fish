@@ -3,8 +3,9 @@
 ## lsd
 abbr --add ls "lsd -l1"
 abbr --add l "lsd -l"
+abbr --add ll "lsd -l1 -a"
 
-abbr --add v nvim
+abbr --add v ffpn
 abbr --add lv "NVIM_APPNAME=lazynvim nvim"
 
 ## Config
@@ -110,6 +111,7 @@ alias GO="cd ~/Desktop/tmp/GO"
 alias RUST="cd ~/Desktop/tmp/RUST"
 
 # PYTHON
+abbr --add python python3
 alias python="python3"
 alias activate="source ./.venv/bin/activate.fish"
 alias create-django="python3 -m venv ussop && cd ussop && source ./bin/activate && pip3 install django && django-admin startproject "

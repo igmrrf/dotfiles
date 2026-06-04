@@ -81,7 +81,7 @@
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   @tab_swc q    w    e    r    t    y    u    i    o    p    [    ]    \
   @esc_ctl a    s    d    f    g    h    j    k    l    ;    '    ret
-  @l_sft z    x    c    v    b    n    m    ,    .    /    rsft up
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft up
   ;; Mapped @ret_l1 and @spc_hyper to the two space positions
   @fn_emj caps lalt lmet   @ret_l1 @spc_hyper   rmet ralt left down rght
 )

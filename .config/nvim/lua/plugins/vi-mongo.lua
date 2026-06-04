@@ -3,7 +3,7 @@ vim.pack.add({
 })
 -- cmd = { "ViMongo" },
 local keys = {
-	{ "<leader>tm", "<cmd>ViMongo<cr>", desc = "ViMongo" },
+	{ "<leader>ym", "<cmd>ViMongo<cr>", desc = "ViMongo" },
 }
 
 local utils = require("utils")

@@ -154,27 +154,32 @@ vim.api.nvim_create_autocmd("LspProgress", {
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(ev)
 		vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, {
-			-- Optional formating of items
-			convert = function(item)
-				-- Remove leading misc chars for abbr name,
-				-- and cap field to 25 chars
-				--local abbr = item.label
-				--abbr = abbr:match("[%w_.]+.*") or abbr
-				--abbr = #abbr > 25 and abbr:sub(1, 24) .. "…" or abbr
-				--
-				-- Remove return value
-				--local menu = ""
 
-				-- Only show abbr name, remove leading misc chars (bullets etc.),
-				-- and cap field to 15 chars
+			convert = function(item)
+				-- 1. Abbreviation formatting (Keeping your exact logic)
+
 				local abbr = item.label
 				abbr = abbr:gsub("%b()", ""):gsub("%b{}", "")
 				abbr = abbr:match("[%w_.]+.*") or abbr
-				abbr = #abbr > 15 and abbr:sub(1, 14) .. "…" or abbr
+				abbr = #abbr > 25 and abbr:sub(1, 24) .. "…" or abbr
 
-				-- Cap return value field to 15 chars
-				local menu = item.detail or ""
-				menu = #menu > 15 and menu:sub(1, 14) .. "…" or menu
+				-- 2. Extracting the Source / Detail
+				local menu_text = ""
+
+				-- Prioritize labelDetails.description (where LSPs put auto-import paths)
+				if item.labelDetails and item.labelDetails.description then
+					menu_text = item.labelDetails.description
+				elseif item.detail then
+					-- Fallback to detail for LSPs that don't use labelDetails yet
+					menu_text = item.detail
+				end
+
+				-- Clean up errant newlines sent by some LSPs
+				menu_text = menu_text ~= nil and menu_text:gsub("[\n\r]", " ") or ""
+
+				-- 3. Cap return value field
+				-- Increased to 35 chars. 15 is too short to read directory paths.
+				local menu = #menu_text > 35 and menu_text:sub(1, 34) .. "…" or menu_text
 
 				return { abbr = abbr, menu = menu }
 			end,

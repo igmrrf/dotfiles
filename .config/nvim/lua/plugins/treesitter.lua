@@ -6,7 +6,7 @@ vim.pack.add({
 local utils = require("utils")
 
 utils.lazy_load_event("nvim-treesitter", { "VimEnter" }, function()
-	vim.cmd("packadd nvim-treesitter-textobjects")
+	vim.cmd.packadd("nvim-treesitter-textobjects")
 	require("nvim-treesitter").setup()
 
     -- stylua: ignore

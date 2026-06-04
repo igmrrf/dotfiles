@@ -10,6 +10,37 @@ vim.api.nvim_create_user_command("LspInfo", function()
 	end
 end, { desc = "Show LSP client info" })
 
+vim.api.nvim_create_user_command("LspCaps", function()
+	-- Get all clients attached to the current buffer
+	local clients = vim.lsp.get_clients({ bufnr = 0 })
+	if #clients == 0 then
+		vim.notify("No LSP clients attached to this buffer.", vim.log.levels.WARN)
+		return
+	end
+
+	-- Create a table of client names and their capabilities
+	local caps = {}
+	for _, client in ipairs(clients) do
+		caps[client.name] = client.server_capabilities
+	end
+
+	-- Create a new scratch buffer to display the results
+	local buf = vim.api.nvim_create_buf(false, true)
+	vim.api.nvim_set_option_value("filetype", "lua", { buf = buf })
+
+	-- Convert the Lua table to formatted lines and set them in the buffer
+	local lines = vim.split(vim.inspect(caps), "\n")
+	vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+
+	-- Open the buffer in a vertical split
+	vim.cmd("vsplit")
+	vim.api.nvim_win_set_buf(0, buf)
+
+	-- Make it read-only and closeable with 'q'
+	vim.api.nvim_set_option_value("readonly", true, { buf = buf })
+	vim.keymap.set("n", "q", "<cmd>close<CR>", { buffer = buf, silent = true })
+end, { desc = "Show capabilities of all active LSPs in a scratch buffer" })
+
 -- Enable/Disable Buffer Format
 vim.api.nvim_create_user_command("ToggleBuffFormat", function()
 	local buf = vim.api.nvim_get_current_buf()
@@ -66,7 +97,7 @@ vim.api.nvim_create_user_command("InstallPlugin", function(opts)
 
 	print("Installing " .. name .. "...")
 	vim.pack.add({ url })
-	vim.cmd("packadd " .. name)
+	vim.cmd.packadd(name)
 	print("✓ Installed " .. name .. ". Restart Neovim")
 end, { nargs = 1, desc = "Clone a new plugin into the 'opt' directory" })
 

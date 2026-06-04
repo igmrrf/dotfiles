@@ -16,6 +16,7 @@ require("oil").setup({
 		["z"] = { "actions.parent", mode = "n" },
 		["<leader>e"] = { "actions.close", mode = "n" },
 	},
+	skip_confirm_for_simple_edits = true,
 
 	float = {
 		padding = 2,

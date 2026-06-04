@@ -3,6 +3,7 @@ local M = {}
 -- =====================================================================
 -- Excluded files/folders for searches
 -- =====================================================================
+-- stylua: ignore
 M.exclude_finds = {
     -- Node.js & JavaScript/TypeScript
     "node_modules/*",
@@ -33,49 +34,49 @@ M.exclude_finds = {
 -- Lazy Load Helper for vim.pack
 -- =====================================================================
 M.lazy_load_ft = function(plugin_name, filetypes, setup_fn)
-    vim.api.nvim_create_autocmd("FileType", {
-        pattern = filetypes,
-        callback = function()
-            vim.cmd("packadd " .. plugin_name)
-            if setup_fn then
-                setup_fn()
-            end
-        end,
-        once = true,
-    })
+	vim.api.nvim_create_autocmd("FileType", {
+		pattern = filetypes,
+		callback = function()
+			vim.cmd.packadd(plugin_name)
+			if setup_fn then
+				setup_fn()
+			end
+		end,
+		once = true,
+	})
 end
 
 -- =====================================================================
 -- Lazy Load Helper for vim.pack
 -- =====================================================================
 M.lazy_load_event = function(plugin_name, events, setup_fn)
-    vim.api.nvim_create_autocmd(events, {
-        callback = function()
-            vim.cmd("packadd " .. plugin_name)
-            if setup_fn then
-                setup_fn()
-            end
-        end,
-        once = true,
-    })
+	vim.api.nvim_create_autocmd(events, {
+		callback = function()
+			vim.cmd.packadd(plugin_name)
+			if setup_fn then
+				setup_fn()
+			end
+		end,
+		once = true,
+	})
 end
 
 -- =====================================================================
 -- Map plugin keys helper for vim.pack
 -- =====================================================================
 M.map_plugin_keys = function(keys)
-    for _, k in ipairs(keys) do
-        local mode = k.mode or "n"
+	for _, k in ipairs(keys) do
+		local mode = k.mode or "n"
 
-        local opts = {}
-        for key, value in pairs(k) do
-            if type(key) == "string" and key ~= "mode" then
-                opts[key] = value
-            end
-        end
+		local opts = {}
+		for key, value in pairs(k) do
+			if type(key) == "string" and key ~= "mode" then
+				opts[key] = value
+			end
+		end
 
-        vim.keymap.set(mode, k[1], k[2], opts)
-    end
+		vim.keymap.set(mode, k[1], k[2], opts)
+	end
 end
 
 -- =====================================================================
@@ -84,12 +85,14 @@ end
 M.run_plugin_cmd = function(name, build_cmd, vim_cmd, msg)
 	vim.api.nvim_create_autocmd("PackChanged", {
 		callback = function(ev)
-            local ev_name, kind = ev.data.spec.name, ev.data.kind
+			local ev_name, kind = ev.data.spec.name, ev.data.kind
 			if ev_name == name then
 				if msg then
 					vim.notify(msg, vim.log.levels.INFO)
 				end
-                if not ev.data.active then vim.cmd.packadd(name) end
+				if not ev.data.active then
+					vim.cmd.packadd(name)
+				end
 				if build_cmd then
 					vim.system(build_cmd, { cwd = ev.data.path }, function(out)
 						if out.code ~= 0 then

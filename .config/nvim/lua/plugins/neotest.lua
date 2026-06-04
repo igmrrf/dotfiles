@@ -14,7 +14,7 @@ vim.pack.add({
 	{ src = "https://github.com/mrcjkb/rustaceanvim" },
 	{ src = "https://github.com/nvim-neotest/neotest" },
 })
-vim.cmd("packadd neotest")
+vim.cmd.packadd("neotest")
 require("neotest").setup({
 	adapters = {
 		require("neotest-plenary"),

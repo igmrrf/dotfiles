@@ -5,6 +5,29 @@ end
 set -U fish_greeting
 
 # -----------------------------------------------------------------------------
+# QUICK KEYMAP
+# -----------------------------------------------------------------------------
+# Ensure you are using Vi mode
+fish_vi_key_bindings
+
+# Bind jk to switch from insert mode to normal mode
+bind -M insert -m default jk 'commandline -f repaint-mode'
+
+# Optional: Set a slight delay so Fish waits for the 'k' after you press 'j'
+set -g fish_sequence_key_delay_ms 200
+
+function fish_user_key_bindings
+    # First, enable the Vi bindings                            
+    fish_vi_key_bindings
+
+    # Then, bind Ctrl+f to accept-autosuggestion in insert mode
+    bind -M insert \cf accept-autosuggestion
+
+    # (Optional) If you want it to work in normal mode too:    
+    # bind -M default \cf accept-autosuggestion                
+end
+
+# -----------------------------------------------------------------------------
 # GENERAL PATHS
 # -----------------------------------------------------------------------------
 fish_add_path $HOME/.local/bin
@@ -25,8 +48,8 @@ end
 set -gx DOTNET_CLI_TELEMETRY_OPTOUT 1
 
 # NVM
-set --universal nvm_default_version v24.14.1
-set -gx NVM_DEFAULT_VERSION v24.14.1
+set --universal nvm_default_version v24.15.0
+set -gx NVM_DEFAULT_VERSION v24.15.0
 # For yarn
 set -gx FNM_COREPACK_ENABLED true
 
@@ -122,9 +145,6 @@ fzf --fish | source
 
 # Starfish
 starship init fish | source
-
-# Added by Antigravity
-fish_add_path /Users/igmrrf/.antigravity/antigravity/bin
 
 # Added by Antigravity
 fish_add_path /Users/igmrrf/.antigravity/antigravity/bin

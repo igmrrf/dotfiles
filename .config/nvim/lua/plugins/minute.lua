@@ -4,8 +4,6 @@ vim.pack.add({
 	{ src = "https://github.com/milanglacier/minuet-ai.nvim", name = "minuet" },
 })
 
--- vim.cmd("packadd minuet")
-
 require("minuet").setup({
 	virtual_text = {
 		auto_trigger_ft = { "*" },

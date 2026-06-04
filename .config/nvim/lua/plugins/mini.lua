@@ -2,7 +2,7 @@ vim.pack.add({
 	"https://github.com/rafamadriz/friendly-snippets",
 	{ src = "https://github.com/nvim-mini/mini.nvim" },
 })
-vim.cmd("packadd mini.nvim")
+vim.cmd.packadd("mini.nvim")
 
 local ai = require("mini.ai")
 ai.setup({
@@ -27,6 +27,7 @@ require("mini.sessions").setup()
 require("mini.tabline").setup()
 require("mini.align").setup()
 require("mini.pairs").setup()
+require("mini.pick").setup()
 
 local keys = {
 	{ "<leader>e", require("mini.files").open, desc = "Open mini files" },
@@ -61,4 +62,4 @@ snips.setup({
 		snips.gen_loader.from_lang(),
 	},
 })
-snips.start_lsp_server()
+-- snips.start_lsp_server()

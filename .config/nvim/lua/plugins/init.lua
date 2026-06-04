@@ -12,13 +12,14 @@ require("plugins.dap")
 require("plugins.lazydev")
 require("plugins.conform")
 require("plugins.oil")
+require("plugins.gitsigns")
 
 -- Language specific
 require("plugins.c_c++")
 require("plugins.js_ts")
 require("plugins.python")
 require("plugins.rust")
-
+require("plugins.arduino")
 -- UI
 require("plugins.tabscope")
 require("plugins.transparent")
@@ -42,3 +43,5 @@ require("plugins.wakatime")
 require("plugins.obsidian")
 require("plugins.todo-comments")
 require("plugins.flash")
+require("plugins.project")
+require("plugins.project")

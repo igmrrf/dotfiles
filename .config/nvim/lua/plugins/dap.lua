@@ -21,9 +21,13 @@ utils.lazy_load_event("dap", "BufReadPost", function()
 
 	vim.api.nvim_create_autocmd("FileType", {
 		pattern = { "dap-repl", "dapui_watches", "dapui_hover" },
-		callback = function()
-			-- TODO:
-			vim.opt.autocomplete = false
+		callback = function(args)
+			if args.buf ~= nil then
+				vim.bo[args.buf].autocomplete = false
+			else
+				vim.opt.autocomplete = false
+			end
+			-- TODO: Verify the possibilities of enabling this
 			-- require("dap.ext.autocompl").attach()
 		end,
 	})
@@ -154,7 +158,7 @@ utils.lazy_load_event("dap", "BufReadPost", function()
 		end
 	end
 
-	vim.cmd("packadd dapui")
+	vim.cmd.packadd("dapui")
 	dapui.setup(opts)
 
 	dap.listeners.after.event_initialized["dapui_config"] = function()

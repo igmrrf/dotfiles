@@ -3,9 +3,25 @@ vim.pack.add({
 	{ src = "https://github.com/folke/snacks.nvim" },
 })
 local Snacks = require("snacks")
--- vim.cmd("packadd snacks.nvim")
 
 local utils = require("utils")
+local function toggleSnacksTerminal()
+	local terminal_closed = false
+	-- Iterate through all registered Snacks terminals
+	for _, term in pairs(Snacks.terminal.list()) do
+		-- Safely check if the terminal has a window and if that window is actively rendered
+		if term.win and vim.api.nvim_win_is_valid(term.win) then
+			term:hide()
+			terminal_closed = true
+		end
+	end
+
+	-- If we didn't close anything, it means no terminals are visible. Open the default.
+	if not terminal_closed then
+		Snacks.terminal.toggle()
+	end
+end
+
 require("snacks").setup({
 	animate = { enabled = true },
 	bigfile = { enabled = true },
@@ -196,12 +212,12 @@ Snacks.toggle.dim():map("<leader>uD")
     { "<leader>pS", function() Snacks.profiler.stop() end,    desc = "Profiler stop" },
     { "<leader>st", function() Snacks.picker.todo_comments() end,   desc = "Todo comments",                mode = { "n",                         "x" } },
 
-    { "<leader>yg", function() Snacks.terminal("gemini",            { win = { position = "float" } }) end, mode = "n",                           desc = "Gemini Cli" },
-    { "<leader>yG", function() Snacks.terminal("gemini --resume",   { win = { position = "float" } }) end, mode = "n",                           desc = "Gemini Cli Resume" },
-    { "<leader>yp", function() Snacks.terminal("spotify_player",    { win = { position = "float" } }) end, mode = "n",                           desc = "Spotify" },
-    { "<leader>yu", function() Snacks.terminal("taskui",            { win = { position = "float" } }) end, mode = "n",                           desc = "Task Warrior UI" },
-    { "<leader>yy", function() Snacks.terminal("y",                 { win = { position = "float" } }) end, mode = "n",                           desc = "Yazi File Explorer" },
-    { "<leader>yd", function() Snacks.terminal("lazydocker",        { win = { position = "float" } }) end, mode = "n",                           desc = "Lazy Docker" },
+    { "<leader>yg", function() Snacks.terminal("gemini") end, mode = "n",                           desc = "Gemini Cli" },
+    { "<leader>yG", function() Snacks.terminal("gemini --resume") end, mode = "n",                           desc = "Gemini Cli Resume" },
+    { "<leader>yp", function() Snacks.terminal("spotify_player") end, mode = "n",                           desc = "Spotify" },
+    { "<leader>yt", function() Snacks.terminal("taskui") end, mode = "n",                           desc = "Task Warrior UI" },
+    { "<leader>yy", function() Snacks.terminal("y") end, mode = "n",                           desc = "Yazi File Explorer" },
+    { "<leader>yd", function() Snacks.terminal("lazydocker") end, mode = "n",                           desc = "Lazy Docker" },
 
     { "<leader>fi", function() Snacks.picker.files({ hidden = true, ignored = true,                        exclude = vim.g.exclude_finds }) end, mode = "n", desc = "Find git ignored & hidden files" },
 
@@ -286,9 +302,9 @@ Snacks.toggle.dim():map("<leader>uD")
     { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse", mode = { "n", "v" } },
     { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
     { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
-    { "<c-/>",      function() Snacks.terminal() end, desc = "Toggle Terminal" , mode = { "n", "t" }},
+    { "<c-/>", toggleSnacksTerminal, desc = "Toggle Terminal", mode = { "n", "t", "i", "x" } },
     { "<A-/>",      function() Snacks.terminal(nil, {  env = { SNACKS_TYPE = "disposable_shell" }, win = { position = "float", border = "rounded", title = " Disposable Terminal ", title_pos = "center", width = 0.6, height = 0.6, backdrop = 60, zindex = 50,  }, start_insert = true, cwd = vim.fn.getcwd(), }) end, desc = "Disposal Terminal", mode = { "n", "t" } },
-    { "<c-_>",      function() Snacks.terminal() end, desc = "which_key_ignore", mode = { "n", "t" } },
+    { "<c-_>", toggleSnacksTerminal, desc = "which_key_ignore", mode = { "n", "t" } },
     { "]]",         function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
     { "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
     {
@@ -315,8 +331,12 @@ utils.map_plugin_keys(keys)
 vim.api.nvim_create_autocmd("FileType", {
 	-- TODO: move to somewhere neutral
 	pattern = { "snacks_picker_input" },
-	callback = function()
-		vim.opt.autocomplete = false
+	callback = function(args)
+		if args.buf ~= nil then
+			vim.bo[args.buf].autocomplete = false
+		else
+			vim.opt.autocomplete = false
+		end
 	end,
 })
 
@@ -395,7 +415,6 @@ vim.api.nvim_create_autocmd("TermOpen", {
 				if #vim.api.nvim_list_tabpages() > 1 then
 					vim.cmd("tabclose") -- Close the tab safely
 				else
-					dd("hello")
 					pcall(vim.api.nvim_win_close, win, true)
 				end
 				Snacks.terminal() -- Tell Snacks to revive the hidden terminal as a float

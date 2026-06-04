@@ -1,14 +1,8 @@
 local opt = vim.opt
 
 vim.o.winborder = "rounded"
-vim.g.netrw_liststyle = 3
-vim.g.netrw_banner = 0 -- help banner(0-1)
--- vim.g.netrw_browse_split = 4 -- where to open files (1-horiz,2-vert,3-net_tab,4-prev_win)
--- vim.g.netrw_winsize = 80
-vim.g.netrw_altv = 1 -- vertical split (0-left, 1-right)
-
 -- stylua: ignore
-opt.shortmess:append("I")
+
 opt.winborder = "rounded" -- set popup windows border
 opt.laststatus = 3
 opt.showmode = true
@@ -26,10 +20,11 @@ opt.sessionoptions = { "buffers", "curdir", "help", "tabpages", "winsize", "glob
 -- Autocomplete Settings
 opt.autocomplete = true -- enable autocomplete suggestions
 opt.pumborder = "rounded" -- set suggestion window
-opt.pummaxwidth = 40 -- set max widown width
+opt.pummaxwidth = 120 -- set max widown width
 opt.pumheight = 7 -- set height
 opt.completeopt = "fuzzy,menu,menuone,noinsert,popup" -- set complete options
-opt.complete = ".,o" -- use buffer and omnifunc
+-- opt.complete = ".,o" -- use buffer and omnifunc
+opt.complete = ".,w,b,u,t,o"
 --
 -- Number settings
 opt.number = true

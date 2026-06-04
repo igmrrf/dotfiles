@@ -2,7 +2,7 @@ vim.pack.add({
 	"https://github.com/nvim-lua/plenary.nvim",
 	{ src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
 })
-vim.cmd("packadd plenary.nvim")
+vim.cmd.packadd("plenary.nvim")
 
 require("catppuccin").setup({
 	lsp_styles = {

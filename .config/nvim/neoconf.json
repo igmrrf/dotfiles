@@ -1,0 +1,62 @@
+{
+  "neoconf": {
+    "plugins": {
+      "lspconfig": {
+        "enabled": true
+      },
+      "jsonls": {
+        "enabled": true
+      },
+      "lua_ls": {
+        "enabled": true
+      }
+    }
+  },
+  "lspconfig": {
+    "lua_ls": {
+      "Lua": {
+        "runtime": {
+          "version": "LuaJIT",
+          "pathStrict": true
+        },
+        "diagnostics": {
+          "globals": ["vim"],
+          "disable": ["missing-fields", "incomplete-signature-doc"]
+        },
+        "workspace": {
+          "checkThirdParty": false,
+          "library": ["$VIMRUNTIME/lua", "$VIMRUNTIME/lua/vim/lsp"]
+        },
+        "format": {
+          "enable": true,
+          "defaultConfig": {
+            "indent_style": "space",
+            "indent_size": "2",
+            "quote_style": "double",
+            "call_arg_parentheses": "remove_table_only"
+          }
+        },
+        "telemetry": {
+          "enable": false
+        }
+      }
+    },
+    "jsonls": {
+      "json": {
+        "format": {
+          "enable": true
+        },
+        "validate": {
+          "enable": true
+        }
+      }
+    },
+    "marksman": {
+      "core": {
+        "markdown": {
+          "file_extensions": ["md", "markdown"]
+        }
+      }
+    }
+  }
+}
