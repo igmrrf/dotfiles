@@ -4,7 +4,7 @@ start-at-login = true
 enable-normalization-flatten-containers = false
 enable-normalization-opposite-orientation-for-nested-containers = true
 accordion-padding = 30
-default-root-container-layout = 'tiles'
+default-root-container-layout = 'accordion'
 default-root-container-orientation = 'auto'
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 automatically-unhide-macos-hidden-apps = true
@@ -23,8 +23,8 @@ automatically-unhide-macos-hidden-apps = true
 [mode.main.binding]
     cmd-alt-ctrl-shift-enter ='exec-and-forget aerospace reload-config'
 
-    cmd-alt-ctrl-shift-slash = 'layout tiles horizontal vertical'
-    cmd-alt-ctrl-shift-comma = 'layout accordion horizontal vertical'
+    cmd-alt-ctrl-slash = 'layout tiles'
+    cmd-alt-ctrl-comma = 'layout accordion'
     cmd-alt-ctrl-shift-v = 'split vertical'
 
     cmd-alt-ctrl-h = 'focus left'
@@ -95,16 +95,16 @@ run = 'move-node-to-workspace t'
 
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
-if.window-title-regex-substring = '^Quick Terminal$'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.mitchellh.ghostty'
 run = 'move-node-to-workspace t'
 
 [[on-window-detected]]
 if.app-id = 'com.github.wez.wezterm'
 run = 'move-node-to-workspace t'
+
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+if.window-title-regex-substring = '^Quick Terminal$'
+run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'com.obsproject.obs-studio'
@@ -115,7 +115,21 @@ if.app-id = 'com.google.Chrome'
 run = 'move-node-to-workspace b'
 
 [[on-window-detected]]
+if.app-id = 'com.apple.Safari'
+run = 'move-node-to-workspace b'
+
+[[on-window-detected]]
 if.app-id = 'com.apple.finder'
 run = 'move-node-to-workspace e'
 
+[[on-window-detected]]
+if.app-id = 'com.microsoft.teams2'
+run = 'move-node-to-workspace w'
 
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = 'move-node-to-workspace w'
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.Outlook'
+run = 'move-node-to-workspace w'

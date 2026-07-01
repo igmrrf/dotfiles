@@ -72,11 +72,10 @@ config.show_new_tab_button_in_tab_bar = false
 config.tab_max_width = 100 -- Significantly increased to allow tabs to stretch
 config.font_size = 15
 config.font = wezterm.font_with_fallback({
-	"RecMonoCasual Nerd Font Mono",
+	{ family = "JetBrainsMono Nerd Font", weight = "Regular", stretch = "Normal" },
 	"RecMonoLinear Nerd Font Mono",
 	"RecMonoDuotone Nerd Font Mono",
 	{ family = "ZedMono Nerd Font", weight = "Regular", stretch = "Normal" },
-	{ family = "JetBrainsMono Nerd Font", weight = "Regular", stretch = "Normal" },
 	{ family = "Lilex Nerd Font Mono", weight = "Regular", stretch = "Normal" },
 	"DepartureMono Nerd Font",
 	"FiraCode Nerd Font Mono",
