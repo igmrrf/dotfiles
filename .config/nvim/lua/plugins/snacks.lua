@@ -212,6 +212,7 @@ Snacks.toggle.dim():map("<leader>uD")
     { "<leader>pS", function() Snacks.profiler.stop() end,    desc = "Profiler stop" },
     { "<leader>st", function() Snacks.picker.todo_comments() end,   desc = "Todo comments",                mode = { "n",                         "x" } },
 
+    { "<leader>yc", function() Snacks.terminal("claude") end, mode = "n",                           desc = "Claude CLI" },
     { "<leader>yg", function() Snacks.terminal("agy") end, mode = "n",                           desc = "Gemini Cli" },
     { "<leader>yG", function() Snacks.terminal("agy --resume") end, mode = "n",                           desc = "Gemini Cli Resume" },
     { "<leader>yp", function() Snacks.terminal("spotify_player") end, mode = "n",                           desc = "Spotify" },

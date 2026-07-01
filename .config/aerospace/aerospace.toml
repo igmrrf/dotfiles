@@ -1,4 +1,3 @@
-# MT(MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI,KC_ENT)
 after-startup-command = ['exec-and-forget open -a Wezterm', 'workspace t']
 start-at-login = true
 enable-normalization-flatten-containers = false
@@ -17,7 +16,7 @@ automatically-unhide-macos-hidden-apps = true
     inner.vertical =   5
     outer.left =       5
     outer.bottom =     5
-    outer.top =        5
+    outer.top =        0
     outer.right =      5
 
 [mode.main.binding]

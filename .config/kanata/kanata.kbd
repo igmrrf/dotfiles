@@ -16,6 +16,7 @@
 )
 
 (defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  del
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   caps a    s    d    f    g    h    j    k    l    ;    '    ret
@@ -78,6 +79,7 @@
 
 ;; The default base layer
 (deflayer base
+  _    brdn brup C-up M-spc @dict @dnd prev pp next mute vold volu _
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   @tab_swc q    w    e    r    t    y    u    i    o    p    [    ]    \
   @esc_ctl a    s    d    f    g    h    j    k    l    ;    '    ret
@@ -88,6 +90,7 @@
 
 ;; You MUST define the layer that @fn_emj toggles
 (deflayer fn_layer
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    brdn brup C-up M-spc @dict @dnd prev pp next mute vold volu del
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _
@@ -101,6 +104,7 @@
 ;; -----------------------------------------------------------------------------
 (deflayer layer1
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
   @tog_b _    _    @m_u _    @mrgt _   _    _    _    _    _    _    _
   _    _    @m_l @m_d @m_r @mlft _   _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _
@@ -112,6 +116,7 @@
 ;; LAYER 2 (Scroll Wheel & Return to Base)
 ;; -----------------------------------------------------------------------------
 (deflayer layer2
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    @mw_u _    _    _    _    _    _    _    _    _    _
   _    @to0 @mw_l @mw_d @mw_r _  _   _    _    _    _    _    _
