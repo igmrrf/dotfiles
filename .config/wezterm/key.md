@@ -38,6 +38,8 @@ This document tracks the custom keybindings defined in `keys.lua`.
 | Keybinding | Action |
 | :--- | :--- |
 | `LEADER + ,` | Prompt to rename current tab |
+| `LEADER + X` | Close current tab (with confirmation) |
+| `LEADER + t` | Show Tab Navigator (Workspace/Tab UI overlay) |
 
 ## Workspaces
 | Keybinding | Action |
@@ -65,3 +67,4 @@ This document tracks the custom keybindings defined in `keys.lua`.
 | Keybinding | Action |
 | :--- | :--- |
 | `LEADER + c` | Activate Copy Mode |
+| `LEADER + D` | Detach from multiplexer |
