@@ -1,5 +1,5 @@
 # MT(MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI,KC_ENT)
-after-startup-command = []
+after-startup-command = ['exec-and-forget open -a Wezterm', 'workspace t']
 start-at-login = true
 enable-normalization-flatten-containers = false
 enable-normalization-opposite-orientation-for-nested-containers = true
@@ -15,10 +15,10 @@ automatically-unhide-macos-hidden-apps = true
 [gaps]
     inner.horizontal = 5
     inner.vertical =   5
-    outer.left =       10
-    outer.bottom =     10
+    outer.left =       5
+    outer.bottom =     5
     outer.top =        5
-    outer.right =      10
+    outer.right =      5
 
 [mode.main.binding]
     cmd-alt-ctrl-shift-enter ='exec-and-forget aerospace reload-config'
@@ -39,33 +39,32 @@ automatically-unhide-macos-hidden-apps = true
 
     cmd-alt-ctrl--minus = 'resize smart -50'
     cmd-alt-ctrl--equal = 'resize smart +50'
-    cmd-alt-ctrl-shift-g = ['exec-and-forget open -a Ghostty', 'workspace 7']
-    alt-shift-w = ['exec-and-forget open -a Wezterm', 'workspace 7']
-    alt-shift-b = ['exec-and-forget open -a Google\ Chrome', 'workspace 1']
+    cmd-alt-ctrl-shift-g = ['exec-and-forget open -a Supacode', 'workspace t']
+    alt-shift-b = ['exec-and-forget open -a Google\ Chrome', 'workspace b']
 
-    cmd-alt-ctrl-1 = 'workspace 1'
-    cmd-alt-ctrl-2 = 'workspace 2'
-    cmd-alt-ctrl-3 = 'workspace 3'
-    cmd-alt-ctrl-7 = 'workspace 7'
-    cmd-alt-ctrl-8 = 'workspace 8'
-    cmd-alt-ctrl-9 = 'workspace 9'
+    cmd-alt-ctrl-b = 'workspace b'
+    cmd-alt-ctrl-w = 'workspace w'
+    cmd-alt-ctrl-e = 'workspace e'
+    cmd-alt-ctrl-t = 'workspace t'
+    cmd-alt-ctrl-i = 'workspace i'
+    cmd-alt-ctrl-o = 'workspace o'
 
-    cmd-alt-ctrl-shift-1 = 'move-node-to-workspace 1'
-    cmd-alt-ctrl-shift-2 = 'move-node-to-workspace 2'
-    cmd-alt-ctrl-shift-3 = 'move-node-to-workspace 3'
-    cmd-alt-ctrl-shift-7 = 'move-node-to-workspace 7'
-    cmd-alt-ctrl-shift-8 = 'move-node-to-workspace 8'
-    cmd-alt-ctrl-shift-9 = 'move-node-to-workspace 9'
+    cmd-alt-ctrl-shift-b = 'move-node-to-workspace b'
+    cmd-alt-ctrl-shift-w = 'move-node-to-workspace w'
+    cmd-alt-ctrl-shift-e = 'move-node-to-workspace e'
+    cmd-alt-ctrl-shift-t = 'move-node-to-workspace t'
+    cmd-alt-ctrl-shift-i = 'move-node-to-workspace i'
+    cmd-alt-ctrl-shift-o = 'move-node-to-workspace o'
 
     [workspace-to-monitor-force-assignment]
 
-    1 = 'main'
-    2 = 'main'
-    3 = 'main'
+    b = 'main'
+    w = 'main'
+    e = 'main'
 
-    7 = ['secondary', 'main']
-    8 = ['secondary', 'main']
-    9 = ['secondary', 'main']
+    t = ['secondary', 'main']
+    i = ['secondary', 'main']
+    o = ['secondary', 'main']
 
 
     # alt-tab = 'workspace-back-and-forth'
@@ -91,14 +90,32 @@ automatically-unhide-macos-hidden-apps = true
     shift-down = ['volume set 0', 'mode main']
 
 [[on-window-detected]]
+if.app-id = 'app.supabit.supacode'
+run = 'move-node-to-workspace t'
+
+[[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
-run = 'move-node-to-workspace 7'
+if.window-title-regex-substring = '^Quick Terminal$'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = 'move-node-to-workspace t'
 
 [[on-window-detected]]
 if.app-id = 'com.github.wez.wezterm'
-run = 'move-node-to-workspace 7'
+run = 'move-node-to-workspace t'
+
+[[on-window-detected]]
+if.app-id = 'com.obsproject.obs-studio'
+run = 'move-node-to-workspace o'
 
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
-run = 'move-node-to-workspace 1'
+run = 'move-node-to-workspace b'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = 'move-node-to-workspace e'
+
 

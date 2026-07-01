@@ -212,8 +212,8 @@ Snacks.toggle.dim():map("<leader>uD")
     { "<leader>pS", function() Snacks.profiler.stop() end,    desc = "Profiler stop" },
     { "<leader>st", function() Snacks.picker.todo_comments() end,   desc = "Todo comments",                mode = { "n",                         "x" } },
 
-    { "<leader>yg", function() Snacks.terminal("gemini") end, mode = "n",                           desc = "Gemini Cli" },
-    { "<leader>yG", function() Snacks.terminal("gemini --resume") end, mode = "n",                           desc = "Gemini Cli Resume" },
+    { "<leader>yg", function() Snacks.terminal("agy") end, mode = "n",                           desc = "Gemini Cli" },
+    { "<leader>yG", function() Snacks.terminal("agy --resume") end, mode = "n",                           desc = "Gemini Cli Resume" },
     { "<leader>yp", function() Snacks.terminal("spotify_player") end, mode = "n",                           desc = "Spotify" },
     { "<leader>yt", function() Snacks.terminal("taskui") end, mode = "n",                           desc = "Task Warrior UI" },
     { "<leader>yy", function() Snacks.terminal("y") end, mode = "n",                           desc = "Yazi File Explorer" },

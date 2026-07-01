@@ -15,8 +15,9 @@ local system_keys = {
 	-- { key = "[", mods = "LEADER", action = action.PaneSelect({ mode = "MoveToNewWindow" }) },
 	-- { key = "]", mods = "LEADER", action = action.PaneSelect({ mode = "MoveToNewTab" }) },
 	--
-	-- Close panes
+	-- Close panes & tabs
 	{ key = "x", mods = "LEADER", action = action.CloseCurrentPane({ confirm = true }) },
+	{ key = "X", mods = "LEADER", action = action.CloseCurrentTab({ confirm = true }) },
 
 	-- Splits
 	{ key = "\\", mods = "LEADER", action = action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
@@ -53,10 +54,26 @@ local system_keys = {
 		}),
 	},
 
+	-- Detach from multiplexer
+	{ key = "D", mods = "LEADER", action = action.DetachDomain("CurrentPaneDomain") },
+
 	{
 		key = "s",
 		mods = "LEADER",
-		action = action({ EmitEvent = "save_session" }),
+		action = action_callback(function(window, pane)
+			local workspaces = wezterm.mux.get_workspace_names()
+			local current_workspace = wezterm.mux.get_active_workspace()
+
+			for _, ws in ipairs(workspaces) do
+				-- Switch to the workspace temporarily so the plugin can read its layout
+				window:perform_action(action.SwitchToWorkspace({ name = ws }), pane)
+				wezterm.emit("save_session", window)
+			end
+
+			-- Switch back to the original workspace
+			window:perform_action(action.SwitchToWorkspace({ name = current_workspace }), pane)
+			window:toast_notification("WezTerm Sessions", "Saved all workspaces!", nil, 3000)
+		end),
 	},
 	{
 		key = "S",
@@ -113,6 +130,13 @@ local system_keys = {
 		key = "n",
 		mods = "LEADER",
 		action = wezterm.action.SwitchWorkspaceRelative(1),
+	},
+
+	-- Show Tab Navigator (Workspace/Tab UI overlay)
+	{
+		key = "t",
+		mods = "LEADER",
+		action = action.ShowTabNavigator,
 	},
 
 	-- Fuzzy find workspace and switch or create random

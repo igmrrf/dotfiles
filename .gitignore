@@ -81,5 +81,9 @@
 **/.rust-analyzer/
 **/.local/share/nvim/lsp/*
 
+# Agents
+**/*.gemini
+**/*.config/zed/prompts
+
 # Lock files
 **/*.lock

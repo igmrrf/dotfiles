@@ -1,29 +1,28 @@
-
 ### CONFIG
+shell-integration = fish
+# shell-integration-features= no-title
 theme = "Catppuccin Mocha"
+title = "The Lazy DO 🥷"
+macos-titlebar-proxy-icon = hidden
 # font-family = "ZedMono Nerd Font"
-# font-family = "JetBrainsMono Nerd Font Mono"
+font-family = "JetBrainsMono Nerd Font Mono"
 # font-family = "Monaspace Krypto NF"
 # font-family = "Monaspace Xenon NF"
 # font-family = "Monaspace Radon NF"
 # font-family = "Monaspace Argon NF"
 # font-family = "Monaspace Neon NF"
-font-family = "RecMonoCasual Nerd Font Mono"
+# font-family = "RecMonoCasual Nerd Font Mono"
 # font-family = "RecMonoLinear Nerd Font Mono"
 # font-family = "RecMonoDuotone Nerd Font Mono"
-#
-# NOT YET
-# font-family = "Input Nerd Font Mono"
-# font-family = "Berkley Nerd Font Mono"
 
 font-size = 15
 cursor-color = "#7aa2f9"
 background-opacity = 0.90
 background-blur = true
-quick-terminal-position = left
+quick-terminal-position = center
 quick-terminal-screen = mouse
-quick-terminal-animation-duration = 0.2
-quick-terminal-size = 30%
+quick-terminal-animation-duration = 0.15
+quick-terminal-size = 50%,50%
 quick-terminal-autohide = true
 quick-terminal-space-behavior = move
 window-save-state = always
@@ -35,12 +34,6 @@ keybind = ctrl+g>h=goto_split:left
 keybind = ctrl+g>k=goto_split:up
 keybind = ctrl+g>l=goto_split:right
 keybind = ctrl+g>m=toggle_split_zoom
-
-# keybind = performable:ctrl+j=goto_split:down
-# keybind = performable:ctrl+h=goto_split:left
-# keybind = performable:ctrl+k=goto_split:up
-# keybind = performable:ctrl+l=goto_split:right
-# keybind = performable:ctrl+g>m=toggle_split_zoom
 
 keybind = ctrl+g>F=toggle_maximize
 keybind = ctrl+g>f=toggle_fullscreen
@@ -58,7 +51,8 @@ keybind = global:cmd+/=toggle_quick_terminal
 keybind = ctrl+g>shift+=jump_to_prompt:1
 keybind = ctrl+g>shift+k=jump_to_prompt:-1
 
-window-padding-x = 10
+window-padding-x = 10,8
+window-padding-y = 0
 window-show-tab-bar = never
 macos-titlebar-style = transparent
 keybind = shift+enter=text:\x1b\r
