@@ -23,7 +23,7 @@ local utils = require("utils")
 -- TODO: when a keymap is found
 -- require("mini.operators").setup() -- gx, gm, gr, gs
 require("mini.statusline").setup()
-require("mini.sessions").setup()
+
 require("mini.tabline").setup()
 require("mini.align").setup()
 require("mini.pairs").setup()

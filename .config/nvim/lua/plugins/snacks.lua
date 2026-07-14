@@ -35,7 +35,12 @@ require("snacks").setup({
 				{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
 				{ icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.picker.grep()" },
 				{ icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.picker.recent()" },
-				{ icon = "󰦛 ", key = "s", desc = "Restore Session", action = ":lua require('mini.sessions').select()" },
+				{
+					icon = "󰦛 ",
+					key = "s",
+					desc = "Restore Session",
+					action = ":lua require('persistence').load()",
+				},
 				{ icon = "󰚰 ", key = "u", desc = "Update Plugins", action = ":UpdatePlugins" },
 				{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
 			},
@@ -137,6 +142,76 @@ require("snacks").setup({
 		},
 	},
 	words = { enabled = true },
+	scratch = {
+		win_by_ft = {
+			-- Custom behavior for python scratchpads
+			python = {
+				keys = {
+					["execute"] = { "<cr>", function() vim.cmd("w !python3") end, desc = "Execute Python scratch", mode = { "n", "x" } },
+				},
+			},
+			-- Custom behavior for bash/sh scratchpads
+			sh = {
+				keys = {
+					["execute"] = { "<cr>", function() vim.cmd("w !bash") end, desc = "Execute Bash scratch", mode = { "n", "x" } },
+				},
+			},
+
+			javascript = {
+				keys = {
+					["execute"] = { "<cr>", function() vim.cmd("w !node") end, desc = "Execute JavaScript scratch", mode = { "n", "x" } },
+				},
+			},
+
+			typescript = {
+				keys = {
+					["execute"] = { "<cr>", function() vim.cmd("w !node") end, desc = "Execute Typescript scratch", mode = { "n", "x" } },
+				},
+			},
+
+			ts = {
+				keys = {
+					["execute"] = { "<cr>", function() vim.cmd("w !node") end, desc = "Execute Typescript scratch", mode = { "n", "x" } },
+				},
+			},
+
+			swift = {
+				keys = {
+					["execute"] = { "<cr>", "<cmd>w<cr><cmd>!swift %<cr>", desc = "Execute Swift scratch", mode = { "n", "x" } },
+				},
+			},
+			
+			go = {
+				keys = {
+					["execute"] = { "<cr>", "<cmd>w<cr><cmd>!go run %<cr>", desc = "Execute Go scratch", mode = { "n", "x" } },
+				},
+			},
+			
+			rust = {
+				keys = {
+					["execute"] = { "<cr>", "<cmd>w<cr><cmd>!rustc % -o /tmp/rust_scratch && /tmp/rust_scratch<cr>", desc = "Execute Rust scratch", mode = { "n", "x" } },
+				},
+			},
+			
+			c = {
+				keys = {
+					["execute"] = { "<cr>", "<cmd>w<cr><cmd>!gcc % -o /tmp/c_scratch && /tmp/c_scratch<cr>", desc = "Execute C scratch", mode = { "n", "x" } },
+				},
+			},
+			
+			cpp = {
+				keys = {
+					["execute"] = { "<cr>", "<cmd>w<cr><cmd>!g++ % -o /tmp/cpp_scratch && /tmp/cpp_scratch<cr>", desc = "Execute C++ scratch", mode = { "n", "x" } },
+				},
+			},
+			
+			fish = {
+				keys = {
+					["execute"] = { "<cr>", "<cmd>w !fish<cr>", desc = "Execute Fish scratch", mode = { "n", "x" } },
+				},
+			},
+		},
+	},
 })
 Snacks.keymap.set("n", "<leader>w", ":w<cr>", { desc = "Save" })
 Snacks.keymap.set({ "n", "v" }, "<leader>y", '"+y', { desc = "Copy to clipboard" })

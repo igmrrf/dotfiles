@@ -1,3 +1,4 @@
+config-version = 2
 after-startup-command = ['exec-and-forget open -a Wezterm', 'workspace t']
 start-at-login = true
 enable-normalization-flatten-containers = false

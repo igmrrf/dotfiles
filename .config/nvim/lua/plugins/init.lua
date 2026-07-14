@@ -3,6 +3,8 @@
 require("plugins.colorscheme")
 require("plugins.mini")
 require("plugins.snacks")
+require("plugins.persistence")
+require("plugins.which-key")
 
 -- General
 require("plugins.lspconfig")
@@ -36,7 +38,6 @@ require("plugins.rename")
 require("plugins.ts-tags")
 
 require("plugins.grug-gar")
-require("plugins.pomodoro")
 require("plugins.curl")
 require("plugins.cloak")
 require("plugins.wakatime")

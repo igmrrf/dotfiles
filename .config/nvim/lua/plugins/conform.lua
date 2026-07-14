@@ -7,9 +7,15 @@ local utils = require("utils")
 -- Keymaps to toggle formatting (these trigger the commands defined in usercmds.lua)
 local keys = {
 	{ "<leader>uf", "<cmd>ToggleBuffFormat<cr>", desc = "Toggle format-on-save (buffer)" },
-	{ "<leader>uF", "<cmd>ToggleFormat<cr>",     desc = "Toggle format-on-save (global)" },
+	{ "<leader>uF", "<cmd>ToggleFormat<cr>", desc = "Toggle format-on-save (global)" },
 	-- Manual format trigger
-	{ "<leader>fm", function() require("conform").format({ async = true, lsp_fallback = true }) end, desc = "Format Buffer" },
+	{
+		"<leader>fm",
+		function()
+			require("conform").format({ async = true, lsp_fallback = true })
+		end,
+		desc = "Format Buffer",
+	},
 }
 
 utils.map_plugin_keys(keys)
@@ -28,6 +34,7 @@ require("conform").setup({
 	end,
 
 	formatters_by_ft = {
+		astro = { "stylua" },
 		lua = { "stylua" },
 		javascript = { "biome", stop_after_first = true },
 		sh = { "shfmt" },

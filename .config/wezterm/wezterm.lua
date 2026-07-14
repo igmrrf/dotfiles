@@ -57,6 +57,8 @@ config.window_padding = {
 	-- top = 0,
 	bottom = 0,
 }
+config.front_end = "WebGpu"
+config.webgpu_power_preference = "HighPerformance"
 config.color_scheme = "Catppuccin Mocha"
 config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = false
@@ -75,14 +77,12 @@ config.font = wezterm.font_with_fallback({
 	"RecMonoLinear Nerd Font Mono",
 	"RecMonoDuotone Nerd Font Mono",
 	{ family = "ZedMono Nerd Font", weight = "Regular", stretch = "Normal" },
-	{ family = "Lilex Nerd Font Mono", weight = "Regular", stretch = "Normal" },
-	"DepartureMono Nerd Font",
-	"FiraCode Nerd Font Mono",
-	"Monaspace Krypto NF",
 	"Monaspace Xenon NF",
 	"Monaspace Radon NF",
 	"Monaspace Argon NF",
 	"Monaspace Neon NF",
+	"RobotoMono Nerd Font",
+	"ComicShannsMono Nerd Font",
 	{ family = "Symbols Nerd Font Mono", weight = "Regular", stretch = "Normal", style = "Italic" },
 })
 

@@ -23,6 +23,14 @@ function fish_user_key_bindings
     # Then, bind Ctrl+f to accept-autosuggestion in insert mode
     bind -M insert \cf accept-autosuggestion
 
+    bind -M insert \cp up-line
+    bind -M insert \cp up-or-search
+    bind -M default \cp up-or-search
+
+    bind -M insert \cn down-line
+    bind -M insert \cn down-or-search
+    bind -M default \cn down-or-search
+
     # (Optional) If you want it to work in normal mode too:    
     # bind -M default \cf accept-autosuggestion                
 end
@@ -146,5 +154,21 @@ fzf --fish | source
 # Starfish
 starship init fish | source
 
+# Anaconda
+fish_add_path /opt/homebrew/anaconda3/bin
+
 # Added by Antigravity
 fish_add_path /Users/igmrrf/.antigravity/antigravity/bin
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+if test -f /opt/homebrew/anaconda3/bin/conda
+    eval /opt/homebrew/anaconda3/bin/conda "shell.fish" hook $argv | source
+else
+    if test -f "/opt/homebrew/anaconda3/etc/fish/conf.d/conda.fish"
+        source "/opt/homebrew/anaconda3/etc/fish/conf.d/conda.fish"
+    else
+        set -x PATH /opt/homebrew/anaconda3/bin $PATH
+    end
+end
+# <<< conda initialize <<<

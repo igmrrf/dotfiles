@@ -90,7 +90,7 @@
 
 ;; You MUST define the layer that @fn_emj toggles
 (deflayer fn_layer
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  del
   _    brdn brup C-up M-spc @dict @dnd prev pp next mute vold volu del
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _

@@ -19,6 +19,10 @@ map("n", "d", '"_d')
 map("n", "x", '"_x')
 map("n", "dd", '"_dd')
 
+-- Pasting
+map("n", "p", "]p")
+map("n", "P", "[p")
+
 -- Save & Quit
 map("i", "jk", "<ESC>", { desc = "Exiti insert mode" })
 map("n", "<leader>w", ":w<CR>", { desc = "Save file" })
