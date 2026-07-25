@@ -27,7 +27,7 @@ map("n", "P", "[p")
 map("i", "jk", "<ESC>", { desc = "Exiti insert mode" })
 map("n", "<leader>w", ":w<CR>", { desc = "Save file" })
 map("n", "<leader>wa", ":wa<CR>", { desc = "Save all files" })
-map("n", "<leader>qq", ":qa<CR>", { desc = "Quit all" })
+map("n", "<leader>qq", ":qa<CR>", { desc = "Quit all", silent = true })
 map("n", "<leader>wq", ":wqa<CR>", { desc = "Save & quit all" })
 map("n", "<leader>W", ":wall ++p<CR>", { desc = "Save & create missing parent directories " })
 
@@ -84,10 +84,15 @@ map("n", "<leader>uF", "<cmd>ToggleFormat<cr>", { desc = "Toggle global format-o
 map("n", "<leader>uf", "<cmd>ToggleBuffFormat<cr>", { desc = "Toggle format-on-save for buffer" })
 
 -- Health
-map("n", "<leader>hp", "<cmd>checkhealth vim.pack<cr>", { desc = "Checkhealth vim.pack" })
+map("n", "<leader>hp", "<cmd>checkhealth pack<cr>", { desc = "Checkhealth vim.pack" })
 map("n", "<leader>hl", "<cmd>checkhealth vim.lsp<cr>", { desc = "Checkhealth vim.lsp" })
+map("n", "<leader>hx", "<cmd>checkhealth vim.deprecated<cr>", { desc = "Checkhealth vim.lsp" })
+map("n", "<leader>hh", "<cmd>checkhealth vim.health<cr>", { desc = "Checkhealth vim.lsp" })
+map("n", "<leader>ht", "<cmd>checkhealth vim.treesitter<cr>", { desc = "Checkhealth vim.lsp" })
+map("n", "<leader>hv", "<cmd>checkhealth vim.provider<cr>", { desc = "Checkhealth vim.lsp" })
 map("n", "<leader>hn", "<cmd>checkhealth nvim-treesitter<cr>", { desc = "Checkhealth nvim-treesitter" })
 map("n", "<leader>hs", "<cmd>checkhealth snacks<cr>", { desc = "Checkhealth snacks" })
+map("n", "<leader>hd", "<cmd>checkhealth dap<cr>", { desc = "Checkhealth snacks" })
 
 -- Buffer
 map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
