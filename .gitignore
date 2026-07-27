@@ -49,6 +49,8 @@
 **/nvim/pack/*
 **/nvim/sessions/*
 **/nvim/lsp/
+**/nvim/nvim-pack-extra.json
+**/nvim/nvim-pack-lock.json
 
 ###########################################
 # Tmux Plugin Manager (TPM)
