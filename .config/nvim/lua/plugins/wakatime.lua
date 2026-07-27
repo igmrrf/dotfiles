@@ -1,3 +1,4 @@
-vim.pack.add({
-    "https://github.com/wakatime/vim-wakatime"
-})
+return {
+	"wakatime/vim-wakatime",
+	event = { "BufReadPost", "BufNewFile" },
+}

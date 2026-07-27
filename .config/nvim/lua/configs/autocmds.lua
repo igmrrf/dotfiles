@@ -135,19 +135,40 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
 		end
 	end,
 })
--- for notifier
+-- LSP Progress Notification Handler (routes workspace loading percentages to Snacks toast notifications)
 vim.api.nvim_create_autocmd("LspProgress", {
+	group = augroup("lsp_progress"),
 	---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
 	callback = function(ev)
+		local val = ev.data and ev.data.params and ev.data.params.value
+		if not val then
+			return
+		end
+
+		local client = vim.lsp.get_client_by_id(ev.data.client_id)
+		local client_name = client and client.name or "LSP"
+
 		local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
-		vim.notify(vim.lsp.status(), "info", {
-			id = ev.data.client_id,
-			title = "LSP Progress",
-			opts = function(notif)
-				notif.icon = ev.data.params.value.kind == "end" and " "
-					or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
-			end,
-		})
+		local msg = val.message or ""
+		local percentage = val.percentage and string.format(" (%d%%)", val.percentage) or ""
+		local title = val.title or "Loading workspace"
+		local text = title .. (msg ~= "" and (": " .. msg) or "") .. percentage
+
+		local is_done = val.kind == "end"
+		if is_done then
+			text = title .. " complete"
+		end
+
+		local ok, Snacks = pcall(require, "snacks")
+		if ok and Snacks.notifier then
+			Snacks.notifier.notify(text, vim.log.levels.INFO, {
+				id = "lsp_progress_" .. ev.data.client_id .. "_" .. (ev.data.params.token or "main"),
+				title = client_name,
+				opts = function(notif)
+					notif.icon = is_done and "✓ " or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+				end,
+			})
+		end
 	end,
 })
 

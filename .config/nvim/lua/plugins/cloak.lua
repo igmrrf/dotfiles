@@ -1,15 +1,20 @@
-vim.pack.add({
-    { src = "https://github.com/laytan/cloak.nvim", name = "cloak.nvim" }
-})
-
-local utils = require("utils")
-
-local keys = {
-    { "<leader>cK", "<cmd>CloakToggle<cr>",      mode = { "n" }, desc = "Toggle Cloak", },
-    { "<leader>ck", "<cmd>CloakPreviewLine<cr>", mode = { "n" }, desc = "Enable Cloak Preview", }
+return {
+	"laytan/cloak.nvim",
+    -- TODO: Implement all previews to use cloak for certain file types
+	event = {
+		"BufReadPost .env*",
+		"BufNewFile .env*",
+		"BufReadPost .dev.vars*",
+		"BufNewFile .dev.vars*",
+		"BufReadPost *.secret*",
+		"BufReadPost *.pem",
+		"BufReadPost *.key",
+		"BufReadPost *.credentials*",
+	},
+	cmd = { "CloakToggle", "CloakPreviewLine", "CloakEnable", "CloakDisable" },
+	keys = {
+		{ "<leader>cK", "<cmd>CloakToggle<cr>", mode = { "n" }, desc = "Toggle Cloak" },
+		{ "<leader>ck", "<cmd>CloakPreviewLine<cr>", mode = { "n" }, desc = "Enable Cloak Preview" },
+	},
+	opts = {},
 }
-
-utils.map_plugin_keys(keys)
-
--- Initialize cloak immediately
-require("cloak").setup({})

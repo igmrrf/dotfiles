@@ -1,6 +1,7 @@
 return {
 	"DrKJeff16/project.nvim",
 	name = "project.nvim",
+	cmd = "Project",
 	event = { "VimEnter" },
 	dependencies = { "folke/snacks.nvim" },
 	opts = {
@@ -17,7 +18,6 @@ return {
 	keys = {
 		{ "<leader>P", ":Project<CR>", desc = "Project" },
 		{ "<leader>pa", ":Project add<CR>", desc = "Project Add" },
-		{ "<leader>pp", function() require("project.extensions.snacks").pick() end, desc = "Project picker" },
 		{ "<leader>pc", ":Project config<CR>", desc = "Project Config" },
 		{ "<leader>pd", ":Project delete<CR>", desc = "Project Delete" },
 		{ "<leader>pe", ":Project export<CR>", desc = "Project Export" },

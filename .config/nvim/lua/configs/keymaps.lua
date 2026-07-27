@@ -1,4 +1,7 @@
-local map = vim.keymap.set
+local map = function(mode, keys, cmd, opt)
+	local opts = vim.tbl_deep_extend("force", { silent = true }, opt or {})
+	vim.keymap.set(mode, keys, cmd, opts)
+end
 
 map("n", "<leader>xs", ":update<CR> :source $MYVIMRC<CR>", { desc = "Source" })
 map("n", "<leader>xx", ":restart<CR>", { desc = "Restart neovim" })
@@ -24,10 +27,10 @@ map("n", "p", "]p")
 map("n", "P", "[p")
 
 -- Save & Quit
-map("i", "jk", "<ESC>", { desc = "Exiti insert mode" })
+map("i", "jk", "<ESC>", { desc = "Exit insert mode" })
 map("n", "<leader>w", ":w<CR>", { desc = "Save file" })
 map("n", "<leader>wa", ":wa<CR>", { desc = "Save all files" })
-map("n", "<leader>qq", ":qa<CR>", { desc = "Quit all", silent = true })
+map("n", "<leader>qq", ":qa<CR>", { desc = "Quit all" })
 map("n", "<leader>wq", ":wqa<CR>", { desc = "Save & quit all" })
 map("n", "<leader>W", ":wall ++p<CR>", { desc = "Save & create missing parent directories " })
 
@@ -39,16 +42,16 @@ map(
 	{ desc = "Redraw / Clear hlsearch / Diff Update" }
 )
 -- Editing
-map("i", "<C-l>", "<Esc>la", { desc = "Move to the right one char", noremap = true, silent = true })
+map("i", "<C-l>", "<Esc>la", { desc = "Move to the right one char", noremap = true })
 
 -- Better indenting
 map("v", "<", "<gv")
 map("v", ">", ">gv")
 
 -- -- stylua: ignore
--- map( "n", "gco", "o<ESC>Vcx<ESC><CMD>normal gcc<CR>fxa<BS>", { desc = "Add comment below", noremap = true, silent = true })
+-- map( "n", "gco", "o<ESC>Vcx<ESC><CMD>normal gcc<CR>fxa<BS>", { desc = "Add comment below", noremap = true, })
 -- -- stylua: ignore
--- map( "n", "gcO", "O<ESC>Vcx<ESC><CMD>normal gcc<CR>fxa<BS>", { desc = "Add comment above", noremap = true, silent = true })
+-- map( "n", "gcO", "O<ESC>Vcx<ESC><CMD>normal gcc<CR>fxa<BS>", { desc = "Add comment above", noremap = true, })
 
 -- Window
 map("n", "<leader>-", "<C-w>s", { desc = "Split window below", remap = true })
@@ -74,10 +77,10 @@ map("v", "<A-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc 
 map("v", "<A-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
 
 -- better up/down
-map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
-map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
-map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
-map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
+map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true })
+map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true })
+map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true })
+map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true })
 
 -- Format
 map("n", "<leader>uF", "<cmd>ToggleFormat<cr>", { desc = "Toggle global format-on-save" })
@@ -86,13 +89,13 @@ map("n", "<leader>uf", "<cmd>ToggleBuffFormat<cr>", { desc = "Toggle format-on-s
 -- Health
 map("n", "<leader>hp", "<cmd>checkhealth pack<cr>", { desc = "Checkhealth vim.pack" })
 map("n", "<leader>hl", "<cmd>checkhealth vim.lsp<cr>", { desc = "Checkhealth vim.lsp" })
-map("n", "<leader>hx", "<cmd>checkhealth vim.deprecated<cr>", { desc = "Checkhealth vim.lsp" })
-map("n", "<leader>hh", "<cmd>checkhealth vim.health<cr>", { desc = "Checkhealth vim.lsp" })
-map("n", "<leader>ht", "<cmd>checkhealth vim.treesitter<cr>", { desc = "Checkhealth vim.lsp" })
-map("n", "<leader>hv", "<cmd>checkhealth vim.provider<cr>", { desc = "Checkhealth vim.lsp" })
+map("n", "<leader>hx", "<cmd>checkhealth vim.deprecated<cr>", { desc = "Checkhealth vim.deprecated" })
+map("n", "<leader>hh", "<cmd>checkhealth vim.health<cr>", { desc = "Checkhealth vim.health" })
+map("n", "<leader>ht", "<cmd>checkhealth vim.treesitter<cr>", { desc = "Checkhealth vim.treesitter" })
+map("n", "<leader>hv", "<cmd>checkhealth vim.provider<cr>", { desc = "Checkhealth vim.provider" })
 map("n", "<leader>hn", "<cmd>checkhealth nvim-treesitter<cr>", { desc = "Checkhealth nvim-treesitter" })
 map("n", "<leader>hs", "<cmd>checkhealth snacks<cr>", { desc = "Checkhealth snacks" })
-map("n", "<leader>hd", "<cmd>checkhealth dap<cr>", { desc = "Checkhealth snacks" })
+map("n", "<leader>hd", "<cmd>checkhealth dap<cr>", { desc = "Checkhealth dap" })
 
 -- Buffer
 map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })

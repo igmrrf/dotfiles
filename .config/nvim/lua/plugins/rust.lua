@@ -1,3 +1,6 @@
--- vim.pack.add({
--- 	{ src = "https://github.com/mrcjkb/rustaceanvim", version = "^9" },
--- })
+return {
+	"mrcjkb/rustaceanvim",
+	version = "^9",
+	ft = { "rust" },
+	lazy = false,
+}

@@ -1,13 +1,8 @@
-vim.pack.add({
-	{ src = "https://github.com/kopecmaciej/vi-mongo.nvim" },
-})
--- cmd = { "ViMongo" },
-local keys = {
-	{ "<leader>ym", "<cmd>ViMongo<cr>", desc = "ViMongo" },
+return {
+	"kopecmaciej/vi-mongo.nvim",
+	cmd = "ViMongo",
+	keys = {
+		{ "<leader>ym", "<cmd>ViMongo<cr>", desc = "ViMongo" },
+	},
+	opts = { persist = true },
 }
-
-local utils = require("utils")
-
-utils.map_plugin_keys(keys)
-
-require("vi-mongo").setup({ persist = true })

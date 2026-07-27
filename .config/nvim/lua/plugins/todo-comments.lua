@@ -1,9 +1,7 @@
-vim.pack.add({
-
-	{ src = "https://github.com/nvim-lua/plenary.nvim" },
-	{ src = "https://github.com/folke/todo-comments.nvim" },
-})
--- TODO:
-
-vim.cmd.packadd("todo-comments.nvim")
-require("todo-comments").setup()
+return {
+	"folke/todo-comments.nvim",
+	event = { "BufReadPost", "BufNewFile" },
+	cmd = { "TodoQuickFix", "TodoLocList", "TodoTelescope", "TodoTrouble" },
+	dependencies = { "nvim-lua/plenary.nvim" },
+	opts = {},
+}

@@ -8,7 +8,8 @@ local dap_icons = {
 
 return {
 	"mfussenegger/nvim-dap",
-	event = { "BufReadPost" },
+	lazy = true,
+	cmd = { "DapToggleBreakpoint", "DapContinue", "DapStepOver", "DapStepInto", "DapStepOut", "DapTerminate" },
 	dependencies = {
 		"theHamsta/nvim-dap-virtual-text",
 		"leoluz/nvim-dap-go",

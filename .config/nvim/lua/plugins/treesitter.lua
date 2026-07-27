@@ -1,7 +1,9 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
 	version = "main",
-	event = { "BufReadPost", "BufNewFile" },
+	event = { "BufReadPre", "BufNewFile" },
+	build = ":TSUpdateSync",
+	cmd = { "TSUpdate", "TSUpdateSync", "TSInstall", "TSUninstall", "TSLog" },
 	dependencies = {
 		{ "nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
 	},
@@ -18,18 +20,19 @@ return {
 			"regex", "rust", "scss", "sql", "svelte", "tsx", "typescript",
 			"typst", "vim", "vimdoc", "vue", "yaml", "zig",
 		}
+
+		treesitter.install(parsers)
+
 		local filetypes = { "typescriptreact", "help", "gitrebase", "gitconfig", "sh", "javascriptreact" }
 		vim.list_extend(filetypes, parsers)
-		treesitter.install(parsers)
+
 		vim.api.nvim_create_autocmd("FileType", {
 			pattern = filetypes,
 			callback = function(args)
 				pcall(vim.treesitter.start, args.buf)
 				vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-				vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
-				vim.wo[0][0].foldmethod = "expr"
-				vim.o.foldlevelstart = 99
-				vim.o.foldlevel = 20
+				vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+				vim.opt_local.foldmethod = "expr"
 			end,
 		})
 	end,

@@ -1,7 +1,14 @@
-vim.pack.add({
-	"https://github.com/backdround/tabscope.nvim",
-})
--- Initialize tabscope
-require("tabscope").setup({})
--- To remove tab local buffer
-vim.keymap.set("n", "<leader>bd", require("tabscope").remove_tab_buffer)
+return {
+	"backdround/tabscope.nvim",
+	event = "BufReadPre",
+	keys = {
+		{
+			"<leader>bD",
+			function()
+				require("tabscope").remove_tab_buffer()
+			end,
+			desc = "Remove tab local buffer",
+		},
+	},
+	opts = {},
+}
