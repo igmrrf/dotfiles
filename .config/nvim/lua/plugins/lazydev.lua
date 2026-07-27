@@ -1,9 +1,8 @@
-vim.pack.add({
-	{ src = "https://github.com/folke/lazydev.nvim", name = "lazydev" },
-})
-
-require("utils").lazy_load_ft("lazydev", "lua", function()
-	require("lazydev").setup({
+return {
+	"folke/lazydev.nvim",
+	name = "lazydev",
+	ft = "lua",
+	opts = {
 		library = {
 			{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
 			{ path = "snacks.nvim", words = { "Snacks" } },
@@ -14,5 +13,5 @@ require("utils").lazy_load_ft("lazydev", "lua", function()
 			lspconfig = true,
 			cmp = true,
 		},
-	})
-end)
+	},
+}

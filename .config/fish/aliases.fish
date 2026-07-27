@@ -84,7 +84,7 @@ alias dcol='docker container ls'
 alias dcola='docker container ls -a'
 alias coldock='colima start --cpu 2 --memory 4 --disk 30'
 alias colstop='colima stop'
-alias dcro="docker container rm ollama & docker container run -d -v ollama_data:/root/.ollama -p 11434:11434 --name ollama ollama/ollama"
+alias dcro="docker container rm  ollama --force & docker container run -d -v ollama_data:/root/.ollama -p 11434:11434 --name ollama ollama/ollama"
 
 # Git
 alias gpom="git pull origin main"
@@ -95,9 +95,6 @@ alias lzg="lazygit"
 ## shutdown
 alias shd="sudo shutdown -h now"
 alias rst="sudo shutdown -r now"
-
-# Playgrounds
-abbr --add jspg "cd ~/Desktop/tmp/typescript/ && nvim playground.ts"
 
 alias desktop="cd ~/Desktop"
 alias downloads="cd ~/Downloads"

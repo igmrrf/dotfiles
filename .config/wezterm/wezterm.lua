@@ -47,7 +47,7 @@ config.hyperlink_rules = {
 	},
 }
 
-config.window_background_opacity = 0.92
+config.window_background_opacity = 0.95
 -- config.macos_window_background_blur = 20 -- Enabled for macOS transparent effect
 config.max_fps = 120 -- Enable 120Hz for ProMotion displays
 config.window_decorations = "RESIZE" -- Removes extra buttons

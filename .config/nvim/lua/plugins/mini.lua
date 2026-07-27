@@ -53,13 +53,12 @@ require("mini.surround").setup({
 	search_method = "cover",
 	silent = false,
 })
-local snips = require("mini.snippets")
-
--- 2. Configure mini.snippets
-snips.setup({
-	-- Load from the friendly-snippets library
-	snippets = {
-		snips.gen_loader.from_lang(),
-	},
-})
+vim.schedule(function()
+	local snips = require("mini.snippets")
+	snips.setup({
+		snippets = {
+			snips.gen_loader.from_lang(),
+		},
+	})
+end)
 -- snips.start_lsp_server()
