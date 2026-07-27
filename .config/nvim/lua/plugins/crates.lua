@@ -25,15 +25,15 @@ return {
 			local function map(lhs, rhs, desc)
 				vim.keymap.set("n", lhs, rhs, { buffer = bufnr, desc = desc })
 			end
-			-- Buffer-local to Cargo.toml, under the <leader>cc "Crates" subgroup
+			-- Buffer-local to Cargo.toml, under the <leader>C "Crates" group
 			-- so nothing collides with the Rust action maps in rust.lua.
-			map("<leader>ccv", crates.show_versions_popup, "Crate versions")
-			map("<leader>ccf", crates.show_features_popup, "Crate features")
-			map("<leader>ccd", crates.show_dependencies_popup, "Crate dependencies")
-			map("<leader>ccu", crates.update_crate, "Update crate")
-			map("<leader>ccU", crates.upgrade_crate, "Upgrade crate")
-			map("<leader>ccD", crates.open_documentation, "Open crate docs")
-			map("<leader>ccx", crates.expand_plain_crate_to_inline_table, "Expand to inline table")
+			map("<leader>Cv", crates.show_versions_popup, "Crate versions")
+			map("<leader>Cf", crates.show_features_popup, "Crate features")
+			map("<leader>Cd", crates.show_dependencies_popup, "Crate dependencies")
+			map("<leader>Cu", crates.update_crate, "Update crate")
+			map("<leader>CU", crates.upgrade_crate, "Upgrade crate")
+			map("<leader>CD", crates.open_documentation, "Open crate docs")
+			map("<leader>Cx", crates.expand_plain_crate_to_inline_table, "Expand to inline table")
 		end
 
 		vim.api.nvim_create_autocmd("BufRead", {
