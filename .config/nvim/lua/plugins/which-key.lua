@@ -11,6 +11,7 @@ return {
 			{ "<leader>A", group = "Arduino" },
 			{ "<leader>b", group = "Buffer" },
 			{ "<leader>c", group = "Code" },
+			{ "<leader>cc", group = "Crates" },
 			{ "<leader>d", group = "Debug" },
 			{ "<leader>h", group = "Health" },
 			{ "<leader>o", group = "Obsidian" },

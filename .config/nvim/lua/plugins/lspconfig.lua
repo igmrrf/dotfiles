@@ -14,6 +14,9 @@ return {
 				function(server_name)
 					require("lspconfig")[server_name].setup({})
 				end,
+				-- rustaceanvim owns rust-analyzer. No-op here so mason-lspconfig
+				-- never double-starts a second client.
+				rust_analyzer = function() end,
 			},
 		})
 	end,

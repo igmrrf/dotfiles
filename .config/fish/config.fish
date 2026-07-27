@@ -86,9 +86,9 @@ fish_add_path /opt/homebrew/bin/
 
 /opt/homebrew/bin/brew shellenv | source
 
-# Rust
+# Rust (Homebrew rustup is keg-only; toolchain proxies live in its keg bin)
+fish_add_path /opt/homebrew/opt/rustup/bin
 fish_add_path $HOME/.cargo/bin
-fish_add_path $HOME/.cargo/env.fish
 fish_add_path $HOME/.local/share/solana/install/active_release/bin
 
 # Go
