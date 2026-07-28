@@ -14,13 +14,12 @@ return {
 			tools = {
 				float_win_config = { border = "rounded" },
 			},
+            -- stylua: ignore
 			server = {
 				on_attach = function(_, bufnr)
 					local function map(lhs, rhs, desc)
 						vim.keymap.set("n", lhs, rhs, { buffer = bufnr, desc = desc })
 					end
-					-- Rust actions live under <leader>c (Code group), buffer-local,
-					-- on subkeys that don't collide with the global Refactor (<leader>r) maps.
 					map("K", function() vim.cmd.RustLsp({ "hover", "actions" }) end, "Hover actions (Rust)")
 					map("<leader>ca", function() vim.cmd.RustLsp("codeAction") end, "Code action (Rust)")
 					map("<leader>cm", function() vim.cmd.RustLsp("expandMacro") end, "Expand macro")
@@ -86,16 +85,30 @@ return {
 		-- (mason-tool-installer runs on startup). Run once per machine.
 		vim.api.nvim_create_user_command("RustBootstrap", function()
 			local script = table.concat({
+				"set -e", -- Exit script immediately on any error
 				'echo "== Rust toolchain bootstrap =="',
-				'command -v brew >/dev/null 2>&1 || { echo "ERROR: Homebrew not found. Install it first: https://brew.sh"; exit 1; }',
-				'if ! command -v rustup >/dev/null 2>&1 && [ ! -x "$(brew --prefix rustup)/bin/rustup" ]; then echo "-- installing rustup via brew"; brew install rustup; fi',
+				"if ! command -v brew >/dev/null 2>&1; then",
+				'  echo "ERROR: Homebrew not found. Install it first: https://brew.sh"',
+				"  exit 1",
+				"fi",
+				'if ! command -v rustup >/dev/null 2>&1 && [ ! -x "$(brew --prefix rustup)/bin/rustup" ]; then',
+				'  echo "-- installing rustup via brew"',
+				"  brew install rustup",
+				"fi",
 				'export PATH="$(brew --prefix rustup)/bin:$PATH"',
-				'echo "-- setting default stable toolchain"; rustup default stable',
-				'echo "-- adding components"; rustup component add rust-analyzer rust-src clippy rustfmt',
-				'echo; echo "Done. codelldb/bacon install via :Mason. Restart shell/nvim so PATH picks up the rustup proxies."',
-			}, " && ")
+				'echo "-- setting default stable toolchain"',
+				"rustup default stable",
+				'echo "-- adding components"',
+				"rustup component add rust-analyzer rust-src clippy rustfmt",
+				"echo",
+				'echo "Done. codelldb/bacon install via :Mason. Restart shell/nvim so PATH picks up the rustup proxies."',
+			}, "\n")
+
+			-- Open a new window at the bottom
 			vim.cmd("botright 18split | enew")
 			vim.bo.bufhidden = "wipe"
+
+			-- termopen is the idiomatic way to spawn a terminal in the current buffer
 			vim.fn.jobstart({ "sh", "-lc", script }, { term = true })
 			vim.cmd("startinsert")
 		end, { desc = "Bootstrap Rust toolchain (rustup + components) via brew" })
