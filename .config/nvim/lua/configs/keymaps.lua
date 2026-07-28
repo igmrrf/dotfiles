@@ -28,11 +28,11 @@ map("n", "P", "[p")
 
 -- Save & Quit
 map("i", "jk", "<ESC>", { desc = "Exit insert mode" })
-map("n", "<leader>w", ":w<CR>", { desc = "Save file" })
-map("n", "<leader>wa", ":wa<CR>", { desc = "Save all files" })
-map("n", "<leader>qq", ":qa<CR>", { desc = "Quit all" })
-map("n", "<leader>wq", ":wqa<CR>", { desc = "Save & quit all" })
-map("n", "<leader>W", ":wall ++p<CR>", { desc = "Save & create missing parent directories " })
+map("n", "<leader>w", ":silent w<CR>", { desc = "Save file" })
+map("n", "<leader>wa", ":silent wa<CR>", { desc = "Save all files" })
+map("n", "<leader>qq", ":silent qa<CR>", { desc = "Quit all" })
+map("n", "<leader>wq", ":silent wqa<CR>", { desc = "Save & quit all" })
+map("n", "<leader>W", ":silent wall ++p<CR>", { desc = "Save & create missing parent directories " })
 
 -- clear search, diff update and redraw
 map(

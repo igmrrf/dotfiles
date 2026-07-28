@@ -10,7 +10,7 @@ return {
 		"MunifTanjim/nui.nvim",
 	},
 	opts = {
-		daily_tip = 0,
+		daily_tip = 1,
 		bookmark_symbol = "🌟 ",
 	},
 	cmd = {

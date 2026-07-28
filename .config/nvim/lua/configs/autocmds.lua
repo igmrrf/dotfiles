@@ -135,6 +135,20 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
 		end
 	end,
 })
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+	group = vim.api.nvim_create_augroup("SnacksWriteNotifier", { clear = true }),
+	callback = function(ev)
+		local file = vim.fn.fnamemodify(ev.match, ":~")
+		local lines = vim.api.nvim_buf_line_count(ev.buf)
+		local bytes = vim.fn.getfsize(ev.match)
+
+		-- Format bytes to a human-readable string if needed, or keep it simple
+		local msg = string.format('"%s" %dL, %dB written', file, lines, bytes)
+
+		vim.notify(msg, vim.log.levels.INFO, { title = "File Saved" })
+	end,
+})
 -- LSP Progress Notification Handler (routes workspace loading percentages to Snacks toast notifications)
 vim.api.nvim_create_autocmd("LspProgress", {
 	group = augroup("lsp_progress"),

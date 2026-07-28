@@ -8,6 +8,9 @@ require("vim._core.ui2").enable()
 
 vim.cmd([[set shortmess+=sI]])
 
+vim.val = vim.val or {}
+vim.o.report = 0
+
 vim.filetype.add({
 	extension = {
 		kbd = "lisp",

@@ -1,6 +1,5 @@
 return {
 	"epwalsh/obsidian.nvim",
-	name = "obsidian",
 	ft = "markdown",
 	dependencies = { "nvim-lua/plenary.nvim" },
 	opts = {

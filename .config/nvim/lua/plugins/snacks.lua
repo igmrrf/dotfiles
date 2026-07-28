@@ -50,7 +50,7 @@ return {
 		{ "<leader>,", function() require("snacks").picker.buffers() end, desc = "Buffers" },
 		{ "<leader>/", function() require("snacks").picker.grep() end, desc = "Grep" },
 		{ "<leader>:", function() require("snacks").picker.command_history() end, desc = "Command History" },
-		{ "<leader>n", function() require("snacks").picker.notifications() end, desc = "Notification History" },
+		{ "<leader>nh", function() require("snacks").picker.notifications() end, desc = "Notification History" },
 
 		-- find
 		{ "<leader>fb", function() require("snacks").picker.buffers() end, desc = "Buffers" },
