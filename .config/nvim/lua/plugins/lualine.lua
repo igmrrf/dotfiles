@@ -6,7 +6,7 @@ return {
 	},
 	opts = {
 		options = {
-			theme = "gruvbox_dark",
+			theme = "auto",
 			component_separators = { left = "│", right = "│" },
 			section_separators = { left = "", right = "" },
 			globalstatus = true,
@@ -16,7 +16,7 @@ return {
 		},
 		sections = {
 			lualine_a = {
-				{ "mode", separator = { left = "", right = "" }, right_padding = 2 },
+				{ "mode" },
 			},
 			lualine_b = {
 				{ "filename", file_status = true, path = 1 },
@@ -50,7 +50,7 @@ return {
 			},
 			lualine_y = { "progress" },
 			lualine_z = {
-				{ "location", separator = { left = "", right = "" }, left_padding = 2 },
+				{ "location" },
 			},
 		},
 	},

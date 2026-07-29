@@ -18,10 +18,15 @@ return {
 	opts = {
 		options = {
 			mode = "buffers",
-			separator_style = "slant",
+			separator_style = "thin",
 			always_show_bufferline = true,
-			show_buffer_close_icons = true,
+			show_buffer_close_icons = false,
 			show_close_icon = false,
+			hover = {
+				enabled = true,
+				delay = 150,
+				reveal = { "close" },
+			},
 
 			indicator = {
 				icon = "▎", -- this should be omitted if indicator style is not 'icon'

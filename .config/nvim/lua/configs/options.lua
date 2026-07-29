@@ -29,6 +29,7 @@ opt.complete = ".,w,b,u,t,o"
 -- Number settings
 opt.number = true
 opt.relativenumber = true
+opt.cursorline = true
 -- Scroll Settings
 opt.scrolloff = 8
 opt.sidescrolloff = 8
@@ -71,6 +72,10 @@ vim.o.foldlevelstart = 99
 vim.o.foldlevel = 20
 
 -- opt.background = "dark"
+-- Floating window / popup-menu transparency
+opt.winblend = 10
+opt.pumblend = 10
+
 opt.fillchars = {
 	foldopen = "",
 	foldclose = "",
