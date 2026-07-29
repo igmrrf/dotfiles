@@ -130,7 +130,7 @@ return {
 		{ "<c-_>", function() toggleSnacksTerminal() end, desc = "which_key_ignore", mode = { "n", "t" } },
 		{ "]]", function() require("snacks").words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
 		{ "[[", function() require("snacks").words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
-		{ "<C-]>", "<C-\\><C-n>", desc = "Enter copy mode (terminal normal)", mode = {"n"} },
+		{ "<C-]>", "<C-\\><C-n>", desc = "Enter copy mode (terminal normal)", mode = {"t"} },
 	},
 	opts = {
 		animate = { enabled = true },
