@@ -1,8 +1,7 @@
 local wezterm = require("wezterm")
-local merge_tables = require("helpers").merge_tables
 local action = wezterm.action
 local action_callback = wezterm.action_callback
-wezterm.plugin.require("https://github.com/abidibo/wezterm-sessions")
+local sessions = wezterm.plugin.require("https://github.com/abidibo/wezterm-sessions")
 
 local system_keys = {
 	-- Pane keys
@@ -46,7 +45,7 @@ local system_keys = {
 		mods = "LEADER",
 		action = action.PromptInputLine({
 			description = "Enter new name for tab",
-			action = action_callback(function(window, pane, line)
+			action = action_callback(function(window, _, line)
 				if line then
 					window:active_tab():set_title(line)
 				end
@@ -56,9 +55,10 @@ local system_keys = {
 
 	-- Detach from multiplexer
 	{ key = "D", mods = "LEADER", action = action.DetachDomain("CurrentPaneDomain") },
+	{ key = "s", mods = "LEADER", action = action({ EmitEvent = "save_session" }) },
 
 	{
-		key = "s",
+		key = "S",
 		mods = "LEADER",
 		action = action_callback(function(window, pane)
 			local workspaces = wezterm.mux.get_workspace_names()
@@ -67,7 +67,9 @@ local system_keys = {
 			for _, ws in ipairs(workspaces) do
 				-- Switch to the workspace temporarily so the plugin can read its layout
 				window:perform_action(action.SwitchToWorkspace({ name = ws }), pane)
-				wezterm.emit("save_session", window)
+				-- Save silently (notify=false) so per-workspace toasts don't
+				-- throttle out the single summary toast fired at the end.
+				sessions.save_state(window, false)
 			end
 
 			-- Switch back to the original workspace
@@ -76,12 +78,12 @@ local system_keys = {
 		end),
 	},
 	{
-		key = "S",
+		key = "r",
 		mods = "LEADER",
 		action = action({ EmitEvent = "load_session" }),
 	},
 	{
-		key = "r",
+		key = "R",
 		mods = "LEADER",
 		action = action({ EmitEvent = "restore_session" }),
 	},
@@ -112,7 +114,7 @@ local system_keys = {
 		mods = "LEADER",
 		action = action.PromptInputLine({
 			description = "Enter new workspace name",
-			action = wezterm.action_callback(function(window, pane, line)
+			action = wezterm.action_callback(function(_, _, line)
 				if line then
 					wezterm.mux.rename_workspace(wezterm.mux.get_active_workspace(), line)
 				end
