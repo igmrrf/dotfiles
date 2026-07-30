@@ -16,7 +16,6 @@ return {
 		},
 	},
 	keys = {
-		{ "<leader>P", ":Project<CR>", desc = "Project" },
 		{ "<leader>pa", ":Project add<CR>", desc = "Project Add" },
 		{ "<leader>pc", ":Project config<CR>", desc = "Project Config" },
 		{ "<leader>pd", ":Project delete<CR>", desc = "Project Delete" },
