@@ -73,8 +73,8 @@ vim.o.foldlevel = 20
 
 -- opt.background = "dark"
 -- Floating window / popup-menu transparency
-opt.winblend = 10
-opt.pumblend = 10
+-- opt.winblend = 10
+-- opt.pumblend = 10
 
 opt.fillchars = {
 	foldopen = "",
