@@ -1,5 +1,5 @@
 config-version = 2
-after-startup-command = ['exec-and-forget open -a Wezterm', 'workspace t']
+after-startup-command = ['exec-and-forget open -a Google\ Chrome --args --profile-directory="Profile 1"','exec-and-forget open -a Wezterm', 'workspace t']
 start-at-login = true
 enable-normalization-flatten-containers = false
 enable-normalization-opposite-orientation-for-nested-containers = true

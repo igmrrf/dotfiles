@@ -33,8 +33,8 @@ return {
 		{ "<leader>yc", function() require("snacks").terminal("claude") end, mode = "n", desc = "Claude CLI" },
 		{ "<leader>yg", function() require("snacks").terminal("agy") end, mode = "n", desc = "Gemini Cli" },
 		{ "<leader>yG", function() require("snacks").terminal("agy --resume") end, mode = "n", desc = "Gemini Cli Resume" },
-		{ "<leader>yp", function() require("snacks").terminal("spotify_player") end, mode = "n", desc = "Spotify" },
 		{ "<leader>yt", function() require("snacks").terminal("taskui") end, mode = "n", desc = "Task Warrior UI" },
+        { "<leader>ya", function() require("snacks").terminal("tuicr") end, mode = "n", desc = "Tuicr" },
 		{ "<leader>yy", function() require("snacks").terminal("y") end, mode = "n", desc = "Yazi File Explorer" },
 		{ "<leader>yd", function() require("snacks").terminal("lazydocker") end, mode = "n", desc = "Lazy Docker" },
 
