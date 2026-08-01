@@ -13,6 +13,7 @@ return {
 			{ "<leader>c", group = "Code" },
 			{ "<leader>C", group = "Crates" },
 			{ "<leader>d", group = "Debug" },
+			{ "<leader>D", group = "Database (SQL)" },
 			{ "<leader>h", group = "Health" },
 			{ "<leader>i", group = "Tips" },
 			{ "<leader>L", group = "LeetCode" },
