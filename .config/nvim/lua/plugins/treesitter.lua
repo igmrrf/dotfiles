@@ -1,8 +1,10 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
+	lazy = false,
+	priority = 1000,
 	version = "main",
 	event = { "BufReadPre", "BufNewFile" },
-	build = ":TSUpdateSync",
+	build = ":TSUpdate",
 	cmd = { "TSUpdate", "TSUpdateSync", "TSInstall", "TSUninstall", "TSLog" },
 	dependencies = {
 		{ "nvim-treesitter/nvim-treesitter-textobjects", version = "main" },

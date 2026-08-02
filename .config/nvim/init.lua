@@ -7,6 +7,7 @@ vim.pack.add({ { src = "https://github.com/igmrrf/pack.nvim", branch = "main" } 
 vim.cmd.packadd("pack.nvim")
 
 require("pack").setup({
+	lazy = false,
 	performance = {
 		vim_loader = true,
 	},
@@ -17,9 +18,9 @@ require("pack").setup({
 	plugins = {
 		{
 			"igmrrf/pack.nvim",
-			dir = "~/Desktop/packages/pack.nvim",
+			dir = "~/Desktop/packages/pack/pack.nvim",
 			keys = {
-				{ "<leader>P", "<CMD>Pack<CR>", desc = "Pack Dashboard" },
+				{ "<leader>p", ":Pack<CR>", nowait = true, desc = "Pack Dashboard" },
 			},
 		},
 

@@ -6,10 +6,10 @@ vim.g.netrw_altv = 1 -- vertical split (0-left, 1-right)
 
 require("vim._core.ui2").enable()
 
-vim.cmd([[set shortmess+=sI]])
+vim.cmd([[set shortmess+=sIWc]])
 
 vim.val = vim.val or {}
-vim.o.report = 0
+vim.o.report = 9999
 
 vim.filetype.add({
 	extension = {

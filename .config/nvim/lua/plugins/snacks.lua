@@ -25,14 +25,16 @@ return {
 	},
     -- stylua: ignore
 	keys = {
-		{ "<leader>pp", function() require("snacks").profiler.scratch() end, desc = "Profiler Scratch Buffer" },
-		{ "<leader>ps", function() require("snacks").profiler.start() end, desc = "Profiler start" },
-		{ "<leader>pS", function() require("snacks").profiler.stop() end, desc = "Profiler stop" },
+		{ "<leader>dpp", function() require("snacks").profiler.scratch() end, desc = "Profiler Scratch Buffer" },
+		{ "<leader>dps", function() require("snacks").profiler.start() end, desc = "Profiler Start" },
+		{ "<leader>dpS", function() require("snacks").profiler.stop() end, desc = "Profiler Stop" },
+		{ "<leader>dpt", function() require("snacks").profiler.toggle() end, desc = "Profiler Toggle" },
 		{ "<leader>st", function() require("snacks").picker.todo_comments() end, desc = "Todo comments", mode = { "n", "x" } },
 
 		{ "<leader>yc", function() require("snacks").terminal("claude") end, mode = "n", desc = "Claude CLI" },
 		{ "<leader>yg", function() require("snacks").terminal("agy") end, mode = "n", desc = "Gemini Cli" },
 		{ "<leader>yG", function() require("snacks").terminal("agy --resume") end, mode = "n", desc = "Gemini Cli Resume" },
+		{ "<leader>yp", function() require("snacks").terminal("spotify_player") end, mode = "n", desc = "Spotify" },
 		{ "<leader>yt", function() require("snacks").terminal("taskui") end, mode = "n", desc = "Task Warrior UI" },
         { "<leader>ya", function() require("snacks").terminal("tuicr") end, mode = "n", desc = "Tuicr" },
 		{ "<leader>yy", function() require("snacks").terminal("y") end, mode = "n", desc = "Yazi File Explorer" },
@@ -185,6 +187,29 @@ return {
 		local Snacks = require("snacks")
 		Snacks.setup(opts)
 
+		-- Patch snacks profiler to handle Neovim 0.12+ internal runtime pathing (missing .lua extension & missing files)
+		local ok_loc, loc = pcall(require, "snacks.profiler.loc")
+		if ok_loc and loc and loc.ts_locs then
+			local orig_ts_locs = loc.ts_locs
+			loc.ts_locs = function(file)
+				if type(file) ~= "string" or file == "" then
+					return {}
+				end
+				if vim.fn.filereadable(file) ~= 1 then
+					if vim.fn.filereadable(file .. ".lua") == 1 then
+						file = file .. ".lua"
+					else
+						return {}
+					end
+				end
+				local ok_run, res = pcall(orig_ts_locs, file)
+				if ok_run and res then
+					return res
+				end
+				return {}
+			end
+		end
+
 		-- Globals for debugging
 		_G.dd = function(...)
 			Snacks.debug.inspect(...)
@@ -239,7 +264,7 @@ return {
 				vim.keymap.set("n", "R", function()
 					local original_file_path = vim.b.netrw_curdir .. "/" .. vim.fn["netrw#Call"]("NetrwGetWord")
 					vim.ui.input({ prompt = "Move/rename to:", default = original_file_path }, function(target_file_path)
-						if target_file_path and target_file_path ~= "" then
+					if target_file_path and target_file_path ~= "" then
 							local file_exists = vim.uv.fs_access(target_file_path, "W")
 							if not file_exists then
 								vim.uv.fs_rename(original_file_path, target_file_path)
