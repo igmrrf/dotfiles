@@ -7,6 +7,9 @@ return {
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		"mason-org/mason-lspconfig.nvim",
 	},
+	keys = {
+		{ "<leader>m", ":Mason<CR>", desc = "Mason" },
+	},
 	config = function()
 		require("mason").setup({
 			ui = {
@@ -32,7 +35,7 @@ return {
 				"delve", "docker-compose-language-service", "dockerfile-language-server", "fish-lsp", "html",
 				"gofumpt", "goimports", "golines", "gomodifytags", "gopls", "gotests", "hadolint", "impl", "biome",
 				"js-debug-adapter", "json-to-struct", "lua-language-server", "misspell", "revive", "ruby-lsp",
-				"shellcheck", "shfmt", "stylua", "css-lsp", "tailwindcss-language-server", "vtsls",
+				"shellcheck", "shfmt", "stylua", "css-lsp", "tailwindcss-language-server", "tsgo",
 				"sqls", "sql-formatter",
 			},
 		})

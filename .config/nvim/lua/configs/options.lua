@@ -5,7 +5,7 @@ vim.o.winborder = "rounded"
 
 opt.winborder = "rounded" -- set popup windows border
 opt.laststatus = 3
-opt.showmode = true
+opt.showmode = false
 opt.termguicolors = true
 opt.signcolumn = "yes"
 opt.updatetime = 200

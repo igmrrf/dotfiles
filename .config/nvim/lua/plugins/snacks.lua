@@ -148,6 +148,7 @@ return {
 					{ icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.picker.recent()" },
 					{ icon = "󰦛 ", key = "s", desc = "Restore Session", action = ":lua require('persistence').load()" },
 					{ icon = "󰚰 ", key = "u", desc = "Update Plugins", action = ":Pack sync" },
+                    { icon = " ", key = "p", desc = "Pack", action = ":Pack" },
 					{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
 				},
 			},

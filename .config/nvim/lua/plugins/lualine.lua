@@ -14,16 +14,17 @@ return {
 				statusline = { "dashboard", "alpha", "snacks_dashboard" },
 			},
 		},
+		extensions = { "lazy", "mason", "oil", "quickfix", "pack" },
 		sections = {
 			lualine_a = {
 				{ "mode" },
 			},
 			lualine_b = {
-				{ "filename", file_status = true, path = 1 },
 				{ "branch", icon = "󰘬" },
 				{ "diff", symbols = { added = " ", modified = " ", removed = " " } },
 			},
 			lualine_c = {
+				{ "filename", file_status = true, path = 1 },
 				{
 					"diagnostics",
 					sources = { "nvim_diagnostic" },
@@ -33,14 +34,17 @@ return {
 			lualine_x = {
 				{
 					function()
-						local msg = "No LSP"
 						local clients = vim.lsp.get_clients({ bufnr = 0 })
-						if next(clients) == nil then
-							return msg
+						if #clients == 0 then
+							return ""
 						end
 						local names = {}
+						local seen = {}
 						for _, client in ipairs(clients) do
-							table.insert(names, client.name)
+							if not seen[client.name] then
+								seen[client.name] = true
+								table.insert(names, client.name)
+							end
 						end
 						return "󰒋 " .. table.concat(names, ", ")
 					end,
