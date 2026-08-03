@@ -26,6 +26,11 @@ return {
 		require("dbee").install()
 	end,
 	config = function()
+		local install = require("dbee.install")
+		if vim.fn.executable(install.bin()) == 0 then
+			require("dbee").install()
+		end
+
 		require("dbee").setup({
 			window_layout = require("dbee.layouts").Default:new({
 				on_switch = "close",

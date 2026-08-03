@@ -2,7 +2,7 @@
 shell-integration = fish
 # shell-integration-features= no-title
 theme = "Catppuccin Mocha"
-title = "The Lazy DO 🥷"
+title = "The LDO 󰼰"
 macos-titlebar-proxy-icon = hidden
 # font-family = "ZedMono Nerd Font"
 font-family = "JetBrainsMono Nerd Font Mono"
