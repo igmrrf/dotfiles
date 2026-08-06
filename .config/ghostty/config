@@ -5,12 +5,9 @@ theme = "Catppuccin Mocha"
 title = "The LDO 󰼰"
 macos-titlebar-proxy-icon = hidden
 # font-family = "ZedMono Nerd Font"
-font-family = "JetBrainsMono Nerd Font Mono"
+# font-family = "JetBrainsMono Nerd Font Mono"
 # font-family = "Monaspace Krypto NF"
-# font-family = "Monaspace Xenon NF"
-# font-family = "Monaspace Radon NF"
-# font-family = "Monaspace Argon NF"
-# font-family = "Monaspace Neon NF"
+font-family = "Monaspace Neon NF"
 
 font-size = 15
 cursor-color = "#7aa2f9"
