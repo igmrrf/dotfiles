@@ -48,10 +48,10 @@ map("i", "<C-l>", "<Esc>la", { desc = "Move to the right one char", noremap = tr
 map("v", "<", "<gv")
 map("v", ">", ">gv")
 
--- -- stylua: ignore
--- map( "n", "gco", "o<ESC>Vcx<ESC><CMD>normal gcc<CR>fxa<BS>", { desc = "Add comment below", noremap = true, })
--- -- stylua: ignore
--- map( "n", "gcO", "O<ESC>Vcx<ESC><CMD>normal gcc<CR>fxa<BS>", { desc = "Add comment above", noremap = true, })
+-- stylua: ignore
+map( "n", "gco", "o<ESC>Vcx<ESC><CMD>normal gcc<CR>fxa<BS>", { desc = "Add comment below", noremap = true, })
+-- stylua: ignore
+map( "n", "gcO", "O<ESC>Vcx<ESC><CMD>normal gcc<CR>fxa<BS>", { desc = "Add comment above", noremap = true, })
 
 -- Window
 map("n", "<leader>-", "<C-w>s", { desc = "Split window below", remap = true })
@@ -131,14 +131,4 @@ map("n", "<leader>pu", function()
 	vim.pack.update()
 end, { desc = "Pack update" })
 
--- =====================================================================
--- Autocomplete Keymaps
--- =====================================================================
-vim.keymap.set("i", "<CR>", function()
-	if vim.fn.pumvisible() == 1 then
-		-- <C-e> explicitly cancels the completion menu, then we send <CR> for the newline
-		return "<C-e><CR>"
-	end
-	-- If the menu isn't open, just act like a normal Enter key
-	return "<CR>"
-end, { expr = true, replace_keycodes = true, desc = "Insert newline (ignore completion)" })
+

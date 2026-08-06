@@ -1,6 +1,6 @@
 return {
 	"nvim-lualine/lualine.nvim",
-	event = "VimEnter",
+	event = "BufReadPre",
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
 	},
@@ -11,7 +11,8 @@ return {
 			section_separators = { left = "", right = "" },
 			globalstatus = true,
 			disabled_filetypes = {
-				statusline = { "dashboard", "alpha", "snacks_dashboard" },
+				statusline = { "dashboard", "alpha", "snacks_dashboard", "pack", "snacks_picker_input" },
+				winbar = { "dashboard", "alpha", "snacks_dashboard", "pack" },
 			},
 		},
 		extensions = { "lazy", "mason", "oil", "quickfix", "pack" },

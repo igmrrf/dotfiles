@@ -1,9 +1,14 @@
 {
-  "workspace": {
-    "library": ["$VIMRUNTIME/lua", "${3rd}/luv/library"],
-    "checkThirdParty": false
+  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+  "runtime": {
+    "version": "LuaJIT"
   },
   "diagnostics": {
-    "globals": ["vim"]
+    "globals": ["vim", "Snacks", "hs"],
+    "disable": ["missing-fields"]
+  },
+  "workspace": {
+    "checkThirdParty": false,
+    "library": ["$VIMRUNTIME/lua"]
   }
 }

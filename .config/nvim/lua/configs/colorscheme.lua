@@ -35,16 +35,19 @@ function M.setup()
 		group = vim.api.nvim_create_augroup("PersistColorscheme", { clear = true }),
 		callback = function(ev)
 			save(ev.match)
+			-- Refresh UI components if already loaded when colorscheme changes/restores
+			if package.loaded["lualine"] then
+				pcall(require("lualine").setup, { options = { theme = "auto" } })
+			end
 		end,
 	})
 
 	-- Defer the apply until every colorscheme plugin has loaded so a saved
-	-- non-default scheme resolves. pcall guards a stale/removed name in the
-	-- state file, falling back to the default.
+	-- non-default scheme resolves cleanly.
 	vim.schedule(function()
 		local saved = read_saved() or default_scheme
 		if not pcall(vim.cmd.colorscheme, saved) then
-			vim.cmd.colorscheme(default_scheme)
+			pcall(vim.cmd.colorscheme, default_scheme)
 		end
 	end)
 end

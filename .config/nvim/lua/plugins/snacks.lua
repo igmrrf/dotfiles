@@ -48,7 +48,7 @@ return {
 		{ "<leader>bo", function() require("snacks").bufdelete.other() end, desc = "Delete other buffers" },
 
 		-- Top Pickers & Explorer
-		{ "<leader><space>", function() require("snacks").picker.files() end, desc = "Find Files" },
+		{ "<leader><space>",  function() require("snacks").picker.smart() end, desc = "Smart Find Files" },
 		{ "<leader>,", function() require("snacks").picker.buffers() end, desc = "Buffers" },
 		{ "<leader>/", function() require("snacks").picker.grep() end, desc = "Grep" },
 		{ "<leader>:", function() require("snacks").picker.command_history() end, desc = "Command History" },
@@ -102,12 +102,29 @@ return {
 		{ "<leader>sm", function() require("snacks").picker.marks() end, desc = "Marks" },
 		{ "<leader>sM", function() require("snacks").picker.man() end, desc = "Man Pages" },
 		{ "<leader>sp", function() require("snacks").picker.projects() end, desc = "Search for Plugin Spec" },
+		{ "<leader>sP", function() require("snacks").picker.proc() end, desc = "System Processes" },
+		{ "<leader>sT", function() require("snacks").picker.treesitter() end, desc = "Treesitter Symbols" },
 		{ "<leader>sq", function() require("snacks").picker.qflist() end, desc = "Quickfix List" },
 		{ "<leader>sR", function() require("snacks").picker.resume() end, desc = "Resume" },
 		{ "<leader>su", function() require("snacks").picker.undo() end, desc = "Undo History" },
+		{ "<C-;>", function() require("snacks").picker.spelling() end, desc = "Spelling Suggestions" },
 		{ "<leader>uC", function() require("snacks").picker.colorschemes() end, desc = "Colorschemes" },
 
 		-- LSP
+		{ "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "x" } },
+		{
+			"<leader>co",
+			function()
+				vim.lsp.buf.code_action({
+					apply = true,
+					context = {
+						only = { "source.organizeImports" },
+						diagnostics = {},
+					},
+				})
+			end,
+			desc = "Organize Imports",
+		},
 		{ "gd", function() require("snacks").picker.lsp_definitions() end, desc = "Goto Definition" },
 		{ "gD", function() require("snacks").picker.lsp_declarations() end, desc = "Goto Declaration" },
 		{ "gr", function() require("snacks").picker.lsp_references() end, nowait = true, desc = "References" },
@@ -135,7 +152,7 @@ return {
 		{ "<C-]>", "<C-\\><C-n>", desc = "Enter copy mode (terminal normal)", mode = {"t"} },
 	},
 	opts = {
-		animate = { enabled = true },
+		animate = { enabled = false },
 		bigfile = { enabled = true },
 		bufdelete = { enabled = true },
 		dashboard = {
@@ -148,7 +165,7 @@ return {
 					{ icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.picker.recent()" },
 					{ icon = "󰦛 ", key = "s", desc = "Restore Session", action = ":lua require('persistence').load()" },
 					{ icon = "󰚰 ", key = "u", desc = "Update Plugins", action = ":Pack sync" },
-                    { icon = " ", key = "p", desc = "Pack", action = ":Pack" },
+					{ icon = " ", key = "p", desc = "Pack", action = ":Pack" },
 					{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
 				},
 			},
@@ -156,7 +173,9 @@ return {
 				{ section = "keys", gap = 1, padding = 1 },
 			},
 		},
+		dim = { enabled = true },
 		explorer = { enabled = false },
+		gh = { enabled = true },
 		indent = { enabled = true },
 		input = { enabled = true },
 		image = { enabled = true },
@@ -167,7 +186,9 @@ return {
 		picker = { enabled = true },
 		quickfile = { enabled = true },
 		scope = { enabled = true },
-		scroll = { enabled = true },
+		scroll = {
+			enabled = false,
+		},
 		statuscolumn = { enabled = true },
 		terminal = {
 			win = {
@@ -265,7 +286,7 @@ return {
 				vim.keymap.set("n", "R", function()
 					local original_file_path = vim.b.netrw_curdir .. "/" .. vim.fn["netrw#Call"]("NetrwGetWord")
 					vim.ui.input({ prompt = "Move/rename to:", default = original_file_path }, function(target_file_path)
-					if target_file_path and target_file_path ~= "" then
+						if target_file_path and target_file_path ~= "" then
 							local file_exists = vim.uv.fs_access(target_file_path, "W")
 							if not file_exists then
 								vim.uv.fs_rename(original_file_path, target_file_path)

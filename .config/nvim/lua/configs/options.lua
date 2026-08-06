@@ -18,13 +18,15 @@ opt.virtualedit = "block"
 opt.sessionoptions = { "buffers", "curdir", "help", "tabpages", "winsize", "globals", "skiprtp" }
 
 -- Autocomplete Settings
-opt.autocomplete = true -- enable autocomplete suggestions
+opt.autocomplete = false -- let blink.cmp handle completion
 opt.pumborder = "rounded" -- set suggestion window
 opt.pummaxwidth = 120 -- set max widown width
-opt.pumheight = 7 -- set height
-opt.completeopt = "fuzzy,menu,menuone,noinsert,popup" -- set complete options
--- opt.complete = ".,o" -- use buffer and omnifunc
-opt.complete = ".,w,b,u,t,o"
+opt.pumheight = 10 -- set height
+opt.completeopt = "menu,menuone,noselect" -- set complete options
+opt.complete = ".,w^5,b^5,u^3,t^3,o"
+
+opt.wildoptions = "pum,fuzzy"
+opt.wildmode = "longest:full,full"
 --
 -- Number settings
 opt.number = true

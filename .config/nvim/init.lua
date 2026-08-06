@@ -20,7 +20,7 @@ require("pack").setup({
 			"igmrrf/pack.nvim",
 			dir = "~/Desktop/packages/pack/pack.nvim",
 			keys = {
-				{ "<leader>p", ":Pack<CR>", nowait = true, desc = "Pack Dashboard" },
+				{ "<leader>p", ":Pack<CR>", desc = "Pack Dashboard", silent = true },
 			},
 		},
 

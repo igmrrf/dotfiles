@@ -1,6 +1,6 @@
 return {
 	"akinsho/bufferline.nvim",
-	event = "VimEnter",
+	event = "BufReadPre",
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
 	},
@@ -22,7 +22,8 @@ return {
 		options = {
 			mode = "buffers",
 			separator_style = "thin",
-			always_show_bufferline = true,
+			always_show_bufferline = false,
+			auto_toggle_bufferline = true,
 			show_buffer_close_icons = false,
 			show_close_icon = false,
 			close_command = function(bufnr)
@@ -88,5 +89,14 @@ return {
 				},
 			},
 		},
+		highlights = function()
+			if vim.g.colors_name and vim.g.colors_name:find("catppuccin") then
+				local ok, catppuccin_hl = pcall(require, "catppuccin.groups.integrations.bufferline")
+				if ok then
+					return catppuccin_hl.get()
+				end
+			end
+			return {}
+		end,
 	},
 }

@@ -150,9 +150,13 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 	end,
 })
 -- LSP Progress Notification Handler (routes workspace loading percentages to Snacks toast notifications)
+---@class LspProgressParams
+---@field token? string|number
+---@field value? { kind?: string, title?: string, message?: string, percentage?: number }
+
 vim.api.nvim_create_autocmd("LspProgress", {
 	group = augroup("lsp_progress"),
-	---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
+	---@param ev {data: {client_id: integer, params: LspProgressParams}}
 	callback = function(ev)
 		local val = ev.data and ev.data.params and ev.data.params.value
 		if not val then
@@ -186,38 +190,3 @@ vim.api.nvim_create_autocmd("LspProgress", {
 	end,
 })
 
-vim.api.nvim_create_autocmd("LspAttach", {
-	callback = function(ev)
-		vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, {
-
-			convert = function(item)
-				-- 1. Abbreviation formatting (Keeping your exact logic)
-
-				local abbr = item.label
-				abbr = abbr:gsub("%b()", ""):gsub("%b{}", "")
-				abbr = abbr:match("[%w_.]+.*") or abbr
-				abbr = #abbr > 25 and abbr:sub(1, 24) .. "…" or abbr
-
-				-- 2. Extracting the Source / Detail
-				local menu_text = ""
-
-				-- Prioritize labelDetails.description (where LSPs put auto-import paths)
-				if item.labelDetails and item.labelDetails.description then
-					menu_text = item.labelDetails.description
-				elseif item.detail then
-					-- Fallback to detail for LSPs that don't use labelDetails yet
-					menu_text = item.detail
-				end
-
-				-- Clean up errant newlines sent by some LSPs
-				menu_text = menu_text ~= nil and menu_text:gsub("[\n\r]", " ") or ""
-
-				-- 3. Cap return value field
-				-- Increased to 35 chars. 15 is too short to read directory paths.
-				local menu = #menu_text > 35 and menu_text:sub(1, 34) .. "…" or menu_text
-
-				return { abbr = abbr, menu = menu }
-			end,
-		})
-	end,
-})
