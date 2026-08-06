@@ -7,6 +7,8 @@ accordion-padding = 30
 default-root-container-layout = 'accordion'
 default-root-container-orientation = 'auto'
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+# focus-follows-mouse.enabled = true
+on-focus-changed = ['move-mouse window-lazy-center']
 automatically-unhide-macos-hidden-apps = true
 
 [key-mapping]
