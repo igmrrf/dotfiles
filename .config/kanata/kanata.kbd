@@ -48,6 +48,12 @@
   ;; Left Shift Tap for ctrl+w | Hold for Shift
   l_sft (tap-hold $quick-hold $quick-hold (multi lctl w) lsft)
 
+  ;; i: Tap for i | Hold for mouse movement 
+  ms_i (tap-hold $spc-timeout $spc-timeout i (layer-toggle layer1))
+
+  ;; o: Tap for o | Hold for mouse scroll 
+  ms_o (tap-hold $spc-timeout $spc-timeout o (layer-toggle layer2))
+
   ;; ==========================================
   ;; LAYER TOGGLES (from TG, TO, and MO)
   ;; ==========================================
@@ -71,17 +77,17 @@
   ;; ==========================================
   ;; LAYER 2: MOUSE SCROLL WHEEL
   ;; ==========================================
-  mw_u (mwheel-up 50 120)
-  mw_d (mwheel-down 50 120)
-  mw_l (mwheel-left 50 120)
-  mw_r (mwheel-right 50 120)
+  mw_u (mwheel-up 300 25)
+  mw_d (mwheel-down 300 25)
+  mw_l (mwheel-left 300 25)
+  mw_r (mwheel-right 300 25)
 )
 
 ;; The default base layer
 (deflayer base
   _    brdn brup C-up M-spc @dict @dnd prev pp next mute vold volu _
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @tab_swc q    w    e    r    t    y    u    i    o    p    [    ]    \
+  @tab_swc q    w    e    r    t    y    u    @ms_i   @ms_o    p    [    ]    \
   @esc_ctl a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft up
   ;; Mapped @ret_l1 and @spc_hyper to the two space positions
