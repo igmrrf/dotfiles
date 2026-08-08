@@ -5,7 +5,8 @@ abbr --add ls "lsd -l1"
 abbr --add l "lsd -l"
 abbr --add ll "lsd -l1 -a"
 
-abbr --add v ffpn
+abbr --add vf ffpn
+abbr --add v nvim
 abbr --add lv "NVIM_APPNAME=lazynvim nvim"
 
 ## Config
@@ -84,7 +85,7 @@ alias dcol='docker container ls'
 alias dcola='docker container ls -a'
 alias coldock='colima start --cpu 2 --memory 4 --disk 30'
 alias colstop='colima stop'
-alias dcro="docker container rm  ollama --force && docker container run -d -v ollama_data:/root/.ollama -p 11434:11434 --name ollama ollama/ollama"
+alias dcro="docker container rm  ollama --force & docker container run -d -v ollama_data:/root/.ollama -p 11434:11434 --name ollama ollama/ollama"
 abbr --add dozzle "docker run --name dozzle -d --volume=/var/run/docker.sock:/var/run/docker.sock -v dozzle_data:/data -p 8080:8080 amir20/dozzle:latest"
 
 # Git
