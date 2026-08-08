@@ -33,6 +33,7 @@ return {
 				},
 			},
 			lualine_x = {
+				{ "overseer" },
 				{
 					function()
 						local clients = vim.lsp.get_clients({ bufnr = 0 })

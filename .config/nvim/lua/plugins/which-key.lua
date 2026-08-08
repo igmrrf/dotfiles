@@ -18,7 +18,7 @@ return {
 			{ "<leader>h", group = "Health" },
 			{ "<leader>i", group = "Tips" },
 			{ "<leader>L", group = "LeetCode" },
-			{ "<leader>o", group = "Obsidian" },
+			{ "<leader>o", group = "Overseer / Notes" },
 			{ "<leader>p", group = "Pack+Project" },
 			{ "<leader>q", group = "Quit" },
 			{ "<leader>r", group = "Refactor" },

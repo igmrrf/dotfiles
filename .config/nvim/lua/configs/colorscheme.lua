@@ -1,5 +1,7 @@
--- Colorscheme session persistence.
+-- Colorschemes picked
+-- habamax, retrobox, default, catpuccin
 --
+-- Colorscheme session persistence.
 -- Independent of any single theme plugin: the active scheme is saved on every
 -- switch and restored on startup. The snacks colorscheme picker (<leader>uC)
 -- fires the `ColorScheme` event on confirm, so one autocmd captures every
@@ -7,7 +9,7 @@
 local M = {}
 
 local state_file = vim.fn.stdpath("state") .. "/colorscheme"
-local default_scheme = "catppuccin-mocha"
+local default_scheme = "catpuccin"
 
 local function read_saved()
 	local f = io.open(state_file, "r")

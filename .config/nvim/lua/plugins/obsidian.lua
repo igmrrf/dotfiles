@@ -17,8 +17,8 @@ return {
 			folder = "templates",
 		},
 	},
-	keys = {
-		{ "<leader>ot", ":ObsidianToday<CR>", desc = "Obsidian dailies" },
-		{ "<leader>oT", ":ObsidianTemplate Today<CR>", desc = "Obsidian today template" },
-	},
+	-- keys = {
+	-- 	{ "<leader>ob", ":ObsidianToday<CR>", desc = "Obsidian dailies" },
+	-- 	{ "<leader>oT", ":ObsidianTemplate Today<CR>", desc = "Obsidian today template" },
+	-- },
 }

@@ -18,6 +18,9 @@ return {
 	},
 	config = function()
 		require("neotest").setup({
+			consumers = {
+				overseer = require("neotest.consumers.overseer"),
+			},
 			adapters = {
 				require("neotest-plenary"),
 				require("neotest-bash"),
@@ -37,6 +40,7 @@ return {
 			},
 		})
 	end,
+    --stylua: ignore
 	keys = {
 		{ "<leader>ta", function() require("neotest").run.attach() end, desc = "Attach to Test (Neotest)" },
 		{ "<leader>tt", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Run File (Neotest)" },
