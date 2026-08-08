@@ -7,12 +7,13 @@
   process-unmapped-keys yes
   concurrent-tap-hold yes
   delegate-to-first-layer yes
+  ;; early-tap-input yes
 )
 
 (defvar
-  tap-hold 200
-  spc-timeout 200
-  quick-hold 150
+  tap-timeout 200
+  hold-timeout 200
+  alpha-keys (a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 spc ret bspc tab)
 )
 
 (defsrc
@@ -28,41 +29,43 @@
 (defalias
   ;; Multi-mapping to trigger the macOS Emoji Picker
   emj (multi lctl lmet spc)
-  
-  ;; Tap for Emoji, Hold for the Function Layer
-  fn_emj (tap-hold 200 200 @emj (layer-toggle fn_layer))
 
   dict f18  ;; Maps your Voice Jotter to F18
   dnd  f19  ;; Maps your Moon icon to F19
 
   ;; Tap for ESC, Hold for the Ctrl
-  esc_ctl (tap-hold $quick-hold $quick-hold esc lctl)
+  esc_ctl (tap-hold $tap-timeout $hold-timeout esc lctl)
   
-  ;; --- NEW SPLIT SPACEBAR ALIASES ---
-  ;; Left Space: Tap for Return | Hold for Layer 1
-  ret_l1 (tap-hold $spc-timeout $spc-timeout ret (layer-toggle layer1))
-
   ;; Right Space: Tap for Space | Hold for Hyper (Cmd+Alt+Ctrl)
-  spc_hyper (tap-hold $spc-timeout $spc-timeout spc (multi lctl lmet lalt))
+  spc_hyper (tap-hold $tap-timeout $hold-timeout spc (multi lctl lmet lalt))
 
   ;; Left Shift Tap for ctrl+w | Hold for Shift
-  l_sft (tap-hold $quick-hold $quick-hold (multi lctl w) lsft)
+  l_sft (tap-hold $tap-timeout $hold-timeout (multi lctl w) lsft)
 
-  ;; i: Tap for i | Hold for mouse movement 
-  ms_i (tap-hold $spc-timeout $spc-timeout i (layer-toggle layer1))
-
-  ;; o: Tap for o | Hold for mouse scroll 
-  ms_o (tap-hold $spc-timeout $spc-timeout o (layer-toggle layer2))
+  ;; Left Shift Tap for ctrl+w | Hold for Shift
+  r_sft (tap-hold $tap-timeout $hold-timeout (layer-toggle layer2) lsft)
 
   ;; ==========================================
   ;; LAYER TOGGLES (from TG, TO, and MO)
   ;; ==========================================
-  tog_l1  (layer-switch layer1)   ;; Permanent switch to Layer 1
-  tog_b   (layer-switch base)     ;; Switch back to Base
-  to0     (layer-switch base)
-  
-  mo2     (layer-toggle layer2)   ;; Hold for Layer 2
-  tab_swc (tap-hold 200 200 tab @tog_l1)
+
+  ;; reset layers on all layers
+  rr_met (tap-hold $tap-timeout $hold-timeout (layer-switch base) rmet)
+
+  ;; Tap for Emoji, Hold for the Function Layer
+  fn_emj (tap-hold $tap-timeout $hold-timeout @emj (layer-toggle fn_layer))
+
+  ;; --- NEW SPLIT SPACEBAR ALIASES ---
+  ;; Left Space: Tap for Return | Hold for Layer 1
+  ret_l1 (tap-hold $tap-timeout $hold-timeout ret (layer-toggle layer1))
+
+
+  to_b    (layer-switch base)       ;; Switch back to Base
+  to_l1   (layer-toggle layer1)     ;; Switch back to Base
+  to_l2   (layer-switch layer2)     ;; Switch back to Base
+  to_fl   (layer-switch fn_layer)   ;; Switch back to Base
+
+  spc_l2 (layer-toggle layer2)     ;; Hold for Layer 2
   
   ;; ==========================================
   ;; LAYER 1: MOUSE MOVEMENT & CLICKS
@@ -87,11 +90,11 @@
 (deflayer base
   _    brdn brup C-up M-spc @dict @dnd prev pp next mute vold volu _
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @tab_swc q    w    e    r    t    y    u    @ms_i   @ms_o    p    [    ]    \
+  tab q    w    e    r    t    y    u    i    o    p    [    ]    \
   @esc_ctl a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft up
   ;; Mapped @ret_l1 and @spc_hyper to the two space positions
-  @fn_emj caps lalt lmet   @ret_l1 @spc_hyper   rmet ralt left down rght
+  @fn_emj caps lalt lmet   @ret_l1 @spc_hyper   @rr_met ralt left down rght
 )
 
 ;; You MUST define the layer that @fn_emj toggles
@@ -102,7 +105,7 @@
   _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    pgup
   ;; Added an extra underscore to match the new 11-key bottom row
-  _    _    _    _         _       _            _    _    home pgdn end
+  _    _    _    _         _       _            @rr_met    _    home pgdn end
 )
 
 ;; -----------------------------------------------------------------------------
@@ -111,11 +114,11 @@
 (deflayer layer1
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  @tog_b _    _    @m_u _    @mrgt _   _    _    _    _    _    _    _
+  _    _    _    @m_u _    @mrgt _   _    _    _    _    _    _    _
   _    _    @m_l @m_d @m_r @mlft _   _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _
-  ;; Kept @mo2 on the right space position
-  _    _    _    _         _       @mo2         _    _    _    _    _
+  ;; Kept @spc_l2 on the right space position
+  _    _    _    _         _       @spc_l2         @rr_met    _    _    _    _
 )
 
 ;; -----------------------------------------------------------------------------
@@ -125,8 +128,8 @@
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    @mw_u _    _    _    _    _    _    _    _    _    _
-  _    @to0 @mw_l @mw_d @mw_r _  _   _    _    _    _    _    _
+  _    _    @mw_l @mw_d @mw_r _  _   _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _
   ;; Added an extra underscore to match the new 11-key bottom row
-  _    _    _    _         _       _            _    _    _    _    _
+  _    _    _    _         _       _            @rr_met    _    _    _    _
 )
