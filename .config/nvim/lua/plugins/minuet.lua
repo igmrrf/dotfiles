@@ -10,8 +10,7 @@ return {
 		virtualtext = {
 			auto_trigger_ft = { "*" },
 			keymap = {
-
-				accept = "<Tab>",
+				accept = "<C-y>",
 				accept_line = "<C-a>",
 				prev = "<C-p>",
 				next = "<C-n>",

@@ -131,4 +131,5 @@ map("n", "<leader>pu", function()
 	vim.pack.update()
 end, { desc = "Pack update" })
 
-
+map("n", "<leader>pb", ":'[,']t']<CR>", { desc = "Paste block below" })
+map("n", "<leader>pt", ":'[,']t'[-1<CR>", { desc = "Paste block above" })
