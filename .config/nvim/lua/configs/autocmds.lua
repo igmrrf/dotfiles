@@ -190,3 +190,15 @@ vim.api.nvim_create_autocmd("LspProgress", {
 	end,
 })
 
+vim.api.nvim_create_autocmd({ "RecordingEnter", "RecordingLeave" }, {
+	group = augroup("macro_recording"),
+	callback = function()
+		local lualine = package.loaded["lualine"]
+		if lualine then
+			-- Wait for a moment to allow Neovim to update the recording state
+			vim.defer_fn(function()
+				lualine.refresh()
+			end, 50)
+		end
+	end,
+})

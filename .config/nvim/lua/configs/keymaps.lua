@@ -133,3 +133,40 @@ end, { desc = "Pack update" })
 
 map("n", "<leader>pb", ":'[,']t']<CR>", { desc = "Paste block below" })
 map("n", "<leader>pt", ":'[,']t'[-1<CR>", { desc = "Paste block above" })
+
+-- LSP
+map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "LSP Rename" })
+
+-- Terminal Navigation
+vim.api.nvim_create_autocmd("TermOpen", {
+	group = vim.api.nvim_create_augroup("igmrrf_term_nav", { clear = true }),
+	callback = function(event)
+		local opts = { buffer = event.buf, silent = true }
+		local function move_terminal(cmd)
+			return function()
+				local buf = vim.api.nvim_get_current_buf()
+				local win = vim.api.nvim_get_current_win()
+				if vim.api.nvim_win_get_config(win).relative ~= "" then
+					vim.api.nvim_win_close(win, false)
+				end
+				vim.cmd(cmd)
+				vim.api.nvim_win_set_buf(0, buf)
+			end
+		end
+
+        --stylua: ignore
+		vim.keymap.set({ "n" }, "<C-s>", move_terminal("split"), vim.tbl_extend("force", opts, { desc = "Move terminal to horizontal split" }))
+		vim.keymap.set(
+			{ "t", "n" },
+			"<C-v>",
+			move_terminal("vsplit"),
+			vim.tbl_extend("force", opts, { desc = "Move terminal to vertical split" })
+		)
+		vim.keymap.set(
+			{ "t", "n" },
+			"<C-t>",
+			move_terminal("tabnew"),
+			vim.tbl_extend("force", opts, { desc = "Move terminal to new tab" })
+		)
+	end,
+})

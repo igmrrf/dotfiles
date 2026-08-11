@@ -9,6 +9,13 @@ return {
 		keymaps = {
 			["z"] = { "actions.parent", mode = "n" },
 			["<leader>e"] = { "actions.close", mode = "n" },
+			["<leader>w"] = {
+				function()
+					require("oil").save({ confirm = false })
+				end,
+				mode = "n",
+				desc = "Save without confirmation",
+			},
 		},
 		skip_confirm_for_simple_edits = true,
 		delete_to_trash = true,

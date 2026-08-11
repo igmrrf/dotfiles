@@ -23,6 +23,15 @@ return {
 			lualine_b = {
 				{ "branch", icon = "󰘬" },
 				{ "diff", symbols = { added = " ", modified = " ", removed = " " } },
+				{
+					function()
+						local reg = vim.fn.reg_recording()
+						if reg == "" then return "" end
+						return " @" .. reg
+					end,
+					color = { fg = "#ff9e64" },
+				},
+				{ "searchcount" },
 			},
 			lualine_c = {
 				{ "filename", file_status = true, path = 1 },

@@ -22,8 +22,7 @@ return {
 		options = {
 			mode = "buffers",
 			separator_style = "thin",
-			always_show_bufferline = false,
-			auto_toggle_bufferline = true,
+			always_show_bufferline = true,
 			show_buffer_close_icons = false,
 			show_close_icon = false,
 			close_command = function(bufnr)

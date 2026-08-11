@@ -22,7 +22,7 @@ return {
 		request_timeout = 15,
 		throttle = 1500,
 		debounce = 600,
-		notify = "warn",
+		notify = false,
 		n_completions = 1,
 		context_window = 512,
 		provider_options = {
