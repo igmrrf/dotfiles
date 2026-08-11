@@ -9,7 +9,7 @@
 local M = {}
 
 local state_file = vim.fn.stdpath("state") .. "/colorscheme"
-local default_scheme = "catpuccin"
+local default_scheme = "catppuccin"
 
 local function read_saved()
 	local f = io.open(state_file, "r")
