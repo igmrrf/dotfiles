@@ -46,6 +46,7 @@ return {
 			-- Conform will run the first available formatter
 			["python"] = { "ruff_fix", "ruff_organize_imports", "ruff_format" },
 			sql = { "sql_formatter" },
+			kotlin = { "ktlint" },
 		},
 	},
 }

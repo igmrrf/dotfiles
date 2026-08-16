@@ -98,7 +98,7 @@ return {
 			"bash", "c", "cmake", "cpp", "css", "diff", "dockerfile",
 			"git_config", "git_rebase", "gitattributes", "gitcommit", "gitignore",
 			"go", "gomod", "gosum", "gowork", "html", "javascript", "json", "json5",
-			"lua", "markdown", "markdown_inline", "ninja", "python", "query",
+			"kotlin", "lua", "markdown", "markdown_inline", "ninja", "python", "query",
 			"regex", "rust", "scss", "sql", "svelte", "toml", "tsx", "typescript",
 			"typst", "vim", "vimdoc", "vue", "yaml", "zig", "terraform", "hcl",
 			"helm",

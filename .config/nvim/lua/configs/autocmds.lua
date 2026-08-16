@@ -23,8 +23,8 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Set filetype-specific settings
 vim.api.nvim_create_autocmd("FileType", {
-	group = augroup("python"),
-	pattern = { "lua", "python" },
+	group = augroup("indent_4"),
+	pattern = { "lua", "python", "kotlin" },
 	callback = function()
 		vim.opt_local.tabstop = 4
 		vim.opt_local.shiftwidth = 4

@@ -158,7 +158,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
 		vim.keymap.set({ "n" }, "<C-s>", move_terminal("split"), vim.tbl_extend("force", opts, { desc = "Move terminal to horizontal split" }))
 		vim.keymap.set(
 			{ "t", "n" },
-			"<C-v>",
+			"<C-T>",
 			move_terminal("vsplit"),
 			vim.tbl_extend("force", opts, { desc = "Move terminal to vertical split" })
 		)

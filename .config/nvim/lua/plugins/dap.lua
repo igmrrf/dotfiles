@@ -139,30 +139,167 @@ return {
 			end
 		end
 
-		dapui.setup()
-		dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open({}) end
-		dap.listeners.before.event_terminated["dapui_config"] = function() dapui.close({}) end
-		dap.listeners.before.event_exited["dapui_config"] = function() dapui.close({}) end
+		if not dap.adapters.kotlin then
+			dap.adapters.kotlin = {
+				type = "executable",
+				command = vim.fn.stdpath("data") .. "/mason/bin/kotlin-debug-adapter",
+				args = {},
+			}
+		end
 
-		vim.keymap.set("n", "<leader>du", function() require("dapui").open() end, { desc = "Open Dap UI" })
-		vim.keymap.set("n", "<leader>dx", function() require("dapui").close() end, { desc = "Close Dap UI" })
+		if not dap.configurations.kotlin then
+			dap.configurations.kotlin = {
+				{
+					type = "kotlin",
+					request = "launch",
+					name = "Launch Kotlin class",
+					projectRoot = "${workspaceFolder}",
+					mainClass = function()
+						return vim.fn.input("Main class (e.g. com.example.MainKt): ")
+					end,
+				},
+				{
+					type = "kotlin",
+					request = "attach",
+					name = "Attach to remote JVM (port 5005)",
+					projectRoot = "${workspaceFolder}",
+					hostName = "localhost",
+					port = 5005,
+					timeout = 30000,
+				},
+			}
+		end
+
+		dapui.setup()
+		dap.listeners.after.event_initialized["dapui_config"] = function()
+			dapui.open({})
+		end
+		dap.listeners.before.event_terminated["dapui_config"] = function()
+			dapui.close({})
+		end
+		dap.listeners.before.event_exited["dapui_config"] = function()
+			dapui.close({})
+		end
+
+		vim.keymap.set("n", "<leader>du", function()
+			require("dapui").open()
+		end, { desc = "Open Dap UI" })
+		vim.keymap.set("n", "<leader>dx", function()
+			require("dapui").close()
+		end, { desc = "Close Dap UI" })
 	end,
 	keys = {
-		{ "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
-		{ "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
-		{ "<leader>dc", function() require("dap").continue() end, desc = "Run/Continue" },
-		{ "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
-		{ "<leader>dg", function() require("dap").goto_() end, desc = "Go to Line (No Execute)" },
-		{ "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
-		{ "<leader>dj", function() require("dap").down() end, desc = "Down" },
-		{ "<leader>dk", function() require("dap").up() end, desc = "Up" },
-		{ "<leader>dl", function() require("dap").run_last() end, desc = "Run Last" },
-		{ "<leader>dO", function() require("dap").step_out() end, desc = "Step Out" },
-		{ "<leader>do", function() require("dap").step_over() end, desc = "Step Over" },
-		{ "<leader>dP", function() require("dap").pause() end, desc = "Pause" },
-		{ "<leader>dr", function() require("dap.ui.widgets").hover() end, desc = "Toggle REPL" },
-		{ "<leader>ds", function() require("dap").session() end, desc = "Session" },
-		{ "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
-		{ "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
+		{
+			"<leader>dB",
+			function()
+				require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+			end,
+			desc = "Breakpoint Condition",
+		},
+		{
+			"<leader>db",
+			function()
+				require("dap").toggle_breakpoint()
+			end,
+			desc = "Toggle Breakpoint",
+		},
+		{
+			"<leader>dc",
+			function()
+				require("dap").continue()
+			end,
+			desc = "Run/Continue",
+		},
+		{
+			"<leader>dC",
+			function()
+				require("dap").run_to_cursor()
+			end,
+			desc = "Run to Cursor",
+		},
+		{
+			"<leader>dg",
+			function()
+				require("dap").goto_()
+			end,
+			desc = "Go to Line (No Execute)",
+		},
+		{
+			"<leader>di",
+			function()
+				require("dap").step_into()
+			end,
+			desc = "Step Into",
+		},
+		{
+			"<leader>dj",
+			function()
+				require("dap").down()
+			end,
+			desc = "Down",
+		},
+		{
+			"<leader>dk",
+			function()
+				require("dap").up()
+			end,
+			desc = "Up",
+		},
+		{
+			"<leader>dl",
+			function()
+				require("dap").run_last()
+			end,
+			desc = "Run Last",
+		},
+		{
+			"<leader>dO",
+			function()
+				require("dap").step_out()
+			end,
+			desc = "Step Out",
+		},
+		{
+			"<leader>do",
+			function()
+				require("dap").step_over()
+			end,
+			desc = "Step Over",
+		},
+		{
+			"<leader>dP",
+			function()
+				require("dap").pause()
+			end,
+			desc = "Pause",
+		},
+		{
+			"<leader>dr",
+			function()
+				require("dap.ui.widgets").hover()
+			end,
+			desc = "Toggle REPL",
+		},
+		{
+			"<leader>ds",
+			function()
+				require("dap").session()
+			end,
+			desc = "Session",
+		},
+		{
+			"<leader>dt",
+			function()
+				require("dap").terminate()
+			end,
+			desc = "Terminate",
+		},
+		{
+			"<leader>dw",
+			function()
+				require("dap.ui.widgets").hover()
+			end,
+			desc = "Widgets",
+		},
 	},
 }

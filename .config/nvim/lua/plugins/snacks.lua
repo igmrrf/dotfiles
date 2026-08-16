@@ -38,9 +38,10 @@ return {
 		{ "<leader>yt", function() require("snacks").terminal("taskui") end, mode = "n", desc = "Task Warrior UI" },
         { "<leader>ya", function() require("snacks").terminal("tuicr") end, mode = "n", desc = "Tuicr" },
 		{ "<leader>yy", function() require("snacks").terminal("y") end, mode = "n", desc = "Yazi File Explorer" },
+        { "<leader>yb", function() require("snacks").terminal("btop") end, mode = "n", desc = "btop Explorer" },
 		{ "<leader>yd", function() require("snacks").terminal("lazydocker") end, mode = "n", desc = "Lazy Docker" },
 
-		{ "<leader>fi", function() require("snacks").picker.files({ hidden = true, ignored = true, exclude = require("utils").exclude_finds }) end, mode = "n", desc = "Find git ignored & hidden files" },
+		{ "<leader>fi", function() require("snacks").picker.files({ hidden = true, ignored = true, exclude = require("utils").exclude_finds, layout = { preview = false } }) end, mode = "n", desc = "Find git ignored & hidden files" },
 
 		-- Buffer Management
 		{ "<leader>bd", function() require("snacks").bufdelete.delete() end, desc = "Delete current buffer" },
@@ -48,7 +49,7 @@ return {
 		{ "<leader>bo", function() require("snacks").bufdelete.other() end, desc = "Delete other buffers" },
 
 		-- Top Pickers & Explorer
-		{ "<leader><space>",  function() require("snacks").picker.files({ hidden = true, ignored = true, exclude = require("utils").exclude_finds }) end, desc = "Smart Find Files" },
+		{ "<leader><space>",  function() require("snacks").picker.files() end, desc = "Smart Find Files" },
 		{ "<leader>,", function() require("snacks").picker.buffers() end, desc = "Buffers" },
 		{ "<leader>/", function() require("snacks").picker.grep() end, desc = "Grep" },
 		{ "<leader>:", function() require("snacks").picker.command_history() end, desc = "Command History" },
@@ -57,7 +58,7 @@ return {
 		-- find
 		{ "<leader>fb", function() require("snacks").picker.buffers() end, desc = "Buffers" },
 		{ "<leader>fc", function() require("snacks").picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
-		{ "<leader>ff", function() require("snacks").picker.smart({ hidden = true, ignored = true, exclude = require("utils").exclude_finds}) end, desc = "Find Files" },
+		{ "<leader>ff", function() require("snacks").picker.smart() end, desc = "Find Files" },
 		{ "<leader>fg", function() require("snacks").picker.git_files() end, desc = "Find Git Files" },
 		{ "<leader>fp", function() require("snacks").picker.projects() end, desc = "Projects" },
 		{ "<leader>fr", function() require("snacks").picker.recent() end, desc = "Recent" },
@@ -82,7 +83,7 @@ return {
 		{ "<leader>sb", function() require("snacks").picker.lines() end, desc = "Buffer Lines" },
 		{ "<leader>sB", function() require("snacks").picker.grep_buffers() end, desc = "Grep Open Buffers" },
 		{ "<leader>sg", function() require("snacks").picker.grep() end, desc = "Grep" },
-		{ "<leader>sG", function() require("snacks").picker.grep({ hidden = true, ignored = true, exclude = require("utils").exclude_finds }) end, desc = "Grep" },
+		{ "<leader>sG", function() require("snacks").picker.grep({  ignored = true, exclude = require("utils").exclude_finds }) end, desc = "Grep" },
 		{ "<leader>sw", function() require("snacks").picker.grep_word() end, desc = "Visual selection or word", mode = { "n", "x" } },
 
 		-- search

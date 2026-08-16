@@ -35,8 +35,9 @@ return {
 				"delve", "docker-compose-language-service", "dockerfile-language-server", "fish-lsp", "html",
 				"gofumpt", "goimports", "golines", "gomodifytags", "gopls", "gotests", "hadolint", "impl", "biome",
 				"js-debug-adapter", "json-to-struct", "lua-language-server", "misspell", "revive", "ruby-lsp",
-				"shellcheck", "shfmt", "stylua", "css-lsp", "tailwindcss-language-server", "tsgo",
+				"shellcheck", "shfmt", "stylua", "css-lsp", "tailwindcss-language-server", "tsc",
 				"sqls", "sql-formatter", "helm-ls", "terraformls", "tflint", "yaml-language-server", "ansiblels", "jsonls",
+				"kotlin-lsp", "ktlint", "kotlin-debug-adapter",
 			},
 		})
 	end,
