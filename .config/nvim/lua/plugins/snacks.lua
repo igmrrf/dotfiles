@@ -188,7 +188,7 @@ return {
 		quickfile = { enabled = true },
 		scope = { enabled = true },
 		scroll = {
-			enabled = false,
+			enabled = true,
 		},
 		statuscolumn = { enabled = true },
 		terminal = {
