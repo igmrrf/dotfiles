@@ -1,174 +1,149 @@
-if status is-interactive
-    # Commands to run in interactive sessions can go here
-    echo "Welcome back, time to build some boring stuff"
-end
+set -g config_start_time (math (date +%s%N) / 1000000)
 set -U fish_greeting
 
 # -----------------------------------------------------------------------------
-# QUICK KEYMAP
+# INTERACTIVE-ONLY CONFIGURATION (Speeds up non-interactive tasks and scripts)
 # -----------------------------------------------------------------------------
-# Ensure you are using Vi mode
-fish_vi_key_bindings
+if status is-interactive
 
-# Bind jk to switch from insert mode to normal mode
-bind -M insert -m default jk 'commandline -f repaint-mode'
-
-# Optional: Set a slight delay so Fish waits for the 'k' after you press 'j'
-set -g fish_sequence_key_delay_ms 200
-
-function fish_user_key_bindings
-    # First, enable the Vi bindings                            
+    # QUICK KEYMAP
     fish_vi_key_bindings
+    bind -M insert -m default jk 'commandline -f repaint-mode'
+    set -g fish_sequence_key_delay_ms 200
 
-    # Then, bind Ctrl+f to accept-autosuggestion in insert mode
-    bind -M insert \cf accept-autosuggestion
+    function fish_user_key_bindings
+        fish_vi_key_bindings
+        bind -M insert \cf accept-autosuggestion
+        bind -M insert \cp up-line
+        bind -M insert \cp up-or-search
+        bind -M default \cp up-or-search
+        bind -M insert \cn down-line
+        bind -M insert \cn down-or-search
+        bind -M default \cn down-or-search
+    end
 
-    bind -M insert \cp up-line
-    bind -M insert \cp up-or-search
-    bind -M default \cp up-or-search
+    # GENERAL PATHS
+    fish_add_path $HOME/.local/bin
 
-    bind -M insert \cn down-line
-    bind -M insert \cn down-or-search
-    bind -M default \cn down-or-search
+    # General Settings
+    set -gx XDG_CONFIG_HOME $HOME/.config
+    set -gx EDITOR nvim
+    set -gx MYVIMRC $XDG_CONFIG_HOME/nvim/init.lua
+    set -gx TEALDEER_CONFIG_DIR $XDG_CONFIG_HOME/tealdeer
+    set -gx VISUAL nvim
 
-    # (Optional) If you want it to work in normal mode too:    
-    # bind -M default \cf accept-autosuggestion                
-end
+    # Source files cleanly
+    if test -f $XDG_CONFIG_HOME/fish/exports.fish
+        source $XDG_CONFIG_HOME/fish/exports.fish
+    end
+    if test -f $XDG_CONFIG_HOME/fish/aliases.fish
+        source $XDG_CONFIG_HOME/fish/aliases.fish
+    end
+    if test -f $XDG_CONFIG_HOME/fish/functions.fish
+        source $XDG_CONFIG_HOME/fish/functions.fish
+    end
 
-# -----------------------------------------------------------------------------
-# GENERAL PATHS
-# -----------------------------------------------------------------------------
-fish_add_path $HOME/.local/bin
+    # NVM
+    set -gx nvm_default_version v24.15.0
+    set -gx NVM_DEFAULT_VERSION v24.15.0
+    set -gx FNM_COREPACK_ENABLED true
 
-# -----------------------------------------------------------------------------
-# General Settings
-# -----------------------------------------------------------------------------
-set -gx XDG_CONFIG_HOME $HOME/.config
-set -gx EDITOR nvim
-set -gx MYVIMRC $XDG_CONFIG_HOME/nvim/init.lua
-set -gx TEALDEER_CONFIG_DIR $XDG_CONFIG_HOME/tealdeer
-set -gx VISUAL nvim
-
-# source functions
-if test -f $XDG_CONFIG_HOME/fish/exports.fish
-    source $XDG_CONFIG_HOME/fish/exports.fish
-end
-set -gx DOTNET_CLI_TELEMETRY_OPTOUT 1
-
-# NVM
-set --universal nvm_default_version v24.15.0
-set -gx NVM_DEFAULT_VERSION v24.15.0
-# For yarn
-set -gx FNM_COREPACK_ENABLED true
-
-function __check_nvmrc --on-variable PWD --description 'Auto-switch node version based on .nvmrc'
-    # Do not run in background jobs or command substitutions
-    status --is-command-substitution; and return
-
-    if test -f .nvmrc
-        set -l nvmrc_version (cat .nvmrc)
-        set -l current_version (nvm current)
-
-        if test "$nvmrc_version" != "$current_version"
-            nvm use
+    # Lazy-loaded / Event-driven NVMRC auto-switcher
+    function __check_nvmrc --on-variable PWD --description 'Auto-switch node version based on .nvmrc'
+        status --is-command-substitution; and return
+        if test -f .nvmrc
+            set -l nvmrc_version (cat .nvmrc)
+            set -l current_version (nvm current)
+            if test "$nvmrc_version" != "$current_version"
+                nvm use
+            end
+        else if test (nvm current) != $NVM_DEFAULT_VERSION
+            echo "Reverting to nvm default version"
+            nvm use default
         end
-    else if test (nvm current) != $NVM_DEFAULT_VERSION
-        # Revert to default if no .nvmrc is found and we aren't on default
-        echo "Reverting to nvm default version"
-        nvm use default
     end
-end
 
-__check_nvmrc
+    # REMOVED: __check_nvmrc from running immediately at startup!
 
-# Homebrew
-fish_add_path /opt/homebrew/bin/
-
-/opt/homebrew/bin/brew shellenv | source
-
-# Rust (Homebrew rustup is keg-only; toolchain proxies live in its keg bin)
-fish_add_path /opt/homebrew/opt/rustup/bin
-fish_add_path $HOME/.cargo/bin
-fish_add_path $HOME/.local/share/solana/install/active_release/bin
-
-# Go
-set -Ux GOPATH $HOME/go
-
-fish_add_path /usr/local/go/bin
-fish_add_path $GOPATH/bin
-
-# Ruby
-fish_add_path /opt/homebrew/opt/ruby/bin
-
-# By default, binaries installed by gem will be placed into:
-fish_add_path /opt/homebrew/lib/ruby/gems/4.0.0/bin
-
-# For compilers to find ruby:
-set -gx LDFLAGS -L/opt/homebrew/opt/ruby/lib
-set -gx CPPFLAGS -I/opt/homebrew/opt/ruby/include
-
-# Android SDK
-set -gx ANDROID_HOME $HOME/Library/Android/sdk
-set -gx ANDROID_SDK_ROOT $ANDROID_HOME
-
-# NDK (Automatically finds the latest version folder)
-if test -d $ANDROID_HOME/ndk
-    set -l latest_ndk (ls $ANDROID_HOME/ndk | sort -V | tail -n 1)
-    set -gx NDK_HOME $ANDROID_HOME/ndk/$latest_ndk
-    set -gx ANDROID_NDK_HOME $NDK_HOME
-end
-
-# Java Home (Using the JetBrains Runtime bundled with Android Studio)
-set -gx JAVA_HOME "/Applications/Android Studio.app/Contents/jbr/Contents/Home"
-
-# Update PATH for fish_user_paths (Fish's preferred way to manage PATH)
-fish_add_path $ANDROID_HOME/cmdline-tools
-fish_add_path $ANDROID_HOME/build-tools
-fish_add_path $ANDROID_HOME/platform-tools
-fish_add_path $ANDROID_HOME/cmdline-tools/latest/bin
-fish_add_path $ANDROID_HOME/emulator
-fish_add_path $JAVA_HOME/bin
-
-# source aliases
-if test -f $XDG_CONFIG_HOME/fish/aliases.fish
-    source $XDG_CONFIG_HOME/fish/aliases.fish
-end
-
-# source functions
-if test -f $XDG_CONFIG_HOME/fish/functions.fish
-    source $XDG_CONFIG_HOME/fish/functions.fish
-end
-
-# Dotnet
-fish_add_path $HOME/.dotnet/tools
-
-fish_add_path /opt/homebrew/opt/gnu-tar/libexec/gnubin
-fish_add_path /opt/homebrew/opt/solana/bin/
-
-# Zoxide (cd)
-zoxide init fish --cmd cd | source
-
-# FZF 
-fzf --fish | source
-
-# Starfish
-starship init fish | source
-
-# Anaconda
-fish_add_path /opt/homebrew/anaconda3/bin
-
-# Added by Antigravity
-fish_add_path /Users/igmrrf/.antigravity/antigravity/bin
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-if test -f /opt/homebrew/anaconda3/bin/conda
-    eval /opt/homebrew/anaconda3/bin/conda "shell.fish" hook $argv | source
-else
-    if test -f "/opt/homebrew/anaconda3/etc/fish/conf.d/conda.fish"
-        source "/opt/homebrew/anaconda3/etc/fish/conf.d/conda.fish"
+    # Homebrew
+    fish_add_path /opt/homebrew/bin/
+    set -l brew_cache "$__fish_config_dir/brew_init.fish"
+    if test -f $brew_cache
+        source $brew_cache
     else
-        set -x PATH /opt/homebrew/anaconda3/bin $PATH
+        env SHELL=fish /opt/homebrew/bin/brew shellenv fish >$brew_cache
+        source $brew_cache
     end
+
+    # Zoxide (cd)
+    set -l zoxide_cache "$__fish_config_dir/zoxide_init.fish"
+    if test -f $zoxide_cache
+        source $zoxide_cache
+    else
+        zoxide init fish --cmd cd >$zoxide_cache
+        source $zoxide_cache
+    end
+
+    # FZF 
+    set -l fzf_cache "$__fish_config_dir/fzf_init.fish"
+    if test -f $fzf_cache
+        source $fzf_cache
+    else
+        fzf --fish >$fzf_cache
+        source $fzf_cache
+    end
+
+    # Starship
+    set -l starship_cache "$__fish_config_dir/starship_init.fish"
+    if test -f $starship_cache
+        source $starship_cache
+    else
+        starship init fish >$starship_cache
+        source $starship_cache
+    end
+
+    # Development Ecosystem Paths
+    fish_add_path /opt/homebrew/opt/rustup/bin $HOME/.cargo/bin $HOME/.local/share/solana/install/active_release/bin
+
+    set -gx GOPATH $HOME/go
+    fish_add_path /usr/local/go/bin $GOPATH/bin
+    fish_add_path /opt/homebrew/opt/ruby/bin /opt/homebrew/lib/ruby/gems/4.0.0/bin
+
+    set -gx LDFLAGS -L/opt/homebrew/opt/ruby/lib
+    set -gx CPPFLAGS -I/opt/homebrew/opt/ruby/include
+
+    # Android SDK
+    set -gx ANDROID_HOME $HOME/Library/Android/sdk
+    set -gx ANDROID_SDK_ROOT $ANDROID_HOME
+
+    if test -d $ANDROID_HOME/ndk
+        set -l latest_ndk (ls $ANDROID_HOME/ndk | sort -V | tail -n 1)
+        set -gx NDK_HOME $ANDROID_HOME/ndk/$latest_ndk
+        set -gx ANDROID_NDK_HOME $NDK_HOME
+    end
+
+    set -gx JAVA_HOME "/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+
+    # Batched path additions
+    fish_add_path $ANDROID_HOME/cmdline-tools $ANDROID_HOME/build-tools $ANDROID_HOME/platform-tools $ANDROID_HOME/cmdline-tools/latest/bin $ANDROID_HOME/emulator $JAVA_HOME/bin
+
+    set -gx DOTNET_CLI_TELEMETRY_OPTOUT 1
+    fish_add_path $HOME/.dotnet/tools /opt/homebrew/opt/gnu-tar/libexec/gnubin /opt/homebrew/opt/solana/bin/ /opt/homebrew/anaconda3/bin
+
+    function conda --description 'Lazy-load Anaconda'
+        # Delete this wrapper function so it doesn't loop
+        functions -e conda
+
+        # Run the original initialization
+        eval /opt/homebrew/anaconda3/bin/conda "shell.fish" hook $argv | source
+
+        # Forward your initial command to the real conda binary
+        conda $argv
+    end
+    # End timer display
+    set -l config_end_time (math (date +%s%N) / 1000000)
+    set -l duration (math $config_end_time - $config_start_time)
+    set_color cyan
+    echo "The magic✨ is in the tasks I'm avoiding: $duration ms"
+    set_color normal
 end
-# <<< conda initialize <<<
