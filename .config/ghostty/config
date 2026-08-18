@@ -11,8 +11,8 @@ font-family = "Monaspace Neon NF"
 
 font-size = 15
 cursor-color = "#7aa2f9"
-background-opacity = 0.95
-background-blur = true
+background-opacity = 0.90
+# background-blur = true
 quick-terminal-position = center
 quick-terminal-screen = mouse
 quick-terminal-animation-duration = 0.15
