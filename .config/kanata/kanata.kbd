@@ -43,7 +43,7 @@
   l_sft (tap-hold $tap-timeout $hold-timeout (multi lctl w) lsft)
 
   ;; Left Shift Tap for ctrl+w | Hold for Shift
-  r_sft (tap-hold $tap-timeout $hold-timeout (layer-toggle layer2) lsft)
+  r_sft (tap-hold $tap-timeout $hold-timeout (layer-switch layer2) lsft)
 
   ;; ==========================================
   ;; LAYER TOGGLES (from TG, TO, and MO)
