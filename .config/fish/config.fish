@@ -44,22 +44,50 @@ if status is-interactive
     end
 
     # NVM
-    set -gx nvm_default_version v24.15.0
-    set -gx NVM_DEFAULT_VERSION v24.15.0
-    set -gx FNM_COREPACK_ENABLED true
+    set -gx nvm_default_version lts
 
-    # Lazy-loaded / Event-driven NVMRC auto-switcher
-    function __check_nvmrc --on-variable PWD --description 'Auto-switch node version based on .nvmrc'
-        status --is-command-substitution; and return
-        if test -f .nvmrc
-            set -l nvmrc_version (cat .nvmrc)
-            set -l current_version (nvm current)
-            if test "$nvmrc_version" != "$current_version"
-                nvm use
+    # Auto-switch & Auto-install Node version on directory change
+    function __check_nvmrc --on-variable PWD --description 'Auto-switch and auto-install node version'
+        status is-command-substitution; and return
+
+        # Fast iterative upward search (stops at $HOME or root)
+        set -l dir $PWD
+        set -l version_file
+        while true
+            if test -f "$dir/.nvmrc"
+                set version_file "$dir/.nvmrc"
+                break
+            else if test -f "$dir/.node-version"
+                set version_file "$dir/.node-version"
+                break
             end
-        else if test (nvm current) != $NVM_DEFAULT_VERSION
-            echo "Reverting to nvm default version"
-            nvm use default
+            if test "$dir" = "$HOME" -o "$dir" = / -o -z "$dir"
+                break
+            end
+            set dir (path dirname $dir)
+        end
+
+        if test -n "$version_file"
+            # Only trigger switch if entering a different project
+            if test "$_nvm_active_version_file" != "$version_file"
+                set -g _nvm_active_version_file $version_file
+                read -l req_version <"$version_file"
+                set req_version (string trim -- $req_version)
+
+                if test -n "$req_version"
+                    if not nvm use --silent $req_version 2>/dev/null
+                        echo "Node $req_version from $(path basename $version_file) is not installed. Installing..."
+                        nvm install $req_version
+                    end
+                end
+            end
+        else if set -q _nvm_active_version_file
+            # Only trigger revert when exiting a project subtree
+            set -e _nvm_active_version_file
+            if not nvm use --silent $nvm_default_version 2>/dev/null
+                echo "Default Node version ($nvm_default_version) is not installed. Installing..."
+                nvm install $nvm_default_version
+            end
         end
     end
 
