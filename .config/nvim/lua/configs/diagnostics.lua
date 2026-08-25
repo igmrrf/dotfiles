@@ -42,8 +42,6 @@ end
 
 local map = vim.keymap.set
 
-map("n", "]d", gotod(true), { desc = "Next Diagnostic" })
-map("n", "[d", gotod(false), { desc = "Prev Diagnostic" })
 map("n", "]e", gotod(true, vim.diagnostic.severity[1]), { desc = "Next Error" })
 map("n", "[e", gotod(false, vim.diagnostic.severity[1]), { desc = "Prev Error" })
 map("n", "]w", gotod(true, vim.diagnostic.severity[2]), { desc = "Next Warning" })
@@ -51,14 +49,9 @@ map("n", "[w", gotod(false, vim.diagnostic.severity[2]), { desc = "Prev Warning"
 
 map("n", "<leader>cd", function() vim.diagnostic.open_float() end, { desc = "Line diagnostic" })
 
-map("n", "<leader>xq", function()
-	local lock_open = vim.fn.getqflist({ winid = 0 }).winid ~= 0
-	if lock_open then
-		vim.cmd("cclose")
-	else
-		vim.diagnostic.setqflist()
-	end
-end, { desc = "Quickfix list - project" })
+-- Removed <leader>xq custom quickfill: collided with trouble.nvim's <leader>xq.
+-- Native equivalent: right-click menu "Show All Diagnostics" (setqflist),
+-- plus builtin [q / ]q navigation.
 
 map("n", "<leader>xl", function()
 	local lock_open = vim.fn.getloclist(0, { winid = 0 }).winid ~= 0

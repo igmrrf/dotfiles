@@ -3,9 +3,6 @@ local map = function(mode, keys, cmd, opt)
 	vim.keymap.set(mode, keys, cmd, opts)
 end
 
-map("n", "<leader>xs", ":update<CR> :source $MYVIMRC<CR>", { desc = "Source" })
-map("n", "<leader>xx", ":restart<CR>", { desc = "Restart neovim" })
-
 -- File
 map("n", "<leader>%", ":enew<CR>", { desc = "Create new file" })
 map("n", "<leader>cp", function()
@@ -97,11 +94,11 @@ map("n", "<leader>hn", "<cmd>checkhealth nvim-treesitter<cr>", { desc = "Checkhe
 map("n", "<leader>hs", "<cmd>checkhealth snacks<cr>", { desc = "Checkhealth snacks" })
 map("n", "<leader>hd", "<cmd>checkhealth dap<cr>", { desc = "Checkhealth dap" })
 
--- Buffer
-map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
-map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
-map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
-map("n", "]b", "<cmd>bnext<cr>", { desc = "Next Buffer" })
+-- Buffer navigation: builtin [b / ]b / H / L are left untouched.
+-- (Removed <S-h>/<S-l> and [b/]b customs so builtin H/L screen-jumps and
+-- builtin [b/]b buffer jumps work again.)
+
+-- LSP
 map("n", "<leader>k", vim.lsp.buf.signature_help, { desc = "Signature help" })
 
 -- using ? reverses n/N in comparison to /
@@ -155,10 +152,10 @@ vim.api.nvim_create_autocmd("TermOpen", {
 		end
 
         --stylua: ignore
-		vim.keymap.set({ "n" }, "<C-s>", move_terminal("split"), vim.tbl_extend("force", opts, { desc = "Move terminal to horizontal split" }))
+		vim.keymap.set({ "n" }, "<C-,>", move_terminal("split"), vim.tbl_extend("force", opts, { desc = "Move terminal to horizontal split" }))
 		vim.keymap.set(
 			{ "t", "n" },
-			"<C-T>",
+			"<C-.>",
 			move_terminal("vsplit"),
 			vim.tbl_extend("force", opts, { desc = "Move terminal to vertical split" })
 		)
@@ -170,3 +167,8 @@ vim.api.nvim_create_autocmd("TermOpen", {
 		)
 	end,
 })
+
+-- Show Keymaps Reference
+map("n", "<leader>sf", function()
+	require("keymaps_reference").show()
+end, { desc = "Show Keymaps Reference" })

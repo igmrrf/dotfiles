@@ -99,6 +99,7 @@ alias shd="sudo shutdown -h now"
 alias rst="sudo shutdown -r now"
 
 alias desktop="cd ~/Desktop"
+alias dsk="cd ~/Desktop"
 alias downloads="cd ~/Downloads"
 alias documents="cd ~/Documents"
 alias music="cd ~/Music"

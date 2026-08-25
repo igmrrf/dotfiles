@@ -8,6 +8,7 @@ vim.cmd.packadd("pack.nvim")
 
 require("pack").setup({
 	lazy = false,
+	use_git = true,
 	performance = {
 		vim_loader = true,
 	},

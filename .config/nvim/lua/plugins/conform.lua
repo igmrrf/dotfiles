@@ -3,8 +3,6 @@ return {
 	event = { "BufWritePre" },
 	cmd = { "ConformInfo" },
 	keys = {
-		{ "<leader>uf", "<cmd>ToggleBuffFormat<cr>", desc = "Toggle format-on-save (buffer)" },
-		{ "<leader>uF", "<cmd>ToggleFormat<cr>", desc = "Toggle format-on-save (global)" },
 		{
 			"<leader>fm",
 			function()

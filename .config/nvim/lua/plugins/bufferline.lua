@@ -11,12 +11,6 @@ return {
 		{ "<leader>bl", "<cmd>BufferLineCloseLeft<cr>", desc = "Close Buffers to Left" },
 		{ "<leader>bs", "<cmd>BufferLinePick<cr>", desc = "Pick Buffer" },
 		{ "<leader>bc", "<cmd>BufferLinePickClose<cr>", desc = "Pick & Close Buffer" },
-		{ "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
-		{ "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
-		{ "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
-		{ "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
-		{ "[B", "<cmd>BufferLineMovePrev<cr>", desc = "Move Buffer Left" },
-		{ "]B", "<cmd>BufferLineMoveNext<cr>", desc = "Move Buffer Right" },
 	},
 	opts = {
 		options = {

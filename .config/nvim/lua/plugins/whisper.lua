@@ -11,7 +11,9 @@ return {
 			auto_download_model = true,
 
 			-- Keybindings
-			keybind = "<C-n>",
+			-- <M-n> instead of <C-n>: <C-n> is builtin completion-next in insert
+			-- mode and clashed with blink.cmp select_next.
+			keybind = "<M-n>",
 			manual_trigger_key = "<Space>",
 			modes = { "n", "i", "v" },
 
