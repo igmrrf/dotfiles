@@ -115,7 +115,7 @@
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    @m_u _    @mrgt _   _    _    _    _    _    _    _
-  _    _    @m_l @m_d @m_r @mlft _   _    _    _    _    _    _
+  _    _    @m_l @m_d @m_r @mlft left down up right _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _
   ;; Kept @spc_l2 on the right space position
   _    _    _    _         _       @spc_l2         @rr_met    _    _    _    _

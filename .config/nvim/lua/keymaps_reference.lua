@@ -478,6 +478,8 @@ local P = {
 	{ "<leader>sR", "n", "plugin:snacks", "Picker: resume last picker" },
 	{ "<leader>ss", "n", "plugin:snacks", "Picker: LSP document symbols", "native twin gO still works" },
 	{ "<leader>sS", "n", "plugin:snacks", "Picker: LSP workspace symbols" },
+	{ "grd", "n", "plugin:snacks", "Picker: LSP definitions" },
+	{ "grD", "n", "plugin:snacks", "Picker: LSP declarations" },
 	{ "<leader>st", "nx", "plugin:snacks", "Picker: TODO comments" },
 	{ "<leader>sT", "n", "plugin:snacks", "Picker: treesitter symbols" },
 	{ "<leader>su", "n", "plugin:snacks", "Picker: undo history" },
@@ -753,8 +755,8 @@ local X = {
 	-- [B ]B (bufferline keys removed), [t ]t (todo-comments keys removed),
 	-- ]d/[d (custom gotod twins removed), <C-L> (custom window-right removed),
 	-- <leader>ur (= builtin <C-L>), <leader>xx (native ZR; trouble now sole
-	-- owner), <leader>xq (trouble sole owner), gd/gD/gI/gr/gy (snacks pickers
-	-- removed; natives grr/gri/grt/gO own them), conform uf/uF dupes.
+	-- owner), <leader>xq (trouble sole owner), gI/gr/gy (snacks pickers
+	-- removed; natives grr/gri/grt/gO own them, grd/grD re-added), conform uf/uF dupes.
 	{ "<C-a>/<C-x>", "nv", "KEPT", "dial.nvim replaces builtin inc/dec - strict superset (dates, bools, semver)." },
 	{ ";/,", "nxo", "KEPT", "treesitter repeatable-move extends builtin f/t repetition to textobject moves." },
 	{ "s/S", "nxo", "KEPT+TODO", "flash jump/Treesitter displace builtin substitute char/line (cl/cc survive). flash.lua TODO to rebind or remove." },

@@ -33,7 +33,7 @@ return {
 
 		{ "<leader>yc", function() require("snacks").terminal("claude") end, mode = "n", desc = "Claude CLI" },
 		{ "<leader>yg", function() require("snacks").terminal("agy") end, mode = "n", desc = "Gemini Cli" },
-		{ "<leader>yG", function() require("snacks").terminal("agy --resume") end, mode = "n", desc = "Gemini Cli Resume" },
+		{ "<leader>ygx", function() require("snacks").terminal("agy --dangerously-skip-permissions") end, mode = "n", desc = "Gemini Cli Resume" },
 		{ "<leader>yp", function() require("snacks").terminal("spotify_player") end, mode = "n", desc = "Spotify" },
 		{ "<leader>yt", function() require("snacks").terminal("taskui") end, mode = "n", desc = "Task Warrior UI" },
         { "<leader>ya", function() require("snacks").terminal("tuicr") end, mode = "n", desc = "Tuicr" },
@@ -130,6 +130,8 @@ return {
 		{ "gao", function() require("snacks").picker.lsp_outgoing_calls() end, desc = "C[a]lls Outgoing" },
 		{ "<leader>ss", function() require("snacks").picker.lsp_symbols() end, desc = "LSP Symbols" },
 		{ "<leader>sS", function() require("snacks").picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
+		{ "grd", function() require("snacks").picker.lsp_definitions() end, desc = "Goto Definition" },
+		{ "grD", function() require("snacks").picker.lsp_declarations() end, desc = "Goto Declaration" },
 
 		-- Other
 		{ "<leader>uz", function() require("snacks").zen() end, desc = "Toggle Zen Mode" },
