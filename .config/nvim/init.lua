@@ -19,7 +19,6 @@ require("pack").setup({
 	plugins = {
 		{
 			"igmrrf/pack.nvim",
-			dir = "~/Desktop/Projects/published/pack/pack.nvim",
 			keys = {
 				{ "<leader>p", ":Pack<CR>", desc = "Pack Dashboard", silent = true },
 			},

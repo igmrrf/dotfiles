@@ -102,7 +102,6 @@ return {
 		{ "<leader>sl", function() require("snacks").picker.loclist() end, desc = "Location List" },
 		{ "<leader>sm", function() require("snacks").picker.marks() end, desc = "Marks" },
 		{ "<leader>sM", function() require("snacks").picker.man() end, desc = "Man Pages" },
-		{ "<leader>sp", function() require("snacks").picker.projects() end, desc = "Search for Plugin Spec" },
 		{ "<leader>sP", function() require("snacks").picker.proc() end, desc = "System Processes" },
 		{ "<leader>sT", function() require("snacks").picker.treesitter() end, desc = "Treesitter Symbols" },
 		{ "<leader>sq", function() require("snacks").picker.qflist() end, desc = "Quickfix List" },
@@ -181,7 +180,16 @@ return {
 			enabled = true,
 			timeout = 3000,
 		},
-		picker = { enabled = true },
+		picker = {
+			enabled = true,
+			sources = {
+				projects = {
+					dev = { "~/Oneremit", "~/Desktop/Projects", "~/dev", "~/dotfiles" },
+					patterns = { ".git", "package.json", "Makefile", "Cargo.toml", "go.mod" },
+					recent = true,
+				},
+			},
+		},
 		quickfile = { enabled = true },
 		scope = { enabled = true },
 		scroll = {
@@ -245,6 +253,35 @@ return {
 		else
 			vim.print = _G.dd
 		end
+
+		-- Custom toggles
+		Snacks.toggle({
+			name = "Global Autoformat",
+			get = function() return not vim.g.disable_autoformat end,
+			set = function(state) vim.g.disable_autoformat = not state end,
+		}):map("<leader>uF")
+
+		Snacks.toggle({
+			name = "Buffer Autoformat",
+			get = function() return not vim.b.disable_autoformat end,
+			set = function(state) vim.b.disable_autoformat = not state end,
+		}):map("<leader>uf")
+
+		Snacks.toggle({
+			name = "Session Saving",
+			get = function()
+				return not vim.g.persistence_stopped
+			end,
+			set = function(state)
+				if state then
+					vim.g.persistence_stopped = false
+					require("persistence").start()
+				else
+					vim.g.persistence_stopped = true
+					require("persistence").stop()
+				end
+			end,
+		}):map("<leader>uq")
 
 		-- Toggle option keymaps
 		Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")

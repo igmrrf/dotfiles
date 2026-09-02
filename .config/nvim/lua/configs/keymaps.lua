@@ -79,9 +79,6 @@ map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr =
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true })
 map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true })
 
--- Format
-map("n", "<leader>uF", "<cmd>ToggleFormat<cr>", { desc = "Toggle global format-on-save" })
-map("n", "<leader>uf", "<cmd>ToggleBuffFormat<cr>", { desc = "Toggle format-on-save for buffer" })
 
 -- Health
 map("n", "<leader>hp", "<cmd>checkhealth pack<cr>", { desc = "Checkhealth vim.pack" })

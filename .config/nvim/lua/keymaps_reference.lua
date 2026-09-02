@@ -448,6 +448,7 @@ local P = {
 	{ "<leader>fc", "n", "plugin:snacks", "Picker: find config file" },
 	{ "<leader>ff", "n", "plugin:snacks", "Picker: find files (smart)" },
 	{ "<leader>fg", "n", "plugin:snacks", "Picker: find git-tracked files" },
+	{ "<leader>fp", "n", "plugin:snacks", "Picker: projects" },
 	{ "gai", "n", "plugin:snacks", "Picker: LSP incoming calls" },
 	{ "gao", "n", "plugin:snacks", "Picker: LSP outgoing calls" },
 	{ "]]", "nt", "plugin:snacks", "Jump to next highlighted word reference (LSP words)", "displaces builtin section-motion; inside terminals builtin prompt-jump (buf-local) wins" },
@@ -534,6 +535,7 @@ local P = {
 	{ "<leader>uT", "n", "plugin:snacks", "Toggle treesitter highlighting" },
 	{ "<leader>uw", "n", "plugin:snacks", "Toggle line wrap" },
 	{ "<leader>uW", "n", "plugin:snacks", "Toggle LSP word reference highlighting" },
+	{ "<leader>uq", "n", "plugin:snacks", "Toggle session saving (persistence)" },
 
 	-- snacks.nvim — profiler
 	{ "<leader>dpp", "n", "plugin:snacks", "Profiler: scratch my-own-buffer report" },
@@ -589,21 +591,12 @@ local P = {
 	{ "<leader>m", "n", "plugin:mason", "Open Mason LSP/tool installer UI" },
 
 	-- persistence.nvim
-	{ "<leader>qs", "n", "plugin:persistence", "Restore session for current dir" },
+	{ "<leader>qs", "n", "plugin:persistence", "Restore session (current directory)" },
+	{ "<leader>qS", "n", "plugin:persistence", "Select / search session" },
 	{ "<leader>ql", "n", "plugin:persistence", "Restore last session" },
-	{ "<leader>qd", "n", "plugin:persistence", "Stop saving current session" },
+	{ "<leader>qd", "n", "plugin:persistence", "Stop session saving for this exit" },
 
-	-- project.nvim
-	{ "<leader>pa", "n", "plugin:project", "Project: add current dir" },
-	{ "<leader>pc", "n", "plugin:project", "Project: edit config" },
-	{ "<leader>pd", "n", "plugin:project", "Project: delete entry" },
-	{ "<leader>pe", "n", "plugin:project", "Project: export list" },
-	{ "<leader>ph", "n", "plugin:project", "Project: health check" },
-	{ "<leader>pH", "n", "plugin:project", "Project: history" },
-	{ "<leader>pi", "n", "plugin:project", "Project: import dirs" },
-	{ "<leader>pR", "n", "plugin:project", "Project: change root" },
-	{ "<leader>pr", "n", "plugin:project", "Project: recents picker" },
-	{ "<leader>ps", "n", "plugin:project", "Project: session picker" },
+
 
 	-- overseer.nvim
 	{ "<leader>oo", "n", "plugin:overseer", "Toggle task list" },
