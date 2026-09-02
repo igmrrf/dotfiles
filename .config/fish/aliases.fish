@@ -30,6 +30,7 @@ abbr --add src "source ~/dotfiles/.config/fish/config.fish"
 abbr --add rmvimbuf "rm -f ~/.local/state/nvim/swap/*"
 abbr --add lsvimbuf "ls ~/.local/state/nvim/swap"
 abbr --add clvim "rm -rf ~/.local/state/nvim && rm -rf ~/.local/share/nvim && rm -rf ~/.cache/nvim"
+abbr --add clpvim "rm -rf ~/.local/state/nvim && rm -rf ~/.local/share/nvim/site/pack/core && rm -rf ~/.cache/nvim"
 
 # -----------------------------------------------------------------------------
 # NVIM
