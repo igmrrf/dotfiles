@@ -35,13 +35,19 @@ return {
 			end,
 		})
 
-		-- Ensure LSP and buffer events attach cleanly to restored buffers
 		vim.api.nvim_create_autocmd("SessionLoadPost", {
 			group = vim.api.nvim_create_augroup("PersistenceLspReattach", { clear = true }),
 			callback = function()
 				for _, buf in ipairs(vim.api.nvim_list_bufs()) do
 					if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buftype == "" then
-						vim.api.nvim_exec_autocmds("FileType", { buffer = buf })
+						if vim.bo[buf].filetype == "" then
+							local ft = vim.filetype.match({ buf = buf, filename = vim.api.nvim_buf_get_name(buf) })
+							if ft and ft ~= "" then
+								vim.bo[buf].filetype = ft -- setting this fires FileType itself
+							end
+						else
+							vim.api.nvim_exec_autocmds("FileType", { buffer = buf })
+						end
 					end
 				end
 			end,
