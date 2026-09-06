@@ -326,9 +326,9 @@ local C = {
 	{ "<leader><tab>f", "n", "custom", "First tab (:tabfirst)" },
 	{ "<leader><tab>l", "n", "custom", "Last tab (:tablast)" },
 	{ "<leader><tab>o", "n", "custom", "Close other tabs (:tabonly)" },
-	{ "<C-s>", "n", "custom", "Terminal buffer: move terminal to horizontal split", "term buffers only; replaces XOFF freeze" },
+	{ "<C-,>", "n", "custom", "Terminal buffer: move terminal to horizontal split", "term buffers only; replaces XOFF freeze" },
 	{ "<C-t>", "nt", "custom", "Terminal buffer: move terminal to new tab", "term buffers only (buffer-local; normal-mode <C-t> tag-pop untouched elsewhere)" },
-	{ "<C-T>", "nt", "custom", "Terminal buffer: move terminal to vertical split", "term buffers only" },
+	{ "<C-.>", "nt", "custom", "Terminal buffer: move terminal to vertical split", "term buffers only" },
 
 	-- Diagnostics (configs/diagnostics.lua) — [d ]d deduped into builtin rows
 

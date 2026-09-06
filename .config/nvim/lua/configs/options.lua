@@ -58,6 +58,7 @@ opt.undofile = true
 opt.confirm = true -- confirm to save changes before existing buffer
 opt.shortmess:append("WcI")
 opt.report = 9999
+opt.autoread = true
 
 -- Split Behavior
 opt.splitbelow = true

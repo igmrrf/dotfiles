@@ -12,7 +12,14 @@ return {
 		{ "<leader>qs", function() require("persistence").load() end, desc = "Restore session (current dir)" },
 		{ "<leader>qS", function() require("persistence").select() end, desc = "Select / search session" },
 		{ "<leader>ql", function() require("persistence").load({ last = true }) end, desc = "Restore last session" },
-		{ "<leader>qd", function() require("persistence").stop() end, desc = "Don't save current session on exit" },
+		{
+			"<leader>qd",
+			function()
+				vim.g.persistence_stopped = true
+				require("persistence").stop()
+			end,
+			desc = "Don't save current session on exit",
+		},
 	},
 
 	config = function(_, opts)

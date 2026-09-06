@@ -109,12 +109,12 @@ return {
 				end
 			end
 
-			-- 3. Otherwise, create a new window split/float as requested
-			local res_win = orig_open_output(self, direction)
-			if res_win then
-				disable_numbers(res_win)
-			end
-			return res_win
+			-- 3. Otherwise, create a new window split/float as requested.
+			-- Task:open_output never returns a winid, so read it back off the current window.
+			orig_open_output(self, direction)
+			local new_win = vim.api.nvim_get_current_win()
+			disable_numbers(new_win)
+			return new_win
 		end
 
 		-- FileType autocmd for Overseer Task List & Output buffers

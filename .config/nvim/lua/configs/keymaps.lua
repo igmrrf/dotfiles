@@ -14,10 +14,15 @@ map("n", "<leader>cP", function()
 	vim.fn.setreg("+", path)
 end, { desc = "Copy file full path" })
 
--- Deleting
-map("n", "d", '"_d')
-map("n", "x", '"_x')
-map("n", "dd", '"_dd')
+-- Deleting (blackhole register, but respect an explicit register prefix like "ad)
+local function blackhole(key)
+	return function()
+		return vim.v.register == '"' and ('"_' .. key) or key
+	end
+end
+map("n", "d", blackhole("d"), { expr = true })
+map("n", "x", blackhole("x"), { expr = true })
+map("n", "dd", blackhole("dd"), { expr = true })
 
 -- Pasting
 map("n", "p", "]p")
