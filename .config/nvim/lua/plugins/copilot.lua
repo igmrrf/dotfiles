@@ -1,15 +1,25 @@
 return {
-	-- Functionality: Integrates GitHub Copilot to provide AI-assisted code completions.
-	-- Testing: Open any file, begin typing code or comments, and wait for ghost text to appear. Press `<C-y>` to accept the suggestion. Run `:Copilot status` to ensure it is active.
 	"github/copilot.vim",
-	event = { "InsertEnter", "BufReadPost", "BufNewFile" },
+	event = { "BufWinEnter", "InsertEnter", "BufReadPost", "BufNewFile" },
 	cmd = "Copilot",
+	enabled = false,
 	keys = {
 		{ "<leader>ac", "<cmd>Copilot panel<CR>", desc = "Copilot Panel" },
 		{ "<leader>as", "<cmd>Copilot status<CR>", desc = "Copilot Status" },
 	},
-	config = function()
+	init = function()
+		vim.g.copilot_no_maps = true
 		vim.g.copilot_no_tab_map = true
-		vim.api.nvim_set_keymap("i", "<C-Y>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+	end,
+	config = function()
+		-- Block the normal Copilot suggestions
+		vim.api.nvim_create_augroup("github_copilot", { clear = true })
+		vim.api.nvim_create_autocmd({ "FileType", "BufUnload" }, {
+			group = "github_copilot",
+			callback = function(args)
+				vim.fn["copilot#On" .. args.event]()
+			end,
+		})
+		vim.fn["copilot#OnFileType"]()
 	end,
 }

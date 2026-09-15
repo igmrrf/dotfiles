@@ -1,5 +1,6 @@
 return {
 	"milanglacier/minuet-ai.nvim",
+	enabled = false,
 	name = "minuet",
 	event = { "BufReadPost", "BufNewFile" },
 	dependencies = { "nvim-lua/plenary.nvim" },

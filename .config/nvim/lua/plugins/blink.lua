@@ -3,8 +3,10 @@ return {
 	name = "blink.cmp",
 	dependencies = {
 		"rafamadriz/friendly-snippets",
-		"milanglacier/minuet-ai.nvim",
+		-- "milanglacier/minuet-ai.nvim",
+		"fang2hou/blink-copilot",
 	},
+
 	version = "*",
 	event = { "InsertEnter", "CmdlineEnter" },
 	opts = {
@@ -76,19 +78,33 @@ return {
 		},
 
 		sources = {
-			default = { "lazydev", "lsp", "path", "snippets", "buffer", "minuet" },
+			default = {
+				"lazydev",
+				"lsp",
+				"path",
+				"snippets",
+				"buffer",
+				-- "minuet",
+				"copilot",
+			},
 			providers = {
 				lazydev = {
 					name = "LazyDev",
 					module = "lazydev.integrations.blink",
 					score_offset = 100,
 				},
-				minuet = {
-					name = "minuet",
+				-- minuet = {
+				-- 	name = "minuet",
+				-- 	async = true,
+				-- 	module = "minuet.blink",
+				-- 	timeout_ms = 3000,
+				-- 	score_offset = 50, -- Gives minuet higher priority among suggestions
+				-- },
+				copilot = {
+					name = "copilot",
+					module = "blink-copilot",
+					score_offset = 100,
 					async = true,
-					module = "minuet.blink",
-					timeout_ms = 3000,
-					score_offset = 50, -- Gives minuet higher priority among suggestions
 				},
 			},
 		},
