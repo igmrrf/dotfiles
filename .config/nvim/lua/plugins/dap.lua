@@ -139,36 +139,10 @@ return {
 			end
 		end
 
-		if not dap.adapters.kotlin then
-			dap.adapters.kotlin = {
-				type = "executable",
-				command = vim.fn.stdpath("data") .. "/mason/bin/kotlin-debug-adapter",
-				args = {},
-			}
-		end
-
-		if not dap.configurations.kotlin then
-			dap.configurations.kotlin = {
-				{
-					type = "kotlin",
-					request = "launch",
-					name = "Launch Kotlin class",
-					projectRoot = "${workspaceFolder}",
-					mainClass = function()
-						return vim.fn.input("Main class (e.g. com.example.MainKt): ")
-					end,
-				},
-				{
-					type = "kotlin",
-					request = "attach",
-					name = "Attach to remote JVM (port 5005)",
-					projectRoot = "${workspaceFolder}",
-					hostName = "localhost",
-					port = 5005,
-					timeout = 30000,
-				},
-			}
-		end
+		-- No `kotlin` adapter here: kotlin.nvim registers one lazily on :KotlinDebug
+		-- that asks kotlin-lsp for a debug-server port. Defining a competing
+		-- `executable` adapter for fwcd's kotlin-debug-adapter made the winner depend
+		-- on load order, and each adapter rejects the other's configurations.
 
 		dapui.setup()
 		dap.listeners.after.event_initialized["dapui_config"] = function()

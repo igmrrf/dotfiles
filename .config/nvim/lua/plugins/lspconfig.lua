@@ -39,8 +39,7 @@ return {
 		})
 
 		require("mason-lspconfig").setup({
-			-- rust_analyzer is left to rustaceanvim to configure and enable.
-			automatic_enable = { exclude = { "rust_analyzer" } },
+			automatic_enable = { exclude = { "rust_analyzer", "kotlin_lsp" } },
 		})
 	end,
 }
