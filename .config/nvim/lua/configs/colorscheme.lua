@@ -37,6 +37,7 @@ function M.setup()
 		group = vim.api.nvim_create_augroup("PersistColorscheme", { clear = true }),
 		callback = function(ev)
 			save(ev.match)
+			vim.api.nvim_set_hl(0, "@lsp.type.variable.rust", { link = "@variable" })
 			-- Refresh UI components if already loaded when colorscheme changes/restores
 			if package.loaded["lualine"] then
 				pcall(require("lualine").setup, { options = { theme = "auto" } })
