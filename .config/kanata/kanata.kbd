@@ -13,7 +13,6 @@
 (defvar
   tap-timeout 200
   hold-timeout 200
-  alpha-keys (a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 spc ret bspc tab)
 )
 
 (defsrc
@@ -39,17 +38,11 @@
   ;; Right Space: Tap for Space | Hold for Hyper (Cmd+Alt+Ctrl)
   spc_hyper (tap-hold $tap-timeout $hold-timeout spc (multi lctl lmet lalt))
 
-  ;; Left Shift Tap for ctrl+w | Hold for Shift
-  l_sft (tap-hold $tap-timeout $hold-timeout (multi lctl w) lsft)
-
-  ;; Left Shift Tap for ctrl+w | Hold for Shift
-  r_sft (tap-hold $tap-timeout $hold-timeout (layer-switch layer2) lsft)
-
   ;; ==========================================
-  ;; LAYER TOGGLES (from TG, TO, and MO)
+  ;; LAYER TOGGLES
   ;; ==========================================
 
-  ;; reset layers on all layers
+  ;; Right Cmd: Tap to switch back to Base | Hold for Right Cmd
   rr_met (tap-hold $tap-timeout $hold-timeout (layer-switch base) rmet)
 
   ;; Tap for Emoji, Hold for the Function Layer
@@ -59,14 +52,8 @@
   ;; Left Space: Tap for Return | Hold for Layer 1
   ret_l1 (tap-hold $tap-timeout $hold-timeout ret (layer-toggle layer1))
 
-
-  to_b    (layer-switch base)       ;; Switch back to Base
-  to_l1   (layer-toggle layer1)     ;; Switch back to Base
-  to_l2   (layer-switch layer2)     ;; Switch back to Base
-  to_fl   (layer-switch fn_layer)   ;; Switch back to Base
-
   spc_l2 (layer-toggle layer2)     ;; Hold for Layer 2
-  
+
   ;; ==========================================
   ;; LAYER 1: MOUSE MOVEMENT & CLICKS
   ;; ==========================================
@@ -74,8 +61,6 @@
   m_d  (movemouse-down 4 4)
   m_l  (movemouse-left 4 4)
   m_r  (movemouse-right 4 4)
-  mlft mlft  ;; Left Click (Your 'G' key)
-  mrgt mrgt  ;; Right Click (Your 'T' key)
 
   ;; ==========================================
   ;; LAYER 2: MOUSE SCROLL WHEEL
@@ -109,13 +94,13 @@
 )
 
 ;; -----------------------------------------------------------------------------
-;; LAYER 1 (Mouse Movement & F-Keys)
+;; LAYER 1 (Mouse Movement, Clicks & Arrows)
 ;; -----------------------------------------------------------------------------
 (deflayer layer1
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    @m_u _    @mrgt _   _    _    _    _    _    _    _
-  _    _    @m_l @m_d @m_r @mlft left down up right _    _    _
+  _    _    _    @m_u _    mrgt _    _    _    _    _    _    _    _
+  _    _    @m_l @m_d @m_r mlft left down up   rght _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _
   ;; Kept @spc_l2 on the right space position
   _    _    _    _         _       @spc_l2         @rr_met    _    _    _    _
