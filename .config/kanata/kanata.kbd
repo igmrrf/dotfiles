@@ -32,8 +32,8 @@
   dict f18  ;; Maps your Voice Jotter to F18
   dnd  f19  ;; Maps your Moon icon to F19
 
-  ;; Tap for ESC, Hold for the Ctrl
-  esc_ctl (tap-hold $tap-timeout $hold-timeout esc lctl)
+  ;; Tap for ESC | Hold for Ctrl (Ctrl fires early if another key is tapped while held)
+  esc_ctl (tap-hold-release $tap-timeout $hold-timeout esc lctl)
   
   ;; Right Space: Tap for Space | Hold for Hyper (Cmd+Alt+Ctrl)
   spc_hyper (tap-hold $tap-timeout $hold-timeout spc (multi lctl lmet lalt))
