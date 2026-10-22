@@ -94,7 +94,7 @@
   @esc_ctl a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft up
   ;; Mapped @ret_l1 and @spc_hyper to the two space positions
-  @fn_emj caps lalt lmet   @ret_l1 @spc_hyper   @rr_met ralt left down rght
+  @fn_emj lctl lalt lmet   @ret_l1 @spc_hyper   @rr_met ralt left down rght
 )
 
 ;; You MUST define the layer that @fn_emj toggles
