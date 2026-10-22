@@ -13,6 +13,8 @@
 (defvar
   tap-timeout 200
   hold-timeout 200
+  ;; Holding either of these makes the top row send real F-keys
+  cmd (lmet rmet)
 )
 
 (defsrc
@@ -29,8 +31,21 @@
   ;; Multi-mapping to trigger the macOS Emoji Picker
   emj (multi lctl lmet spc)
 
-  dict f18  ;; Maps your Voice Jotter to F18
-  dnd  f19  ;; Maps your Moon icon to F19
+  ;; ==========================================
+  ;; TOP ROW: media/system keys | real F-keys while Cmd is held (e.g. Cmd+F5 = VoiceOver)
+  ;; ==========================================
+  t1  (fork brdn  f1  $cmd)
+  t2  (fork brup  f2  $cmd)
+  t3  (fork C-up  f3  $cmd)  ;; Mission Control
+  t4  (fork M-spc f4  $cmd)  ;; Spotlight
+  t5  (fork f18   f5  $cmd)  ;; F18 = Voice Jotter
+  t6  (fork f19   f6  $cmd)  ;; F19 = Moon icon (Do Not Disturb)
+  t7  (fork prev  f7  $cmd)
+  t8  (fork pp    f8  $cmd)
+  t9  (fork next  f9  $cmd)
+  t10 (fork mute  f10 $cmd)
+  t11 (fork vold  f11 $cmd)
+  t12 (fork volu  f12 $cmd)
 
   ;; Tap for ESC | Hold for Ctrl (Ctrl fires early if another key is tapped while held)
   esc_ctl (tap-hold-release $tap-timeout $hold-timeout esc lctl)
@@ -70,7 +85,7 @@
 
 ;; The default base layer
 (deflayer base
-  _    brdn brup C-up M-spc @dict @dnd prev pp next mute vold volu _
+  _    @t1  @t2  @t3  @t4   @t5   @t6  @t7  @t8 @t9  @t10 @t11 @t12 _
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab q    w    e    r    t    y    u    i    o    p    [    ]    \
   @esc_ctl a    s    d    f    g    h    j    k    l    ;    '    ret
@@ -82,7 +97,7 @@
 ;; Active only while @fn_emj is held
 (deflayer fn_layer
   _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  del
-  _    brdn brup C-up M-spc @dict @dnd prev pp next mute vold volu del
+  _    @t1  @t2  @t3  @t4   @t5   @t6  @t7  @t8 @t9  @t10 @t11 @t12 del
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    pgup
