@@ -42,9 +42,6 @@
   ;; LAYER TOGGLES
   ;; ==========================================
 
-  ;; Right Cmd: Tap to switch back to Base | Hold for Right Cmd
-  rr_met (tap-hold $tap-timeout $hold-timeout (layer-switch base) rmet)
-
   ;; Tap for Emoji, Hold for the Function Layer
   fn_emj (tap-hold $tap-timeout $hold-timeout @emj (layer-toggle fn_layer))
 
@@ -79,7 +76,7 @@
   @esc_ctl a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft up
   ;; Mapped @ret_l1 and @spc_hyper to the two space positions
-  @fn_emj lctl lalt lmet   @ret_l1 @spc_hyper   @rr_met ralt left down rght
+  @fn_emj lctl lalt lmet   @ret_l1 @spc_hyper   rmet ralt left down rght
 )
 
 ;; You MUST define the layer that @fn_emj toggles
@@ -90,7 +87,7 @@
   _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    pgup
   ;; Added an extra underscore to match the new 11-key bottom row
-  _    _    _    _         _       _            @rr_met    _    home pgdn end
+  _    _    _    _         _       _            _          _    home pgdn end
 )
 
 ;; -----------------------------------------------------------------------------
@@ -103,11 +100,11 @@
   _    _    @m_l @m_d @m_r mlft left down up   rght _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _
   ;; Kept @spc_l2 on the right space position
-  _    _    _    _         _       @spc_l2         @rr_met    _    _    _    _
+  _    _    _    _         _       @spc_l2         _          _    _    _    _
 )
 
 ;; -----------------------------------------------------------------------------
-;; LAYER 2 (Scroll Wheel & Return to Base)
+;; LAYER 2 (Scroll Wheel)
 ;; -----------------------------------------------------------------------------
 (deflayer layer2
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
@@ -116,5 +113,5 @@
   _    _    @mw_l @mw_d @mw_r _  _   _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _
   ;; Added an extra underscore to match the new 11-key bottom row
-  _    _    _    _         _       _            @rr_met    _    _    _    _
+  _    _    _    _         _       _            _          _    _    _    _
 )
