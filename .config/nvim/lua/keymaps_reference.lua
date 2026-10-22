@@ -326,6 +326,9 @@ local C = {
 	{ "<leader><tab>f", "n", "custom", "First tab (:tabfirst)" },
 	{ "<leader><tab>l", "n", "custom", "Last tab (:tablast)" },
 	{ "<leader><tab>o", "n", "custom", "Close other tabs (:tabonly)" },
+	{ "<leader><tab>p", "n", "custom", "Open project in its own tab (snacks picker)" },
+	{ "<leader><tab>P", "n", "custom", "Switch project: reset editor + load its session" },
+	{ "<leader><tab>q", "n", "custom", "Close current project tab and free its buffers" },
 	{ "<C-,>", "n", "custom", "Terminal buffer: move terminal to horizontal split", "term buffers only; replaces XOFF freeze" },
 	{ "<C-t>", "nt", "custom", "Terminal buffer: move terminal to new tab", "term buffers only (buffer-local; normal-mode <C-t> tag-pop untouched elsewhere)" },
 	{ "<C-.>", "nt", "custom", "Terminal buffer: move terminal to vertical split", "term buffers only" },
@@ -436,7 +439,8 @@ local P = {
 	{ "<leader>bl", "n", "plugin:bufferline", "Close buffers to the left" },
 	{ "<leader>bs", "n", "plugin:bufferline", "Pick buffer (jump by letter)" },
 	{ "<leader>bc", "n", "plugin:bufferline", "Pick & close buffer" },
-	{ "<leader>bD", "n", "plugin:tabscope", "Remove tab-local buffer" },
+	{ "<leader>bD", "n", "plugin:scope", "Move current buffer to another tab" },
+	{ "<leader>bL", "n", "plugin:scope", "List buffers grouped by tab" },
 
 	-- snacks.nvim — pickers
 	{ "<leader><space>", "n", "plugin:snacks", "Picker: smart find files" },
@@ -448,7 +452,8 @@ local P = {
 	{ "<leader>fc", "n", "plugin:snacks", "Picker: find config file" },
 	{ "<leader>ff", "n", "plugin:snacks", "Picker: find files (smart)" },
 	{ "<leader>fg", "n", "plugin:snacks", "Picker: find git-tracked files" },
-	{ "<leader>fp", "n", "plugin:snacks", "Picker: projects" },
+	{ "<leader>fP", "n", "plugin:snacks", "Picker: projects (open in a tab)", "<c-t> forces a new tab, <c-s> switches clean" },
+	{ "<leader>fp", "n", "plugin:snacks", "Picker: projects (reset editor + load its session)" },
 	{ "gai", "n", "plugin:snacks", "Picker: LSP incoming calls" },
 	{ "gao", "n", "plugin:snacks", "Picker: LSP outgoing calls" },
 	{ "]]", "nt", "plugin:snacks", "Jump to next highlighted word reference (LSP words)", "displaces builtin section-motion; inside terminals builtin prompt-jump (buf-local) wins" },
@@ -535,7 +540,7 @@ local P = {
 	{ "<leader>uT", "n", "plugin:snacks", "Toggle treesitter highlighting" },
 	{ "<leader>uw", "n", "plugin:snacks", "Toggle line wrap" },
 	{ "<leader>uW", "n", "plugin:snacks", "Toggle LSP word reference highlighting" },
-	{ "<leader>uq", "n", "plugin:snacks", "Toggle session saving (persistence)" },
+	{ "<leader>uq", "n", "plugin:snacks", "Toggle session saving (resession attach/detach)" },
 
 	-- snacks.nvim — profiler
 	{ "<leader>dpp", "n", "plugin:snacks", "Profiler: scratch my-own-buffer report" },
@@ -560,7 +565,7 @@ local P = {
 	{ "n", "n", "plugin:snacks-dashboard", "Dashboard: new file", "dashboard buffer only" },
 	{ "g", "n", "plugin:snacks-dashboard", "Dashboard: find text (grep)", "dashboard buffer only" },
 	{ "r", "n", "plugin:snacks-dashboard", "Dashboard: recent files", "dashboard buffer only" },
-	{ "s", "n", "plugin:snacks-dashboard", "Dashboard: restore session (persistence)", "dashboard buffer only" },
+	{ "s", "n", "plugin:snacks-dashboard", "Dashboard: restore session (resession)", "dashboard buffer only" },
 	{ "u", "n", "plugin:snacks-dashboard", "Dashboard: update plugins (:Pack sync)", "dashboard buffer only" },
 	{ "p", "n", "plugin:snacks-dashboard", "Dashboard: open Pack manager", "dashboard buffer only" },
 
@@ -590,11 +595,12 @@ local P = {
 	-- mason.nvim
 	{ "<leader>m", "n", "plugin:mason", "Open Mason LSP/tool installer UI" },
 
-	-- persistence.nvim
-	{ "<leader>qs", "n", "plugin:persistence", "Restore session (current directory)" },
-	{ "<leader>qS", "n", "plugin:persistence", "Select / search session" },
-	{ "<leader>ql", "n", "plugin:persistence", "Restore last session" },
-	{ "<leader>qd", "n", "plugin:persistence", "Stop session saving for this exit" },
+	-- resession.nvim
+	{ "<leader>qs", "n", "plugin:resession", "Restore session (current directory)" },
+	{ "<leader>qS", "n", "plugin:resession", "Select / search session" },
+	{ "<leader>ql", "n", "plugin:resession", "Restore last written session" },
+	{ "<leader>qw", "n", "plugin:resession", "Save attached sessions now" },
+	{ "<leader>qd", "n", "plugin:resession", "Detach: don't save this session on exit" },
 
 
 

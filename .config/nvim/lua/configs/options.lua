@@ -15,7 +15,7 @@ opt.wrap = false
 opt.spell = false
 opt.cmdheight = 0
 opt.virtualedit = "block"
-opt.sessionoptions = { "buffers", "curdir", "help", "tabpages", "winsize", "globals", "skiprtp" }
+-- opt.sessionoptions = { "buffers", "curdir", "help", "tabpages", "winsize", "globals", "skiprtp" }
 
 -- Autocomplete Settings
 opt.autocomplete = false -- let blink.cmp handle completion

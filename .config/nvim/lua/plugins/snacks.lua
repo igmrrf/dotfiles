@@ -60,7 +60,9 @@ return {
 		{ "<leader>fc", function() require("snacks").picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
 		{ "<leader>ff", function() require("snacks").picker.smart() end, desc = "Find Files" },
 		{ "<leader>fg", function() require("snacks").picker.git_files() end, desc = "Find Git Files" },
-		{ "<leader>fp", function() require("snacks").picker.projects() end, desc = "Projects" },
+		-- { "<leader>fp", function() require("snacks").picker.projects() end, desc = "Projects" },
+        { "<leader>fp", function() require("projects").pick({ mode = "clean" }) end, desc = "Projects (reset + load session)" },
+        { "<leader>fP", function() require("projects").pick() end, desc = "Projects (open in tab)" },
 		{ "<leader>fr", function() require("snacks").picker.recent() end, desc = "Recent" },
 
 		-- git
@@ -160,9 +162,9 @@ return {
 					{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
 					{ icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.picker.grep()" },
 					{ icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.picker.recent()" },
-					{ icon = "󰦛 ", key = "s", desc = "Restore Session", action = ":lua require('persistence').load()" },
+					{ icon = "󰦛 ", key = "s", desc = "Restore Session", action = ":lua require('projects').load_instance()" },
+					{ icon = " ", key = "p", desc = "Projects", action = ":lua require('projects').pick({ mode = 'clean' })" },
 					{ icon = "󰚰 ", key = "u", desc = "Update Plugins", action = ":Pack sync" },
-					{ icon = " ", key = "p", desc = "Pack", action = ":Pack" },
 					{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
 				},
 			},
@@ -184,9 +186,60 @@ return {
 			enabled = true,
 			sources = {
 				projects = {
-					dev = { "~/Oneremit", "~/Desktop/Projects", "~/dev", "~/dotfiles" },
-					patterns = { ".git", "package.json", "Makefile", "Cargo.toml", "go.mod" },
+					dev = {
+						"~/Oneremit",
+						"~/Desktop/Projects",
+						"~/Desktop/Projects/NerveHQ/",
+						"~/dev",
+						"~/dotfiles",
+						"~/dotfiles/.config",
+					},
+					-- one source of truth with lua/projects.lua, so a directory the
+					-- picker offers is always one `M.is_project` agrees with
+					patterns = require("projects").config.patterns,
 					recent = true,
+					-- <cr>  open the project in its own tab (jumps to it if already open)
+					-- <c-t> force a new tab even if the project is already open
+					-- <c-s> clean switch: wipe every buffer + load that project's session
+					--
+					-- These have to go through named actions: snacks hands a raw
+					-- function rhs the *window*, not the picker (see snacks/win.lua
+					-- `M:map`), and only actions resolved by name are called with
+					-- (picker, item).
+					confirm = function(picker, item)
+						picker:close()
+						if item then
+							require("projects").open(item.file)
+						end
+					end,
+					actions = {
+						project_new_tab = function(picker, item)
+							picker:close()
+							if item then
+								require("projects").open(item.file, { force_new = true })
+							end
+						end,
+						project_switch = function(picker, item)
+							picker:close()
+							if item then
+								require("projects").switch(item.file)
+							end
+						end,
+					},
+					win = {
+						input = {
+							keys = {
+								["<c-t>"] = { "project_new_tab", mode = { "n", "i" } },
+								["<c-s>"] = { "project_switch", mode = { "n", "i" } },
+							},
+						},
+						list = {
+							keys = {
+								["<c-t>"] = "project_new_tab",
+								["<c-s>"] = "project_switch",
+							},
+						},
+					},
 				},
 			},
 		},
@@ -257,28 +310,34 @@ return {
 		-- Custom toggles
 		Snacks.toggle({
 			name = "Global Autoformat",
-			get = function() return not vim.g.disable_autoformat end,
-			set = function(state) vim.g.disable_autoformat = not state end,
+			get = function()
+				return not vim.g.disable_autoformat
+			end,
+			set = function(state)
+				vim.g.disable_autoformat = not state
+			end,
 		}):map("<leader>uF")
 
 		Snacks.toggle({
 			name = "Buffer Autoformat",
-			get = function() return not vim.b.disable_autoformat end,
-			set = function(state) vim.b.disable_autoformat = not state end,
+			get = function()
+				return not vim.b.disable_autoformat
+			end,
+			set = function(state)
+				vim.b.disable_autoformat = not state
+			end,
 		}):map("<leader>uf")
 
 		Snacks.toggle({
 			name = "Session Saving",
 			get = function()
-				return not vim.g.persistence_stopped
+				return require("projects").saving_enabled
 			end,
 			set = function(state)
 				if state then
-					vim.g.persistence_stopped = false
-					require("persistence").start()
+					require("projects").attach()
 				else
-					vim.g.persistence_stopped = true
-					require("persistence").stop()
+					require("projects").detach()
 				end
 			end,
 		}):map("<leader>uq")
