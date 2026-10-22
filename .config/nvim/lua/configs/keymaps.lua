@@ -14,15 +14,8 @@ map("n", "<leader>cP", function()
 	vim.fn.setreg("+", path)
 end, { desc = "Copy file full path" })
 
--- Deleting (blackhole register, but respect an explicit register prefix like "ad)
-local function blackhole(key)
-	return function()
-		return vim.v.register == '"' and ('"_' .. key) or key
-	end
-end
-map("n", "d", blackhole("d"), { expr = true })
-map("n", "x", blackhole("x"), { expr = true })
-map("n", "dd", blackhole("dd"), { expr = true })
+map({ "n", "x" }, "d", '"_d')
+map({ "n", "x" }, "dd", '"_dd')
 
 -- Pasting
 map("n", "p", "]p")
@@ -83,7 +76,6 @@ map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true
 map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true })
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true })
 map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true })
-
 
 -- Health
 map("n", "<leader>hp", "<cmd>checkhealth pack<cr>", { desc = "Checkhealth vim.pack" })

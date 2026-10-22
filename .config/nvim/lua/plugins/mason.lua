@@ -36,8 +36,8 @@ return {
 				"gofumpt", "goimports", "golines", "gomodifytags", "gopls", "gotests", "hadolint", "impl", "biome",
 				"js-debug-adapter", "json-to-struct", "lua-language-server", "misspell", "revive", "ruby-lsp",
 				"shellcheck", "shfmt", "stylua", "css-lsp", "tailwindcss-language-server", "tsc",
-				"sqls", "sql-formatter", "helm-ls", "terraformls", "tflint", "yaml-language-server", "ansiblels", "jsonls",
-				"kotlin-lsp", "ktlint", "texlab",
+				"sqls", "sql-formatter", "svelte-language-server", "helm-ls", "terraformls", "tflint", "yaml-language-server", 
+                "ansiblels", "jsonls", "kotlin-lsp", "ktlint", "texlab",
 			},
 		})
 	end,

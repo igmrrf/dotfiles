@@ -36,6 +36,7 @@ return {
 			go = { "goimports", "gofumpt" },
 			["css"] = { "biome" },
 			["less"] = { "biome" },
+			["svelte"] = { "biome" },
 			["html"] = { "biome" },
 			["yaml"] = { "biome" },
 			["markdown"] = { "biome" },

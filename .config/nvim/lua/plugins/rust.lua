@@ -2,9 +2,11 @@
 -- Do NOT call require("rustaceanvim").setup(). Set the global BEFORE the
 -- plugin's ftplugin runs, hence `init`. rust-analyzer + codelldb are provided
 -- via mason (see mason.lua); rustaceanvim auto-detects the mason codelldb for DAP.
+
 return {
 	"mrcjkb/rustaceanvim",
 	version = "^9",
+	enabled = false,
 	ft = { "rust" },
 	lazy = false,
 	init = function()
