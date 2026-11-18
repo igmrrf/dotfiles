@@ -2,6 +2,9 @@
   macos-dev-names-include (
     "Apple Internal Keyboard / Trackpad"
     "EPOMAKER Split65"
+    "Split65-1"
+    "Split65-2"
+    "Split65-3"
   )
   ;; process-unmapped-keys allows keys not in defsrc to pass through
   process-unmapped-keys yes
