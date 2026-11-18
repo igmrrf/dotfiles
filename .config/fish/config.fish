@@ -1,3 +1,7 @@
+# The following lines were added by Docker Desktop to add commands to your PATH.
+export PATH="$PATH:/Users/igmrrf/.docker/bin"
+# End of Docker Desktop section.
+
 set -g config_start_time (math (date +%s%N) / 1000000)
 set -U fish_greeting
 
@@ -44,7 +48,7 @@ if status is-interactive
     end
 
     # NVM
-    set -gx nvm_default_version lts
+    set -gx nvm_default_version v26.10.0
 
     # Auto-switch & Auto-install Node version on directory change
     function __check_nvmrc --on-variable PWD --description 'Auto-switch and auto-install node version'
