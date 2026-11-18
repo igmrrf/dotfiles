@@ -2,17 +2,17 @@
 shell-integration = fish
 # shell-integration-features= no-title
 theme = "Catppuccin Mocha"
-title = "The LDO 󰼰"
+title = "The LDO 🆖"
 macos-titlebar-proxy-icon = hidden
 # font-family = "ZedMono Nerd Font"
-# font-family = "JetBrainsMono Nerd Font Mono"
+font-family = "JetBrainsMono Nerd Font Mono"
 # font-family = "Monaspace Krypto NF"
-font-family = "Monaspace Neon NF"
+# font-family = "Monaspace Neon NF"
 
 font-size = 15
 cursor-color = "#7aa2f9"
 background-opacity = 0.90
-# background-blur = true
+background-blur = true
 quick-terminal-position = center
 quick-terminal-screen = mouse
 quick-terminal-animation-duration = 0.15
